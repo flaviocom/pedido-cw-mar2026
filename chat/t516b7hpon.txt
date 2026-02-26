@@ -1,0 +1,69 @@
+O objetivo principal é otimizar a interface do usuário (UI) exclusivamente para dispositivos móveis, corrigindo problemas de navegabilidade e formatação disforme.
+As alterações específicas solicitadas são:
+Não alterar mais nada além do que foi pedido (foco total no mobile e no layout).
+Otimização da interface para mobile (melhorar navegabilidade e corrigir formatação disforme).
+Colocar os campos TELEFONE e FRETE na mesma linha (no mobile).
+Colocar os campos TRANSPORTE e ANOTAÇÕES na mesma linha (no mobile).
+Ao final, entregar uma URL temporária para aprovação.
+Para começar, estou movendo os arquivos que você anexou (index.html, script.js, style.css, LogotipoCW.jpg) para um diretório de projeto para análise e modificação.
+O plano de trabalho é:
+Analisar os arquivos e identificar o código responsável pelo layout e a falta de responsividade.
+Implementar as melhorias de CSS (usando media queries para afetar apenas o mobile) para corrigir a navegabilidade e agrupar os campos conforme solicitado.
+Testar as alterações e disponibilizar a URL temporária.
+
+
+
+Resumo Detalhado de Todas as Solicitações da Tarefa
+1ª Solicitação Principal - Otimização Mobile Geral
+Otimizar a interface para dispositivos móveis
+Melhorar navegabilidade (estava prejudicada e disforme)
+Restrição: Alterar SOMENTE o layout mobile (interface do usuário)
+Não alterar nada além do solicitado
+2ª Solicitação - Reorganização de Campos
+Colocar TELEFONE e FRETE na mesma linha
+Colocar TRANSPORTE e ANOTAÇÕES na mesma linha
+Restrição: Alterar somente layout, somente no mobile
+3ª Solicitação - Layout de 2 Colunas Generalizado
+Aplicar layout de 2 colunas para TODOS os campos do formulário no mobile
+Exceção: NÃO aplicar layout de 2 colunas na tabela de produtos
+Manter campos com tamanho apropriado, sem esticar
+4ª Solicitação - Reorganização do Cabeçalho
+Colocar ATENDIMENTO POR e DATA DO PEDIDO lado a lado
+Colocar o ícone de lixeira (Limpar todos os dados) ao lado de "Pedido de Vendas" no cabeçalho
+5ª Solicitação - Correção de Alinhamentos
+Corrigir o alinhamento da DATA DO PEDIDO (estava muito alta, desalinhada)
+Alinhar melhor a linha de PAGAMENTO e Prazo Geral
+Organizar a linha de Produtos Disponíveis: "Buscar produto" e "Ocultar linhas vazias" na mesma linha
+Linha de baixo: DESC. GERAL (%) e ícone de lixeira lado a lado
+Diminuir a altura das linhas de produto
+6ª Solicitação - Correção de Posicionamento do Cabeçalho
+Colocar "Pedido de Vendas" na mesma linha do Logotipo e ícone de lixeira (horizontalmente alinhados)
+Corrigir as setas de rolar (estavam fora do layout e muito grandes)
+Corrigir o alinhamento da DATA DO PEDIDO (muito alta)
+Manter "Buscar produto" e "Ocultar linhas vazias" na mesma linha
+Diminuir a altura das linhas de produto
+7ª Solicitação - Correção Final de Logo e Setas
+Corrigir o Logotipo (estava desaparecendo ou em posição incorreta)
+Reduzir o tamanho das setas de rolagem (estavam muito grandes)
+Garantir que o logo apareça à esquerda de "Pedido de Vendas"
+Garantir que o ícone de lixeira apareça à direita
+Alterações Implementadas Finais
+Cabeçalho
+✅ Logo (35x35px) + "Pedido de Vendas" (15px) + Ícone de lixeira alinhados horizontalmente
+Campos do Formulário
+✅ Layout de 2 colunas para todos os campos (exceto tabela de produtos)
+✅ TELEFONE e FRETE na mesma linha
+✅ TRANSPORTE e ANOTAÇÕES na mesma linha
+✅ ATENDIMENTO POR e DATA DO PEDIDO lado a lado e alinhados
+✅ PAGAMENTO e PRAZO GERAL alinhados
+Seção de Produtos
+✅ "Buscar produto" e "Ocultar linhas vazias" na mesma linha
+✅ "DESC. GERAL (%)" e ícone de lixeira na linha de baixo
+✅ Altura das linhas reduzida (padding 4px, font-size 10px)
+Elementos de Navegação
+✅ Setas de scroll reduzidas para 24x24px
+✅ Posicionamento otimizado das setas (right: 6px, bottom: 70px e 35px)
+Responsividade
+✅ Todos os ajustes aplicados apenas para telas até 480px (mobile)
+✅ Layout desktop mantido intacto
+
