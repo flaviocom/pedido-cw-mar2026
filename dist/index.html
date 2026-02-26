@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedido de Vendas - Recompra</title>
+  <script type="module" crossorigin src="/pedido-cw-mar2026/assets/index-Df9nnsZt.js"></script>
+  <link rel="stylesheet" crossorigin href="/pedido-cw-mar2026/assets/index-wex66-yA.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Moderno -->
+        <header class="modern-header">
+            <div class="header-grid">
+                <div class="header-identity">
+                    <div class="logo-container">
+                        <img src="/pedido-cw-mar2026/assets/LogotipoCW-CfM8ZjG8.jpg" alt="Logotipo Charmway" class="logo">
+                    </div>
+                    <div class="title-container">
+                        <h1 class="main-title">Pedido de Vendas</h1>
+                    </div>
+                </div>
+                <div class="header-fields-container">
+                    <div class="attendance-field">
+                        <label class="attendance-label">ATENDIMENTO POR:</label>
+                        <input type="text" id="attendance-by" class="attendance-input" placeholder="Nome do atendente">
+                    </div>
+                    <div class="date-container">
+                        <div class="date-card">
+                            <label class="date-label">DATA DO PEDIDO</label>
+                            <input type="date" id="order-date" class="date-input">
+                        </div>
+                        <button id="clear-order-btn" class="btn clear-order-icon-btn clear-order-transparent" style="display:block;margin:8px auto 0;width:fit-content;" title="Limpar todos os dados do pedido">🗑️</button>
+                    </div>
+                            </div>
+        </header>
+
+        <!-- Formulário Principal -->
+        <main>
+            <!-- Accordion: Dados do Cliente -->
+            <div class="accordion open">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <h3>📋 Dados do Cliente</h3>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-inner">
+                        <!-- LINHA 1: NOME E ENDEREÇO -->
+                        <div class="name-address-row">
+                            <div class="field-card">
+                                <label class="field-label">NOME</label>
+                                <input type="text" id="reseller-name" class="modern-input" placeholder="Digite o nome completo">
+                            </div>
+                            <div class="field-card">
+                                <label class="field-label">ENDEREÇO</label>
+                                <input type="text" id="address" class="modern-input" placeholder="Digite o endereço completo">
+                            </div>
+                        </div>
+
+                        <!-- LINHA 2: TELEFONE, FRETE, TRANSPORTE E ANOTAÇÕES -->
+                        <div class="details-row">
+                            <div class="field-card">
+                                <label class="field-label">TELEFONE</label>
+                                <input type="tel" id="phone" class="modern-input" placeholder="(00) 00000-0000">
+                            </div>
+                            <div class="field-card">
+                                <label class="field-label">FRETE</label>
+                                <input type="number" id="freight" class="modern-input" step="0.01" min="0" placeholder="0,00">
+                            </div>
+                            <div class="field-card">
+                                <label class="field-label">TRANSPORTE</label>
+                                <div class="transport-container">
+                                    <select id="transport-select" class="modern-input">
+                                        <option value="">Selecione o transporte</option>
+                                        <option value="Correios - PAC">Correios - PAC</option>
+                                        <option value="Correios - Sedex">Correios - Sedex</option>
+                                        <option value="Motoboy">Motoboy</option>
+                                        <option value="Transportadora">Transportadora</option>
+                                        <option value="Retirada">Retirada</option>
+                                    </select>
+                                    <button type="button" id="add-transport-btn" class="add-transport-btn" title="Adicionar nova opção de transporte">+</button>
+                                </div>
+                            </div>
+                            <div class="field-card">
+                                <label class="field-label">ANOTAÇÕES</label>
+                                <textarea id="notes" class="modern-textarea" placeholder="Digite suas anotações aqui..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accordion: Pagamento -->
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <h3>💳 Pagamento</h3>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-inner">
+                        <!-- Formas de Pagamento -->
+                        <div class="field-card payment-methods-card">
+                            <div class="payment-methods-header-row">
+                                <label class="field-label">PAGAMENTO</label>
+                                <label class="general-deadline-label-inline">Prazo Geral</label>
+                                <input type="number" id="general-deadline-days" class="general-deadline-input-inline" min="0" max="999" step="1" placeholder="dias">
+                                <span class="general-deadline-date-inline" id="general-deadline-date"></span>
+                            </div>
+                    <div class="payment-methods-container">
+                        <!-- PIX -->
+                        <div class="payment-method-item">
+                            <div class="payment-method-header">
+                                <input type="checkbox" id="payment-pix" class="payment-checkbox">
+                                <label for="payment-pix" class="payment-label">PIX</label>
+                            </div>
+                            <input type="text" id="payment-pix-details" class="payment-details-input" placeholder="Chave PIX ou detalhes">
+                        </div>
+
+                        <!-- Cartão de Crédito -->
+                        <div class="payment-method-item">
+                            <div class="payment-method-header">
+                                <input type="checkbox" id="payment-credit" class="payment-checkbox">
+                                <label for="payment-credit" class="payment-label">Cartão de Crédito</label>
+                            </div>
+                            <div class="credit-card-details-inline">
+                                <input type="number" id="payment-credit-installments" class="payment-installments-input-inline" value="1" min="1" max="12" step="1">
+                                <span id="payment-installments-label" class="installments-label-inline">Parcelas</span>
+                                <span id="credit-installment-value" class="credit-installment-value-display-inline">de R$0,00</span>
+                            </div>
+                        </div>
+
+                        <!-- Boleto -->
+                        <div class="payment-method-item">
+                            <div class="payment-method-header boleto-header-inline">
+                                <div class="boleto-checkbox-label">
+                                    <input type="checkbox" id="payment-boleto" class="payment-checkbox">
+                                    <label for="payment-boleto" class="payment-label">Boleto</label>
+                                </div>
+                                <div class="boleto-installments-inline">
+                                    <input type="number" id="installments" class="modern-input installments-input" min="1" max="12" value="1">
+                                    <span id="boleto-installments-label" class="installments-label">Parcelas de</span>
+                                    <span id="boleto-installment-value" class="credit-installment-value-display-inline">R$0,00</span>
+                                    
+                                </div>
+                            </div>
+                            <div class="boleto-details">
+                                <div id="payment-days-container" class="payment-days-grid">
+                                    <!-- Campos de prazo serão gerados dinamicamente -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Transferência Bancária -->
+                        <div class="payment-method-item">
+                            <div class="payment-method-header">
+                                <input type="checkbox" id="payment-transfer" class="payment-checkbox">
+                                <label for="payment-transfer" class="payment-label">Transferência/Depósito</label>
+                            </div>
+                            <textarea id="payment-transfer-details" class="payment-details-textarea" placeholder="Dados bancários" rows="2"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accordion: Produtos -->
+            <div class="accordion open">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <h3>📦 Produtos</h3>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-inner">
+            <!-- Seção de Produtos -->
+            <section class="products-section">
+                <h2>Produtos Disponíveis</h2>
+                
+                <!-- Controles de Filtro e Desconto -->
+                <div class="products-controls-row" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;">
+                    <div class="search-input-wrapper" style="flex:1 1 100%;order:1;min-width:150px;">
+                        <input type="text" id="product-search" class="modern-input search-input" placeholder="🔍 Buscar produto...">
+                        <button id="clear-search-btn" class="clear-search-btn" title="Limpar pesquisa">×</button>
+                    </div>
+                    <div style="display:flex;align-items:center;justify-content:center;gap:50px;order:2;flex:1;">
+                        <div style="display:flex;flex-direction:column;align-items:center;gap:0;margin:0 15px;">
+                            <input type="checkbox" id="hide-empty-lines" class="payment-checkbox">
+                            <label for="hide-empty-lines" class="payment-label" style="font-size:9px;white-space:normal;line-height:1.1;text-align:center;">Ocultar<br>linhas vazias</label>
+                        </div>
+                        <div class="field-card general-discount-card" style="width:40px;padding:2px;margin:0 15px;">
+                            <label class="field-label" style="font-size:6px;font-weight:bold;text-align:center;width:100%;">DESC. GERAL (%)</label>
+                            <input type="number" id="general-discount" class="modern-input" style="padding:2px;font-size:10px;width:100%;text-align:center;" step="0.01" min="0" max="100" placeholder="0.00">
+                        </div>
+                        <button id="clear-quantities-btn" class="btn clear-quantities-icon-btn" style="height:22px;padding:0 3px;font-size:10px;margin:0 15px;" title="Limpar todas as quantidades">🗑️</button>
+                    </div>
+                </div>
+
+                <!-- Tabela de Produtos -->
+                <div class="products-table-container">
+                    <table class="products-table">
+                        <thead>
+                            <tr>
+                                <th>Produto</th>
+                                <th>Quantidade</th>
+                                <th>Preço<br>Cat.</th>
+                                <th>Desc.<br>(%)</th>
+                                <th>Preço c/<br>Desc.</th>
+                                <th>Total</th>
+                                <th>Lote</th>
+                            </tr>
+                        </thead>
+                        <tbody id="products-tbody">
+                            <!-- Produtos serão gerados dinamicamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Seção de Embalagens -->
+            <section class="packaging-section">
+                <div class="packaging-card">
+                    <h3>Embalagens</h3>
+                    <div class="packaging-content">
+                        <table class="packaging-table">
+                            <thead>
+                                <tr>
+                                    <th>Caixa</th>
+                                    <th>Qtde</th>
+                                    <th>Peso (g)</th>
+                                    <th>Peso Total</th>
+                                </tr>
+                            </thead>
+                            <tbody id="packaging-tbody">
+                                <!-- Embalagens serão geradas dinamicamente -->
+                            </tbody>
+                        </table>
+                        <button id="add-new-packaging-btn" class="btn btn-secondary add-item-btn">+ Adicionar outro item</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Resumo do Pedido -->
+            <section class="summary-section">
+                <div class="summary-card">
+                    <h3>Resumo</h3>
+                    <div class="summary-boxes-container" style="display:grid !important;grid-template-columns:1fr 1fr !important;grid-template-rows:auto auto auto !important;gap:6px !important;">
+                        <!-- Linha 1: Vl. Bruto + Vl. Empresa -->
+                        <div class="summary-box summary-line-1" style="grid-column:1/2 !important;">
+                            <span class="summary-box-label">Vl. Bruto:</span>
+                            <span id="gross-value" class="summary-box-value currency">R$ 0,00</span>
+                        </div>
+                        <div class="summary-box summary-line-1" style="grid-column:2/3 !important;">
+                            <span class="summary-box-label">Vl. Empresa:</span>
+                            <span id="discounted-value" class="summary-box-value currency">R$ 0,00</span>
+                        </div>
+                        <!-- Linha 2: Vl. Frete | Crédito Pago (separados) -->
+                        <div class="summary-box summary-line-2" style="grid-column:1/2 !important;">
+                            <span class="summary-box-label">Vl. Frete:</span>
+                            <span id="freight-value" class="summary-box-value currency">R$ 0,00</span>
+                        </div>
+                        <div class="summary-box" style="grid-column:2/3 !important;">
+                            <span class="summary-box-label">Crédito Pago:</span>
+                            <input type="number" id="credit-paid" class="modern-input summary-box-input" style="width:70px;padding:2px;font-size:11px;" placeholder="0,00" min="0" step="0.01">
+                        </div>
+                        <!-- Linha 3: Qtde Total | Peso Total (separados) -->
+                        <div class="summary-box summary-line-3" style="grid-column:1/2 !important;display:flex;flex-direction:column;align-items:center;text-align:center;">
+                            <span class="summary-box-label" style="text-align:center;width:100%;">Qtde Total:</span>
+                            <span id="total-quantity" class="summary-box-value" style="text-align:center;width:100%;display:block;">0</span>
+                        </div>
+                        <div class="summary-box" style="grid-column:2/3 !important;">
+                            <span class="summary-box-label">Peso Total:</span>
+                            <span id="total-weight" class="summary-box-value">0.00 kg</span>
+                        </div>
+
+                    </div>
+                    <!-- Lucro e Vl. Acerto em linha separada com destaque -->
+                    <div class="summary-highlight-row" style="display:flex;justify-content:space-between;gap:12px;margin-top:6px;">
+                        <!-- Lucro -->
+                        <div id="profit-item" style="flex:1;display:flex;flex-direction:column;align-items:center;padding:4px;background:#f0f9f0;border-radius:4px;border:1px solid #4caf50;">
+                            <span class="summary-box-label highlight-settlement-value" style="font-weight:bold;font-size:9px;color:#2e7d32;">Lucro:</span>
+                            <span id="profit-value" class="summary-box-value currency highlight-settlement-value" style="font-weight:bold;font-size:12px;color:#2e7d32;">R$ 0,00</span>
+                        </div>
+                        <!-- Vl. Acerto -->
+                        <div style="flex:1;display:flex;flex-direction:column;align-items:center;padding:4px;background:#fff3e0;border-radius:4px;border:1px solid #ff9800;">
+                            <span class="summary-box-label" style="font-weight:bold;font-size:9px;color:#e65100;">Vl. Acerto:</span>
+                            <div style="display:flex;align-items:center;gap:4px;">
+                                <span id="settlement-value" class="summary-box-value currency" style="font-weight:bold;font-size:12px;color:#e65100;">R$ 0,00</span>
+                                <button id="copy-settlement-btn" class="btn copy-btn" style="padding:2px 4px;font-size:9px;" title="Copiar valor do acerto">📋</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Detalhes do Pagamento -->
+                    <div class="installments-section">
+                        <h4>Pagamento</h4>
+                        <div id="installments-details">
+                            <!-- Detalhes das parcelas serão gerados dinamicamente -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Botões de Ação -->
+            <div class="action-buttons">
+                <button id="save-order-btn" class="btn btn-primary">💾 Salvar Pedido</button>
+                <button id="print-order-btn" class="btn btn-secondary">🖨️ Imprimir Pedido</button>
+                <button id="export-excel-btn" class="btn btn-success">📊 Salvar em Excel</button>
+                <button id="expedition-btn" class="btn btn-secondary">📦 Expedição</button>
+                <button id="history-btn" class="btn btn-secondary">📋 Histórico</button>
+                <button id="dashboard-btn" class="btn btn-secondary">📈 Dashboard</button>
+            </div>
+        </main>
+        
+        <!-- Botões de Scroll Automático -->
+        <div class="scroll-buttons">
+            <button id="scroll-to-top" class="scroll-btn scroll-to-top" title="Ir para o topo">
+                <span class="scroll-arrow">↑</span>
+            </button>
+            <button id="scroll-to-bottom" class="scroll-btn scroll-to-bottom" title="Ir para o rodapé">
+                <span class="scroll-arrow">↓</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Modais -->
+    <!-- Modal de Histórico de Pedidos -->
+    <div id="history-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📋 Histórico de Pedidos</h2>
+                <button class="modal-close" id="history-modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="history-controls">
+                    <input type="text" id="history-search" class="modern-input" placeholder="🔍 Buscar por cliente, atendente ou data...">
+                    <select id="history-filter" class="modern-input">
+                        <option value="">Todos os pedidos</option>
+                        <option value="today">Hoje</option>
+                        <option value="week">Esta semana</option>
+                        <option value="month">Este mês</option>
+                    </select>
+                </div>
+                <div id="history-list" class="history-list">
+                    <!-- Pedidos serão listados aqui -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Dashboard -->
+    <div id="dashboard-modal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2>📈 Dashboard de Vendas</h2>
+                <button class="modal-close" id="dashboard-modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="dashboard-controls">
+                    <select id="dashboard-period" class="modern-input">
+                        <option value="all">Todo o período</option>
+                        <option value="today">Hoje</option>
+                        <option value="week">Esta semana</option>
+                        <option value="month">Este mês</option>
+                    </select>
+                </div>
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h3>Total de Vendas</h3>
+                        <p id="dashboard-total-sales" class="dashboard-value">R$ 0,00</p>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3>Quantidade de Pedidos</h3>
+                        <p id="dashboard-order-count" class="dashboard-value">0</p>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3>Ticket Médio</h3>
+                        <p id="dashboard-avg-ticket" class="dashboard-value">R$ 0,00</p>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3>Lucro Total</h3>
+                        <p id="dashboard-total-profit" class="dashboard-value">R$ 0,00</p>
+                    </div>
+                </div>
+                <div class="dashboard-charts">
+                    <div class="chart-container">
+                        <h3>Vendas por Período</h3>
+                        <canvas id="sales-chart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h3>Produtos Mais Vendidos</h3>
+                        <canvas id="products-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bibliotecas para geração de PDF e imagem -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        // Garantir que jsPDF esteja disponível globalmente
+        window.jsPDF = window.jspdf?.jsPDF || window.jsPDF;
+    </script>
+    <!-- Biblioteca para geração de Excel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <!-- Biblioteca para gráficos -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    
+    <!-- Funções para Accordions e Card View -->
+    <script>
+        // Toggle Accordion
+        function toggleAccordion(header) {
+            const accordion = header.parentElement;
+            accordion.classList.toggle('open');
+        }
+        
+        // Gerar Card View para Produtos no Mobile
+        function renderProductsCards() {
+            const tbody = document.getElementById('products-tbody');
+            if (!tbody) return;
+            
+            let cardsContainer = document.getElementById('products-cards-container');
+            if (!cardsContainer) {
+                cardsContainer = document.createElement('div');
+                cardsContainer.id = 'products-cards-container';
+                cardsContainer.className = 'products-cards-container';
+                
+                // Inserir após a tabela
+                const tableContainer = document.querySelector('.products-table-container');
+                if (tableContainer) {
+                    tableContainer.parentNode.insertBefore(cardsContainer, tableContainer.nextSibling);
+                }
+            }
+            
+            // Se não estiver no mobile, não renderizar cards
+            if (window.innerWidth > 768) {
+                cardsContainer.style.display = 'none';
+                return;
+            }
+            
+            cardsContainer.style.display = 'flex';
+            
+            // Gerar cards para cada produto
+            const products = window.productsData || [];
+            cardsContainer.innerHTML = products.map((product, index) => `
+                <div class="product-card ${(product.quantity || 0) > 0 ? 'has-quantity' : ''}" data-product-index="${index}">
+                    <div class="product-card-header">
+                        <span class="product-card-name">${product.name}</span>
+                        <button class="product-card-remove" onclick="removeProduct(${index})" title="Remover">🗑️</button>
+                    </div>
+                    <div class="product-card-code">Código: ${product.code || 'N/A'} | NCM: ${product.ncm || 'N/A'}</div>
+                    <div class="product-card-fields">
+                        <div class="product-card-field">
+                            <label>Quantidade</label>
+                            <input type="number" min="0" value="${product.quantity || 0}" 
+                                onchange="updateProductQuantity(${index}, this.value)">
+                        </div>
+                        <div class="product-card-field">
+                            <label>Desconto (%)</label>
+                            <input type="number" min="0" max="100" step="0.01" value="${product.discount || 0}"
+                                onchange="updateProductDiscount(${index}, this.value)">
+                        </div>
+                        <div class="product-card-field">
+                            <label>Preço</label>
+                            <input type="number" step="0.01" value="${product.price || 0}"
+                                onchange="updateProductPrice(${index}, this.value)">
+                        </div>
+                        <div class="product-card-field">
+                            <label>Total</label>
+                            <div class="product-card-price">R$ ${((product.quantity || 0) * (product.price || 0) * (1 - (product.discount || 0)/100)).toFixed(2)}</div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // Atualizar quando a janela redimensionar
+        window.addEventListener('resize', renderProductsCards);
+        
+        // Executar quando o DOM estiver pronto
+        document.addEventListener('DOMContentLoaded', renderProductsCards);
+    </script>
+    
+</body>
+</html>
+
+
