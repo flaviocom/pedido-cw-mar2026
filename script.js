@@ -1,40 +1,40 @@
 console.log("script.js carregado!");
 const products = [
-    { id: 0, name: "Complement hidratante para cabelos", catalogPrice: 57.9, weight: 0.17 },
-    { id: 1, name: "Condicionador completive especial", catalogPrice: 57.9, weight: 0.31 },
-    { id: 2, name: "Óleo de tratamento para cabelos", catalogPrice: 64.9, weight: 0.15 },
-    { id: 3, name: "Shampoo especial aditivado", catalogPrice: 58.9, weight: 0.34 },
-    { id: 4, name: "Shampoo para cabelos normais", catalogPrice: 57.9, weight: 0.35 },
-    { id: 5, name: "Shampoo para cabelos oleosos", catalogPrice: 58.9, weight: 0.335 },
-    { id: 6, name: "Shampoo para cabelos secos e danificados", catalogPrice: 57.9, weight: 0.325 },
-    { id: 7, name: "Creme colágeno", catalogPrice: 74.9, weight: 0.075 },
-    { id: 8, name: "Creme hidratante facial", catalogPrice: 58.9, weight: 0.075 },
-    { id: 9, name: "Creme para limpeza facial", catalogPrice: 51.9, weight: 0.075 },
-    { id: 10, name: "Gel facial esfoliante", catalogPrice: 51.9, weight: 0.08 },
-    { id: 11, name: "Loção tônica facial", catalogPrice: 55.9, weight: 0.175 },
-    { id: 12, name: "Óleo vitaminado para a pele facial", catalogPrice: 51.9, weight: 0.026 },
-    { id: 13, name: "Máscara facial SPArgila amarela peel off", catalogPrice: 74.9, weight: 0.095 },
-    { id: 14, name: "Creme para mãos e unhas", catalogPrice: 55.9, weight: 0.07 },
-    { id: 15, name: "Creme para massagem corporal", catalogPrice: 74.9, weight: 0.176 },
-    { id: 16, name: "Creme para os pés", catalogPrice: 55.9, weight: 0.075 },
-    { id: 17, name: "Creme para os seios", catalogPrice: 55.9, weight: 0.076 },
-    { id: 18, name: "Creme peeling", catalogPrice: 56.9, weight: 0.07 },
-    { id: 19, name: "Lipo gel - Redutor de medidas", catalogPrice: 85.9, weight: 0.28 },
-    { id: 20, name: "Loção cremosa camomila", catalogPrice: 62.9, weight: 0.282 },
-    { id: 21, name: "Loção cremosa pepino", catalogPrice: 62.9, weight: 0.283 },
-    { id: 22, name: "Óleo de tratamento cosmético para o corpo", catalogPrice: 74.9, weight: 0.152 },
-    { id: 23, name: "Vela vegetal para massagem", catalogPrice: 70.9, weight: 0.109 },
-    { id: 24, name: "Banho de ervas", catalogPrice: 62.9, weight: 0.18 },
-    { id: 25, name: "Sabonete íntimo natural", catalogPrice: 74.9, weight: 0.228 },
-    { id: 26, name: "Desodorante antiperspirante", catalogPrice: 55.9, weight: 0.075 },
-    { id: 27, name: "Desodorante I", catalogPrice: 90.9, weight: 0.251 },
-    { id: 28, name: "Desodorante II", catalogPrice: 90.9, weight: 0.249 },
-    { id: 29, name: "Desodorante III", catalogPrice: 90.9, weight: 0.251 },
-    { id: 30, name: "Desodorante IV", catalogPrice: 90.9, weight: 0.252 },
-    { id: 31, name: "Desodorante V", catalogPrice: 90.9, weight: 0.247 },
-    { id: 32, name: "Gel refrescante pós Barba", catalogPrice: 79.9, weight: 0.15 },
-    { id: 33, name: "Catálogo", catalogPrice: 23.9, applyGeneralDiscount: false, weight: 0.094 },
-    { id: 34, name: "Talão de consumidor", catalogPrice: 5.9, applyGeneralDiscount: false, weight: 0.07 }
+    { id: 0, name: "Complement hidratante para cabelos", catalogPrice: 57.9, weight: 0.17, imageUrl: "https://charmway.com.br/wp-content/uploads/2020/12/f51522e5-1ffe-4920-841a-222cea75ca83-300x400.jpeg" },
+    { id: 1, name: "Condicionador completive especial", catalogPrice: 57.9, weight: 0.31, imageUrl: "https://charmway.com.br/wp-content/uploads/2020/12/dd5e0102-b25f-4301-9fac-16a76ecf177d-300x400.jpeg" },
+    { id: 2, name: "Óleo de tratamento para cabelos", catalogPrice: 64.9, weight: 0.15, imageUrl: "https://charmway.com.br/wp-content/uploads/2020/06/2206072f-b477-4a25-ab96-46c3791ed49f-300x400.jpeg" },
+    { id: 3, name: "Shampoo especial aditivado", catalogPrice: 58.9, weight: 0.34, imageUrl: "https://charmway.com.br/wp-content/uploads/2020/12/8d676219-dc1f-4e9e-9842-d1d06d24db7a-300x400.jpeg" },
+    { id: 4, name: "Shampoo para cabelos normais", catalogPrice: 57.9, weight: 0.35, imageUrl: "https://charmway.com.br/wp-content/uploads/2020/12/cbf08e2d-8ec5-48d0-bffa-ee8abc3ed7c5-300x400.jpeg" },
+    { id: 5, name: "Shampoo para cabelos oleosos", catalogPrice: 58.9, weight: 0.335, imageUrl: "https://charmway.com.br/wp-content/uploads/2020/12/82ac178b-f23e-4c6a-aecd-cede9d826d8c-300x400.jpeg" },
+    { id: 6, name: "Shampoo para cabelos secos e danificados", catalogPrice: 57.9, weight: 0.325, imageUrl: "https://charmway.com.br/wp-content/uploads/2020/12/5431b980-773d-4064-822a-d21a33b766a3-300x400.jpeg" },
+    { id: 7, name: "Creme colágeno", catalogPrice: 74.9, weight: 0.075, imageUrl: "https://charmway.com.br/wp-content/uploads/2020/12/IMG_5511-300x400.jpeg" },
+    { id: 8, name: "Creme hidratante facial", catalogPrice: 58.9, weight: 0.075, imageUrl: "https://charmway.com.br/wp-content/uploads/2020/12/IMG_5510-300x400.jpeg" },
+    { id: 9, name: "Creme para limpeza facial", catalogPrice: 51.9, weight: 0.075, imageUrl: "https://charmway.com.br/wp-content/uploads/2020/12/IMG_5504-300x400.jpeg" },
+    { id: 10, name: "Gel facial esfoliante", catalogPrice: 51.9, weight: 0.08, imageUrl: "https://charmway.com.br/wp-content/uploads/2020/12/IMG_5505-300x400.jpeg" },
+    { id: 11, name: "Loção tônica facial", catalogPrice: 55.9, weight: 0.175, imageUrl: "https://charmway.com.br/wp-content/uploads/2020/12/IMG_5508-300x400.jpeg" },
+    { id: 12, name: "Óleo vitaminado para a pele facial", catalogPrice: 51.9, weight: 0.026, imageUrl: "LogotipoCW.jpg" },
+    { id: 13, name: "Máscara facial SPArgila amarela peel off", catalogPrice: 74.9, weight: 0.095, imageUrl: "https://charmway.com.br/wp-content/uploads/2020/12/IMG_5509-300x400.jpeg" },
+    { id: 14, name: "Creme para mãos e unhas", catalogPrice: 55.9, weight: 0.07, imageUrl: "https://charmway.com.br/wp-content/uploads/2020/12/IMG_5519-300x400.jpeg" },
+    { id: 15, name: "Creme para massagem corporal", catalogPrice: 74.9, weight: 0.176, imageUrl: "LogotipoCW.jpg" },
+    { id: 16, name: "Creme para os pés", catalogPrice: 55.9, weight: 0.075, imageUrl: "https://charmway.com.br/wp-content/uploads/2020/12/CDEEFAF5-85E0-40A5-BCBB-1F85415AF22B-300x400.jpeg" },
+    { id: 17, name: "Creme para os seios", catalogPrice: 55.9, weight: 0.076, imageUrl: "LogotipoCW.jpg" },
+    { id: 18, name: "Creme peeling", catalogPrice: 56.9, weight: 0.07, imageUrl: "https://charmway.com.br/wp-content/uploads/2020/12/IMG_5506-300x400.jpeg" },
+    { id: 19, name: "Lipo gel - Redutor de medidas", catalogPrice: 85.9, weight: 0.28, imageUrl: "LogotipoCW.jpg" },
+    { id: 20, name: "Loção cremosa camomila", catalogPrice: 62.9, weight: 0.282, imageUrl: "LogotipoCW.jpg" },
+    { id: 21, name: "Loção cremosa pepino", catalogPrice: 62.9, weight: 0.283, imageUrl: "LogotipoCW.jpg" },
+    { id: 22, name: "Óleo de tratamento cosmético para o corpo", catalogPrice: 74.9, weight: 0.152, imageUrl: "LogotipoCW.jpg" },
+    { id: 23, name: "Vela vegetal para massagem", catalogPrice: 70.9, weight: 0.109, imageUrl: "LogotipoCW.jpg" },
+    { id: 24, name: "Banho de ervas", catalogPrice: 62.9, weight: 0.18, imageUrl: "https://charmway.com.br/wp-content/uploads/2020/12/IMG_5507-300x400.jpeg" },
+    { id: 25, name: "Sabonete íntimo natural", catalogPrice: 74.9, weight: 0.228, imageUrl: "https://charmway.com.br/wp-content/uploads/2020/12/4da57da1-1d9b-4053-86e6-47fe998f1ac5-300x400.jpeg" },
+    { id: 26, name: "Desodorante antiperspirante", catalogPrice: 55.9, weight: 0.075, imageUrl: "https://charmway.com.br/wp-content/uploads/2020/05/fdabb7d2-c61a-40bb-881c-7e036ed36410-300x400.jpeg" },
+    { id: 27, name: "Desodorante I", catalogPrice: 90.9, weight: 0.251, imageUrl: "https://charmway.com.br/wp-content/uploads/2020/05/fdabb7d2-c61a-40bb-881c-7e036ed36410-300x400.jpeg" },
+    { id: 28, name: "Desodorante II", catalogPrice: 90.9, weight: 0.249, imageUrl: "https://charmway.com.br/wp-content/uploads/2020/05/fdabb7d2-c61a-40bb-881c-7e036ed36410-300x400.jpeg" },
+    { id: 29, name: "Desodorante III", catalogPrice: 90.9, weight: 0.251, imageUrl: "https://charmway.com.br/wp-content/uploads/2020/05/fdabb7d2-c61a-40bb-881c-7e036ed36410-300x400.jpeg" },
+    { id: 30, name: "Desodorante IV", catalogPrice: 90.9, weight: 0.252, imageUrl: "https://charmway.com.br/wp-content/uploads/2020/05/fdabb7d2-c61a-40bb-881c-7e036ed36410-300x400.jpeg" },
+    { id: 31, name: "Desodorante V", catalogPrice: 90.9, weight: 0.247, imageUrl: "https://charmway.com.br/wp-content/uploads/2020/05/fdabb7d2-c61a-40bb-881c-7e036ed36410-300x400.jpeg" },
+    { id: 32, name: "Gel refrescante pós Barba", catalogPrice: 79.9, weight: 0.15, imageUrl: "LogotipoCW.jpg" },
+    { id: 33, name: "Catálogo", catalogPrice: 23.9, applyGeneralDiscount: false, weight: 0.094, imageUrl: "LogotipoCW.jpg" },
+    { id: 34, name: "Talão de consumidor", catalogPrice: 5.9, applyGeneralDiscount: false, weight: 0.07, imageUrl: "LogotipoCW.jpg" }
 ];
 
 // Configurações globais
@@ -365,9 +365,12 @@ function renderProductsTable(productsToDisplay = orderState.products) {
         tbody.appendChild(row);
     });
 
-    const addRow = document.createElement('tr');
-    const colSpan = 7; // Agora são 7 colunas incluindo a coluna Lote
-    addRow.innerHTML = `\n        <td colspan=\"${colSpan}\" style=\"text-align: right;\">\n            <button id=\"add-new-product-btn\" class=\"btn btn-secondary\">+ Adicionar outro item</button>\n        </td>\n    `;
+    const addRow = document.createElement('div');
+    addRow.className = 'add-product-container';
+    addRow.style.gridColumn = '1 / -1';
+    addRow.style.textAlign = 'center';
+    addRow.style.marginTop = '16px';
+    addRow.innerHTML = `<button id="add-new-product-btn" class="btn btn-secondary" style="width: 100%; border-radius: 12px; height: 48px; background: #e8f5e9; color: #2e7d32; border: 1px dashed #4caf50;">+ Adicionar Produto Extra</button>`;
     tbody.appendChild(addRow);
 
     updateTableHeader(hasAnyDiscount);
@@ -389,15 +392,12 @@ function checkIfHasAnyDiscount() {
 
 function updateTableHeader(hasAnyDiscount) {
     const thead = document.querySelector('.products-table thead tr');
-    if (!thead) return;
-    
-    // CORREÇÃO: Sempre mostrar todas as colunas incluindo Lote
-    thead.innerHTML = `\n        <th>Produto</th>\n        <th>Quantidade</th>\n        <th>Preço<br>Catálogo</th>\n        <th>Desconto<br>(%)</th>\n        <th>Preço c/<br>Desconto</th>\n        <th>Total<br>Item</th>\n        <th>Lote</th>\n    `;
+    if (thead) thead.innerHTML = '';
 }
 
 function createProductRow(product, index, isCustom = false, hasAnyDiscount = true) {
-    const row = document.createElement("tr");
-    row.className = product.quantity > 0 ? "has-quantity" : "";
+    const row = document.createElement("div");
+    row.className = `product-card ${product.quantity > 0 ? "has-quantity" : ""}`;
     
     let effectiveDiscount = product.individualDiscount !== null ? product.individualDiscount : orderState.generalDiscount;
     if (product.applyGeneralDiscount === false) {
@@ -406,24 +406,136 @@ function createProductRow(product, index, isCustom = false, hasAnyDiscount = tru
 
     const discountedPrice = calculateDiscountedPrice(product.catalogPrice, effectiveDiscount);
     const totalPrice = calculateTotalPrice(product.quantity, discountedPrice);
+    const imgUrl = product.imageUrl || 'LogotipoCW.jpg';
 
-    const discountColumn = hasAnyDiscount ? `\n        <td>\n            <input type=\"number\" \n                   value=\"${product.individualDiscount !== null ? product.individualDiscount : (product.applyGeneralDiscount !== false ? orderState.generalDiscount : '')}\" \n                   min=\"0\" \n                   max=\"100\"\n                   step=\"0.1\"\n                   placeholder=\"${product.applyGeneralDiscount === false ? "0.0" : orderState.generalDiscount.toFixed(1)}\"\n                   data-product-id=\"${product.id}\"\n                   class=\"discount-input ${product.individualDiscount !== null ? "highlight-discount" : ""}\">\n        </td>\n        <td class=\"price discounted-price\">${formatCurrency(discountedPrice)}</td>\n    ` : '';
+    const discountColumn = hasAnyDiscount ? `
+        <div class="card-field-group">
+            <label>Desc. (%)</label>
+            <input type="number" 
+                   value="${product.individualDiscount !== null ? product.individualDiscount : (product.applyGeneralDiscount !== false ? orderState.generalDiscount : '')}" 
+                   min="0" 
+                   max="100"
+                   step="0.1"
+                   placeholder="${product.applyGeneralDiscount === false ? "0.0" : orderState.generalDiscount.toFixed(1)}"
+                   data-product-id="${product.id}"
+                   class="discount-input modern-input ${product.individualDiscount !== null ? "highlight-discount" : ""}">
+        </div>
+    ` : '';
     
-    row.innerHTML = `\n        <td class=\"product-name\">${product.name}</td>\n        <td>\n            <input type=\"number\" \n                   value=\"${product.quantity}\" \n                   min=\"0\" \n                   step=\"1\" \n                   data-product-id=\"${product.id}\"\n                   class=\"quantity-input\">\n        </td>\n        <td class=\"price\">${formatCurrency(product.catalogPrice)}</td>\n        ${discountColumn}\n        <td class=\"price total-price\">${formatCurrency(totalPrice)}</td>\n        <td>\n            <input type=\"text\" \n                   value=\"${product.lot || ''}\" \n                   maxlength=\"6\" \n                   data-product-index=\"${index}\" \n                   class=\"lot-input\">\n        </td>\n    `;
+    row.innerHTML = `
+        <div class="product-card-body">
+            <div class="product-image-container">
+                <img src="${imgUrl}" alt="${product.name}" title="${product.name}" class="product-image">
+            </div>
+            
+            <div class="product-info-block">
+                <h4 class="product-name">${product.name}</h4>
+                
+                <div class="product-metrics-row">
+                    <span class="catalog-price">Preço: ${formatCurrency(product.catalogPrice)}</span>
+                    <span class="discounted-price-label">Liq.: <span class="discounted-price">${formatCurrency(discountedPrice)}</span></span>
+                </div>
+                
+                <div class="product-controls-row">
+                    <div class="qty-control-group">
+                        <label>Qtd</label>
+                        <div class="qty-stepper">
+                            <button type="button" class="btn-qty btn-minus" data-product-id="${product.id}">-</button>
+                            <input type="number" 
+                                   value="${product.quantity}" 
+                                   min="0" 
+                                   step="1" 
+                                   data-product-id="${product.id}"
+                                   class="quantity-input modern-input"
+                                   style="text-align: center;">
+                            <button type="button" class="btn-qty btn-plus" data-product-id="${product.id}">+</button>
+                        </div>
+                    </div>
+                    ${discountColumn}
+                </div>
+                
+                <div class="product-footer-row">
+                    <div class="card-field-group lot-group">
+                        <label>Lote</label>
+                        <input type="text" 
+                               value="${product.lot || ''}" 
+                               maxlength="6" 
+                               data-product-index="${index}" 
+                               class="lot-input modern-input"
+                               placeholder="123456">
+                    </div>
+                    <div class="total-group">
+                        <span class="total-label">Total:</span>
+                        <span class="price total-price">${formatCurrency(totalPrice)}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
     return row;
 }
 
 function createAdditionalProductRow(product, index, hasAnyDiscount = true) {
-    const row = document.createElement('tr');
-    row.className = `additional-product-row ${product.quantity > 0 ? 'has-quantity' : ''}`;
+    const row = document.createElement('div');
+    row.className = `product-card additional-product-row ${product.quantity > 0 ? 'has-quantity' : ''}`;
     
     let effectiveDiscount = product.individualDiscount !== null ? product.individualDiscount : 0;
     const discountedPrice = calculateDiscountedPrice(product.catalogPrice, effectiveDiscount);
     const totalPrice = calculateTotalPrice(product.quantity, discountedPrice);
 
-    const discountColumn = hasAnyDiscount ? `\n        <td>\n            <input type=\"number\" class=\"additional-product-discount-input ${product.individualDiscount !== null ? 'highlight-discount' : ''}\" \n                   data-index=\"${index}\" \n                   value=\"${product.individualDiscount !== null ? product.individualDiscount : ''}\" \n                   min=\"0\" max=\"100\" step=\"0.1\" placeholder=\"0.0\">\n        </td>\n        <td class=\"price discounted-price\">${formatCurrency(discountedPrice)}</td>\n    ` : '';
+    const discountColumn = hasAnyDiscount ? `
+        <div class="card-field-group">
+            <label>Desc. (%)</label>
+            <input type="number" class="additional-product-discount-input modern-input ${product.individualDiscount !== null ? 'highlight-discount' : ''}" 
+                   data-index="${index}" 
+                   value="${product.individualDiscount !== null ? product.individualDiscount : ''}" 
+                   min="0" max="100" step="0.1" placeholder="0.0">
+        </div>
+    ` : '';
 
-    row.innerHTML = `\n        <td><input type=\"text\" class=\"additional-product-name-input\" data-index=\"${index}\" value=\"${product.name}\" placeholder=\"Nome do Produto\"></td>\n        <td><input type=\"number\" class=\"additional-product-quantity-input\" data-index=\"${index}\" value=\"${product.quantity}\" min=\"0\" step=\"1\" placeholder=\"0\"></td>\n        <td><input type=\"number\" class=\"additional-product-price-input\" data-index=\"${index}\" value=\"${product.catalogPrice}\" min=\"0\" step=\"0.01\" placeholder=\"0.00\"></td>\n        ${discountColumn}\n        <td class=\"price total-price\">${formatCurrency(totalPrice)}</td>\n        <td>\n            <input type=\"text\" \n                   value=\"${product.lot || ''}\" \n                   maxlength=\"6\" \n                   data-additional-index=\"${index}\" \n                   class=\"lot-input\">\n        </td>\n    `;
+    row.innerHTML = `
+        <div class="product-card-body">
+            <div class="product-image-container">
+                <div class="new-product-badge">Novo</div>
+            </div>
+            
+            <div class="product-info-block">
+                <input type="text" class="additional-product-name-input modern-input" data-index="${index}" value="${product.name}" placeholder="Nome do Produto">
+                
+                <div class="product-metrics-row">
+                    <div style="display:flex;align-items:center;">
+                        <span class="catalog-price">Preço:</span>
+                        <input type="number" class="additional-product-price-input modern-input" data-index="${index}" value="${product.catalogPrice}" min="0" step="0.01" style="width:70px;height:24px;margin-left:4px;">
+                    </div>
+                    <span class="discounted-price-label">Liq.: <span class="discounted-price">${formatCurrency(discountedPrice)}</span></span>
+                </div>
+                
+                <div class="product-controls-row">
+                    <div class="qty-control-group">
+                        <label>Qtd</label>
+                        <input type="number" class="additional-product-quantity-input modern-input" data-index="${index}" value="${product.quantity}" min="0" step="1" placeholder="0">
+                    </div>
+                    ${discountColumn}
+                </div>
+                
+                <div class="product-footer-row">
+                    <div class="card-field-group lot-group">
+                        <label>Lote</label>
+                        <input type="text" 
+                               value="${product.lot || ''}" 
+                               maxlength="6" 
+                               data-additional-index="${index}" 
+                               class="lot-input modern-input"
+                               placeholder="123456">
+                    </div>
+                    <div class="total-group">
+                        <span class="total-label">Subtotal:</span>
+                        <span class="price total-price">${formatCurrency(totalPrice)}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
     return row;
 }
 
@@ -445,7 +557,7 @@ function setupEventListeners() {
             const product = orderState.products.find(p => p.id === productId);
             if (product) {
                 product.quantity = quantity;
-                updateProductRowCalculations(e.target.closest('tr'), product);
+                updateProductRowCalculations((e.target.closest('.product-card') || e.target.closest('tr')), product);
                 updateSummary();
                 updatePaymentDates();
                 saveData();
@@ -459,7 +571,7 @@ function setupEventListeners() {
             const product = orderState.products.find(p => p.id === productId);
             if (product) {
                 product.individualDiscount = discount;
-                updateProductRowCalculations(e.target.closest('tr'), product);
+                updateProductRowCalculations((e.target.closest('.product-card') || e.target.closest('tr')), product);
                 
                 if (discount !== null && discount > 0) {
                     e.target.classList.add('highlight-discount');
@@ -477,7 +589,7 @@ function setupEventListeners() {
             const quantity = parseInt(e.target.value) || 0;
             orderState.additionalProducts[index].quantity = quantity;
             
-            updateAdditionalProductRowCalculations(e.target.closest('tr'), orderState.additionalProducts[index]);
+            updateAdditionalProductRowCalculations((e.target.closest('.product-card') || e.target.closest('tr')), orderState.additionalProducts[index]);
             
             updateSummary();
             updatePaymentDates();
@@ -489,7 +601,7 @@ function setupEventListeners() {
             const price = parseFloat(e.target.value) || 0;
             orderState.additionalProducts[index].catalogPrice = price;
             
-            updateAdditionalProductRowCalculations(e.target.closest('tr'), orderState.additionalProducts[index]);
+            updateAdditionalProductRowCalculations((e.target.closest('.product-card') || e.target.closest('tr')), orderState.additionalProducts[index]);
             
             updateSummary();
             updatePaymentDates();
@@ -501,7 +613,7 @@ function setupEventListeners() {
             const discount = e.target.value === '' ? null : parseFloat(e.target.value);
             orderState.additionalProducts[index].individualDiscount = discount;
             
-            updateAdditionalProductRowCalculations(e.target.closest('tr'), orderState.additionalProducts[index]);
+            updateAdditionalProductRowCalculations((e.target.closest('.product-card') || e.target.closest('tr')), orderState.additionalProducts[index]);
             
             updateSummary();
             updatePaymentDates();
@@ -2275,7 +2387,7 @@ function setupRowHighlight() {
     
     table.addEventListener('focus', function(e) {
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') {
-            const row = e.target.closest('tr');
+            const row = (e.target.closest('.product-card') || e.target.closest('tr'));
             if (row) {
                 // Remover destaque de outras linhas
                 document.querySelectorAll('.products-table tbody tr.active-row').forEach(r => {
@@ -2289,7 +2401,7 @@ function setupRowHighlight() {
     
     table.addEventListener('blur', function(e) {
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') {
-            const row = e.target.closest('tr');
+            const row = (e.target.closest('.product-card') || e.target.closest('tr'));
             if (row) {
                 row.classList.remove('active-row');
             }
@@ -2727,3 +2839,49 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Botão de salvar já configurado no event listener principal (linha 711-713)
+
+
+
+// Script injection for +/- buttons
+document.addEventListener('click', function (e) {
+    if (e.target.classList.contains('btn-plus') || e.target.classList.contains('btn-minus')) {
+        const productId = parseInt(e.target.dataset.productId);
+        const product = window.orderState.products.find(p => p.id === productId);
+        if (product) {
+            const isPlus = e.target.classList.contains('btn-plus');
+
+            // Update quantity
+            if (isPlus) {
+                product.quantity = (product.quantity || 0) + 1;
+            } else {
+                product.quantity = Math.max(0, (product.quantity || 0) - 1);
+            }
+
+            // Find input and update value visually to avoid re-rendering entire grid
+            const card = e.target.closest('.product-card');
+            const input = card.querySelector('.quantity-input');
+            if (input) {
+                input.value = product.quantity;
+            }
+
+            // Execute same logic as input change
+            if (window.updateProductRowCalculations) {
+                window.updateProductRowCalculations(card, product);
+            }
+            if (window.updateSummary) window.updateSummary();
+            if (window.updatePaymentDates) window.updatePaymentDates();
+            if (window.saveData) window.saveData();
+        }
+    }
+});
+
+// Since orderState might not be globally exposed in some setups, lets ensure it is accessible:
+if (typeof window !== 'undefined') {
+    window.orderState = typeof orderState !== 'undefined' ? orderState : window.orderState;
+}
+
+// Ensure update methods exist on window if they didn't
+if (typeof window.updateProductRowCalculations === 'undefined' && typeof updateProductRowCalculations === 'function') {
+    window.updateProductRowCalculations = updateProductRowCalculations;
+}
+
