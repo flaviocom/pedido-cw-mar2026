@@ -83,7 +83,7 @@ let orderState = {
 };
 
 // Inicialização da aplicação
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     initializeApp();
 });
 
@@ -98,13 +98,13 @@ function initializeApp() {
     updatePaymentDates();
     renderPaymentDaysInputs();
     updateInstallmentsText(); // MELHORIA 5: Atualizar texto singular/plural
-    
+
     // Inicializar visibilidade do campo de parcelas do cartão de crédito
     const creditCheckbox = document.getElementById('payment-credit');
     if (creditCheckbox) {
         toggleCreditInstallmentsField(creditCheckbox.checked);
     }
-    
+
     console.log("initializeApp: Finalizado.");
 }
 
@@ -125,13 +125,13 @@ function setCurrentDate() {
         const brasiliaOffset = -3 * 60; // UTC-3 em minutos
         const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
         const brasiliaTime = new Date(utc + (brasiliaOffset * 60000));
-        
+
         // Formatar para YYYY-MM-DD
         const year = brasiliaTime.getFullYear();
         const month = String(brasiliaTime.getMonth() + 1).padStart(2, '0');
         const day = String(brasiliaTime.getDate()).padStart(2, '0');
         const formattedDate = `${year}-${month}-${day}`;
-        
+
         orderDateElement.value = formattedDate;
         orderState.orderDate = formattedDate;
     }
@@ -143,26 +143,26 @@ function updateGeneralDeadlineDate() {
     const orderDateElement = document.getElementById('order-date');
     const generalDeadlineDateElement = document.getElementById('general-deadline-date');
     const generalDeadlineDaysInput = document.getElementById('general-deadline-days');
-    
+
     if (!orderDateElement || !generalDeadlineDateElement) return;
-    
+
     // Se o input estiver vazio, limpar a data também
     if (!generalDeadlineDaysInput || !generalDeadlineDaysInput.value) {
         generalDeadlineDateElement.textContent = '';
         return;
     }
-    
+
     // Carregar valor do input se existir
     if (generalDeadlineDaysInput && generalDeadlineDaysInput.value) {
         orderState.generalDeadlineDays = parseInt(generalDeadlineDaysInput.value) || 0;
     }
-    
+
     const orderDate = orderDateElement.value ? new Date(orderDateElement.value + 'T00:00:00') : new Date();
     const days = orderState.generalDeadlineDays || 0;
     const deadlineDate = new Date(orderDate.getTime() + days * 24 * 60 * 60 * 1000);
-    
+
     generalDeadlineDateElement.textContent = deadlineDate.toLocaleDateString('pt-BR');
-    
+
     // Atualizar o valor do input se necessário
     if (generalDeadlineDaysInput && !generalDeadlineDaysInput.value) {
         generalDeadlineDaysInput.value = orderState.generalDeadlineDays;
@@ -173,20 +173,20 @@ function updateGeneralDeadlineDate() {
 function renderPaymentDaysInputs() {
     const container = document.getElementById('payment-days-container');
     if (!container) return;
-    
+
     container.innerHTML = '';
 
     for (let i = 0; i < orderState.installments; i++) {
         const dayItem = document.createElement('div');
         dayItem.className = 'payment-day-item';
-        
+
         // CORREÇÃO: Adicionar data dinâmica sem parênteses
         const orderDateElement = document.getElementById('order-date');
         const orderDate = orderDateElement ? new Date(orderDateElement.value) : new Date();
         const days = orderState.paymentDays[i] || 0;
         const paymentDate = new Date(orderDate.getTime() + (days + 1) * 24 * 60 * 60 * 1000);
         const formattedDate = days > 0 ? paymentDate.toLocaleDateString('pt-BR') : '(definir prazo)';
-        
+
         dayItem.innerHTML = `\n            <label class=\"payment-day-label\">Prazo ${i + 1}ª Parcela</label>\n            <div style=\"display: flex; align-items: center; gap: 8px;\">\n                <input type=\"number\" \n                       id=\"payment-days-${i}\" \n                       value=\"${orderState.paymentDays[i] || ''}\" \n                       min=\"1\" \n                       max=\"999\"\n                       step=\"1\" \n                       data-installment-index=\"${i}\" \n                       class=\"payment-day-input payment-days-input\"\n                       placeholder=\"dias\"\n                       style=\"width: 60px;\">\n                <span class=\"payment-date-display\" id=\"payment-date-${i}\" style=\"font-size: 12px; color: #666;\">${formattedDate}</span>\n            </div>\n        `;
         container.appendChild(dayItem);
     }
@@ -201,7 +201,7 @@ function updateInstallmentsText() {
         const count = parseInt(installmentsInput.value) || 1;
         boletoLabel.textContent = count === 1 ? 'Parcela' : 'Parcelas';
     }
-    
+
     // Atualizar texto do Cartão de Crédito
     const creditLabel = document.getElementById('payment-installments-label');
     const creditInput = document.getElementById('payment-credit-installments');
@@ -214,7 +214,7 @@ function updateInstallmentsText() {
 function updatePaymentDates() {
     const orderDateElement = document.getElementById('order-date');
     let orderDate;
-    
+
     if (orderDateElement && orderDateElement.value) {
         // Corrigir a interpretação da data
         const dateValue = orderDateElement.value;
@@ -228,10 +228,10 @@ function updatePaymentDates() {
     } else {
         orderDate = new Date();
     }
-    
+
     const installmentsDetails = document.getElementById('installments-details');
     if (!installmentsDetails) return;
-    
+
     installmentsDetails.innerHTML = '';
 
     const settlementValue = calculateSettlementValue();
@@ -249,7 +249,7 @@ function updatePaymentDates() {
 
     // Verificar se Boleto está selecionado
     const isBoletoSelected = orderState.paymentMethods.boleto.enabled;
-    
+
     if (isBoletoSelected) {
         // Se Boleto: usar prazos específicos do Boleto
         for (let i = 0; i < orderState.installments; i++) {
@@ -257,13 +257,13 @@ function updatePaymentDates() {
             const paymentDate = new Date(orderDate.getTime() + days * 24 * 60 * 60 * 1000);
             const installmentItem = document.createElement('div');
             installmentItem.className = 'installment-item';
-            
+
             if (orderState.installments === 1) {
                 installmentItem.innerHTML = `<strong class="highlight-settlement-date">Acerto até dia:</strong> <span class="highlight-settlement-date">${paymentDate.toLocaleDateString('pt-BR')}</span>`;
             } else {
                 installmentItem.innerHTML = `<strong>${i + 1}ª Parcela ${formatCurrency(installmentValue)} - <span class="highlight-settlement-date">(Acerto até dia):</span></strong> <span class="highlight-settlement-date">${paymentDate.toLocaleDateString('pt-BR')}</span>`;
             }
-            
+
             installmentsDetails.appendChild(installmentItem);
         }
     } else {
@@ -299,26 +299,26 @@ function loadSavedData() {
             document.getElementById('address').value = orderState.address || '';
             document.getElementById('phone').value = orderState.phone || '';
             document.getElementById('attendance-by').value = orderState.attendanceBy || '';
-            
+
             // Só carregar a data salva se o campo ainda estiver vazio
             const orderDateElement = document.getElementById('order-date');
             if (orderDateElement && !orderDateElement.value && orderState.orderDate) {
                 orderDateElement.value = orderState.orderDate;
             }
-            
+
             document.getElementById('credit-paid').value = orderState.creditPaid || 0;
             document.getElementById('general-discount').value = orderState.generalDiscount || 0;
             document.getElementById('freight').value = orderState.freight || 0;
             document.getElementById('transport-select').value = orderState.transportOption || '';
             document.getElementById('installments').value = orderState.installments || 1;
             document.getElementById('notes').value = orderState.notes || '';
-            
+
             // Carregar Prazo Geral (vazio se não houver valor salvo)
             const generalDeadlineDaysInput = document.getElementById('general-deadline-days');
             if (generalDeadlineDaysInput) {
                 generalDeadlineDaysInput.value = orderState.generalDeadlineDays || '';
             }
-            
+
             // Carregar formas de pagamento
             if (orderState.paymentMethods) {
                 document.getElementById('payment-pix').checked = orderState.paymentMethods.pix.enabled;
@@ -349,12 +349,12 @@ function renderProductsTable(productsToDisplay = orderState.products) {
         console.error("renderProductsTable: Elemento products-tbody não encontrado");
         return;
     }
-    
+
     tbody.innerHTML = "";
-    
+
     // CORREÇÃO: Sempre mostrar colunas de desconto (sempre true)
     const hasAnyDiscount = true;
-    
+
     productsToDisplay.forEach((product, index) => {
         const row = createProductRow(product, index, false, hasAnyDiscount);
         tbody.appendChild(row);
@@ -374,19 +374,25 @@ function renderProductsTable(productsToDisplay = orderState.products) {
     tbody.appendChild(addRow);
 
     updateTableHeader(hasAnyDiscount);
+
+    // Reaplicar "ocultar linhas vazias" se estiver ativo
+    const hideEmptyCheckbox = document.getElementById('hide-empty-lines');
+    if (hideEmptyCheckbox && hideEmptyCheckbox.checked) {
+        toggleEmptyLines(true);
+    }
 }
 
 function checkIfHasAnyDiscount() {
     if (orderState.generalDiscount > 0) return true;
-    
+
     for (let product of orderState.products) {
         if (product.individualDiscount !== null && product.individualDiscount > 0) return true;
     }
-    
+
     for (let product of orderState.additionalProducts) {
         if (product.individualDiscount !== null && product.individualDiscount > 0) return true;
     }
-    
+
     return false;
 }
 
@@ -398,7 +404,7 @@ function updateTableHeader(hasAnyDiscount) {
 function createProductRow(product, index, isCustom = false, hasAnyDiscount = true) {
     const row = document.createElement("div");
     row.className = `product-card ${product.quantity > 0 ? "has-quantity" : ""}`;
-    
+
     let effectiveDiscount = product.individualDiscount !== null ? product.individualDiscount : orderState.generalDiscount;
     if (product.applyGeneralDiscount === false) {
         effectiveDiscount = product.individualDiscount !== null ? product.individualDiscount : 0;
@@ -421,7 +427,7 @@ function createProductRow(product, index, isCustom = false, hasAnyDiscount = tru
                    class="discount-input modern-input ${product.individualDiscount !== null ? "highlight-discount" : ""}">
         </div>
     ` : '';
-    
+
     row.innerHTML = `
         <div class="product-card-body">
             <div class="product-image-container">
@@ -478,7 +484,7 @@ function createProductRow(product, index, isCustom = false, hasAnyDiscount = tru
 function createAdditionalProductRow(product, index, hasAnyDiscount = true) {
     const row = document.createElement('div');
     row.className = `product-card additional-product-row ${product.quantity > 0 ? 'has-quantity' : ''}`;
-    
+
     let effectiveDiscount = product.individualDiscount !== null ? product.individualDiscount : 0;
     const discountedPrice = calculateDiscountedPrice(product.catalogPrice, effectiveDiscount);
     const totalPrice = calculateTotalPrice(product.quantity, discountedPrice);
@@ -541,18 +547,18 @@ function createAdditionalProductRow(product, index, hasAnyDiscount = true) {
 
 function setupEventListeners() {
     // Event listener para data do pedido
-    document.getElementById('order-date').addEventListener('change', function(e) {
+    document.getElementById('order-date').addEventListener('change', function (e) {
         orderState.orderDate = e.target.value;
         updatePaymentDates();
         saveData();
     });
 
     // Event listeners para campos básicos
-    document.addEventListener('input', function(e) {
+    document.addEventListener('input', function (e) {
         if (e.target.classList.contains('quantity-input')) {
             const productId = parseInt(e.target.dataset.productId);
             const quantity = parseInt(e.target.value) || 0;
-            
+
             // Encontrar o produto pelo ID
             const product = orderState.products.find(p => p.id === productId);
             if (product) {
@@ -563,22 +569,22 @@ function setupEventListeners() {
                 saveData();
             }
         }
-                if (e.target.classList.contains('discount-input')) {
+        if (e.target.classList.contains('discount-input')) {
             const productId = parseInt(e.target.dataset.productId);
             const discount = e.target.value === '' ? null : parseFloat(e.target.value);
-            
+
             // Encontrar o produto pelo ID
             const product = orderState.products.find(p => p.id === productId);
             if (product) {
                 product.individualDiscount = discount;
                 updateProductRowCalculations((e.target.closest('.product-card') || e.target.closest('tr')), product);
-                
+
                 if (discount !== null && discount > 0) {
                     e.target.classList.add('highlight-discount');
                 } else {
                     e.target.classList.remove('highlight-discount');
                 }
-                
+
                 updateSummary();
                 updatePaymentDates();
                 saveData();
@@ -588,43 +594,43 @@ function setupEventListeners() {
             const index = parseInt(e.target.dataset.index);
             const quantity = parseInt(e.target.value) || 0;
             orderState.additionalProducts[index].quantity = quantity;
-            
+
             updateAdditionalProductRowCalculations((e.target.closest('.product-card') || e.target.closest('tr')), orderState.additionalProducts[index]);
-            
+
             updateSummary();
             updatePaymentDates();
             saveData();
         }
-        
+
         if (e.target.classList.contains('additional-product-price-input')) {
             const index = parseInt(e.target.dataset.index);
             const price = parseFloat(e.target.value) || 0;
             orderState.additionalProducts[index].catalogPrice = price;
-            
+
             updateAdditionalProductRowCalculations((e.target.closest('.product-card') || e.target.closest('tr')), orderState.additionalProducts[index]);
-            
+
             updateSummary();
             updatePaymentDates();
             saveData();
         }
-        
+
         if (e.target.classList.contains('additional-product-discount-input')) {
             const index = parseInt(e.target.dataset.index);
             const discount = e.target.value === '' ? null : parseFloat(e.target.value);
             orderState.additionalProducts[index].individualDiscount = discount;
-            
+
             updateAdditionalProductRowCalculations((e.target.closest('.product-card') || e.target.closest('tr')), orderState.additionalProducts[index]);
-            
+
             updateSummary();
             updatePaymentDates();
             saveData();
         }
-        
+
         // Event listener para campos de lote
         if (e.target.classList.contains('lot-input')) {
             const index = parseInt(e.target.dataset.productIndex);
             const additionalIndex = parseInt(e.target.dataset.additionalIndex);
-            
+
             if (!isNaN(index) && index >= 0 && index < orderState.products.length) {
                 orderState.products[index].lot = e.target.value;
                 saveData();
@@ -633,7 +639,7 @@ function setupEventListeners() {
                 saveData();
             }
         }
-        
+
         // MELHORIA 6: Event listener para campos de prazo com 3 dígitos
         if (e.target.classList.contains('payment-days-input')) {
             const index = parseInt(e.target.dataset.installmentIndex);
@@ -645,29 +651,29 @@ function setupEventListeners() {
             } else {
                 orderState.paymentDays[index] = value;
             }
-            
+
             // CORREÇÃO: Atualizar data dinâmica sem parênteses
             const orderDateElement = document.getElementById('order-date');
             const orderDate = orderDateElement ? new Date(orderDateElement.value) : new Date();
             const days = orderState.paymentDays[index] || 0;
             const paymentDate = new Date(orderDate.getTime() + (days + 1) * 24 * 60 * 60 * 1000);
             const formattedDate = days > 0 ? paymentDate.toLocaleDateString('pt-BR') : '(definir prazo)';
-            
+
             const dateDisplay = document.getElementById(`payment-date-${index}`);
             if (dateDisplay) {
                 dateDisplay.textContent = formattedDate;
             }
-            
+
             updatePaymentDates();
             saveData();
         }
-        
+
         if (e.target.classList.contains('additional-product-name-input')) {
             const index = parseInt(e.target.dataset.index);
             orderState.additionalProducts[index].name = e.target.value;
             saveData();
         }
-        
+
         // Event listeners para campos básicos
         if (e.target.id === 'reseller-name') {
             orderState.resellerName = e.target.value;
@@ -704,13 +710,13 @@ function setupEventListeners() {
             updatePaymentDates();
             saveData();
         }
-        
+
         if (e.target.id === 'transport-select') {
             orderState.transportOption = e.target.value;
             updateTransportDisplay();
             saveData();
         }
-        
+
         // Event listener para Prazo Geral
         if (e.target.id === 'general-deadline-days') {
             orderState.generalDeadlineDays = parseInt(e.target.value) || 0;
@@ -718,12 +724,12 @@ function setupEventListeners() {
             updatePaymentDates();
             saveData();
         }
-        
+
         // MELHORIA 5: Event listener para parcelas do Boleto
         if (e.target.id === 'installments') {
             const newInstallments = parseInt(e.target.value) || 1;
             orderState.installments = Math.max(1, Math.min(12, newInstallments));
-            
+
             while (orderState.paymentDays.length < orderState.installments) {
                 orderState.paymentDays.push(0);
             }
@@ -735,7 +741,7 @@ function setupEventListeners() {
             updateSummary(); // NOVO: Atualizar valor da parcela do Boleto
             saveData();
         }
-        
+
         // MELHORIA 5: Event listener para parcelas do Cartão
         if (e.target.id === 'payment-credit-installments') {
             const newInstallments = parseInt(e.target.value) || 1;
@@ -744,12 +750,12 @@ function setupEventListeners() {
             updateSummary(); // Atualizar valor da parcela dinamicamente
             saveData();
         }
-        
+
         if (e.target.id === 'notes') {
             orderState.notes = e.target.value;
             saveData();
         }
-        
+
         // Event listeners para formas de pagamento
         if (e.target.id === 'payment-pix-details') {
             orderState.paymentMethods.pix.details = e.target.value;
@@ -759,7 +765,7 @@ function setupEventListeners() {
             orderState.paymentMethods.transfer.details = e.target.value;
             saveData();
         }
-        
+
         if (e.target.id === 'product-search') {
             filterProducts(e.target.value);
             toggleClearSearchButton(e.target.value);
@@ -767,7 +773,7 @@ function setupEventListeners() {
     });
 
     // Event listeners para checkboxes de pagamento
-    document.addEventListener('change', function(e) {
+    document.addEventListener('change', function (e) {
         if (e.target.id === 'payment-pix') {
             orderState.paymentMethods.pix.enabled = e.target.checked;
             updatePaymentDates(); // Atualizar datas dinamicamente
@@ -789,15 +795,15 @@ function setupEventListeners() {
             updatePaymentDates(); // Atualizar datas dinamicamente
             saveData();
         }
-        
+
         if (e.target.id === 'hide-empty-lines') {
             toggleEmptyLines(e.target.checked);
         }
     });
 
     // Event listeners para seleção automática de texto nos campos de quantidade e desconto
-    document.addEventListener('focus', function(e) {
-        if (e.target.classList.contains('quantity-input') || 
+    document.addEventListener('focus', function (e) {
+        if (e.target.classList.contains('quantity-input') ||
             e.target.classList.contains('discount-input') ||
             e.target.classList.contains('additional-product-quantity-input') ||
             e.target.classList.contains('additional-product-discount-input') ||
@@ -808,7 +814,7 @@ function setupEventListeners() {
     }, true);
 
     // Event listeners para botões
-    document.addEventListener('click', function(e) {
+    document.addEventListener('click', function (e) {
         if (e.target.id === 'clear-order-btn') {
             if (confirm('Tem certeza que deseja limpar todos os dados do pedido?')) {
                 clearOrder();
@@ -864,20 +870,20 @@ function setupEventListeners() {
             scrollToBottom();
         }
     });
-    
+
     // Event listeners adicionais para melhor responsividade dos botões de scroll
     const scrollToTopBtn = document.getElementById('scroll-to-top');
     const scrollToBottomBtn = document.getElementById('scroll-to-bottom');
-    
+
     if (scrollToTopBtn) {
-        scrollToTopBtn.addEventListener('touchstart', function(e) {
+        scrollToTopBtn.addEventListener('touchstart', function (e) {
             e.preventDefault();
             scrollToTop();
         }, { passive: false });
     }
-    
+
     if (scrollToBottomBtn) {
-        scrollToBottomBtn.addEventListener('touchstart', function(e) {
+        scrollToBottomBtn.addEventListener('touchstart', function (e) {
             e.preventDefault();
             scrollToBottom();
         }, { passive: false });
@@ -886,7 +892,7 @@ function setupEventListeners() {
 
 function updateProductRowCalculations(row, product) {
     if (!row) return;
-    
+
     let effectiveDiscount = product.individualDiscount !== null ? product.individualDiscount : orderState.generalDiscount;
     if (product.applyGeneralDiscount === false) {
         effectiveDiscount = product.individualDiscount !== null ? product.individualDiscount : 0;
@@ -897,10 +903,10 @@ function updateProductRowCalculations(row, product) {
 
     const discountedPriceCell = row.querySelector('.discounted-price');
     const totalPriceCell = row.querySelector('.total-price');
-    
+
     if (discountedPriceCell) discountedPriceCell.textContent = formatCurrency(discountedPrice);
     if (totalPriceCell) totalPriceCell.textContent = formatCurrency(totalPrice);
-    
+
     if (product.quantity > 0) {
         row.classList.add("has-quantity");
     } else {
@@ -910,17 +916,17 @@ function updateProductRowCalculations(row, product) {
 
 function updateAdditionalProductRowCalculations(row, product) {
     if (!row) return;
-    
+
     let effectiveDiscount = product.individualDiscount !== null ? product.individualDiscount : 0;
     const discountedPrice = calculateDiscountedPrice(product.catalogPrice, effectiveDiscount);
     const totalPrice = calculateTotalPrice(product.quantity, discountedPrice);
 
     const discountedPriceCell = row.querySelector('.discounted-price');
     const totalPriceCell = row.querySelector('.total-price');
-    
+
     if (discountedPriceCell) discountedPriceCell.textContent = formatCurrency(discountedPrice);
     if (totalPriceCell) totalPriceCell.textContent = formatCurrency(totalPrice);
-    
+
     if (product.quantity > 0) {
         row.classList.add("has-quantity");
     } else {
@@ -950,32 +956,32 @@ function updateSummary() {
 
     const grossValueEl = document.getElementById('gross-value');
     if (grossValueEl) grossValueEl.textContent = formatCurrency(grossValue);
-    
+
     const generalDiscountValueEl = document.getElementById('general-discount-value');
     if (generalDiscountValueEl) generalDiscountValueEl.textContent = formatCurrency(generalDiscountValue);
-    
+
     const freightValueEl = document.getElementById('freight-value');
     if (freightValueEl) freightValueEl.textContent = formatCurrency(orderState.freight);
-    
+
     const settlementValueEl = document.getElementById('settlement-value');
     if (settlementValueEl) settlementValueEl.textContent = formatCurrency(settlementValue);
-    
+
     const finalValueEl = document.getElementById('final-value');
     if (finalValueEl) finalValueEl.textContent = formatCurrency(finalValue);
-    
+
     const profitValueEl = document.getElementById('profit-value');
     const profitItemEl = document.getElementById('profit-item');
     if (profitValueEl) profitValueEl.textContent = formatCurrency(profit);
     if (profitItemEl) {
         profitItemEl.style.display = profit > 0 ? 'flex' : 'none';
     }
-    
+
     const creditPaidValueEl = document.getElementById('credit-paid-value');
     if (creditPaidValueEl) creditPaidValueEl.textContent = formatCurrency(orderState.creditPaid);
-    
+
     const discountedValueEl = document.getElementById('discounted-value');
     if (discountedValueEl) discountedValueEl.textContent = formatCurrency(discountedValue);
-    
+
     // Atualizar valor da parcela do Cartao de Credito
     const creditInstallmentValueEl = document.getElementById('credit-installment-value');
     if (creditInstallmentValueEl) {
@@ -1001,7 +1007,7 @@ function formatCurrency(value) {
 }
 
 // Adicionar event listener para o botão de copiar
-document.addEventListener("click", function(e) {
+document.addEventListener("click", function (e) {
     if (e.target.id === "copy-settlement-value") {
         const settlementValueElement = document.getElementById("settlement-value");
         if (settlementValueElement) {
@@ -1022,7 +1028,7 @@ document.addEventListener("click", function(e) {
 function clearOrder() {
     // Preservar o campo "Atendimento por" (não limpar)
     const currentAttendanceBy = orderState.attendanceBy;
-    
+
     orderState = {
         resellerName: '',
         address: '',
@@ -1036,7 +1042,7 @@ function clearOrder() {
         generalDiscount: 0,
         generalDeadlineDays: 0,
         paymentDays: [],
-         notes: '',
+        notes: '',
         packaging: orderState.packaging.map(pkg => ({ ...pkg, quantity: 0 })), // Limpar apenas a quantidade de caixas
         paymentMethods: {
             pix: {
@@ -1103,7 +1109,7 @@ function generateFileName() {
         alert('Por favor, informe o nome completo antes de salvar.');
         return null;
     }
-    
+
     if (!orderState.attendanceBy.trim()) {
         alert('Por favor, informe o nome do atendente antes de salvar.');
         return null;
@@ -1112,7 +1118,7 @@ function generateFileName() {
     // Usar a data do campo "Data do Pedido", não a data atual do sistema
     const orderDateElement = document.getElementById('order-date');
     let orderDate;
-    
+
     if (orderDateElement && orderDateElement.value) {
         // Garantir que a data seja interpretada corretamente
         const dateValue = orderDateElement.value;
@@ -1120,11 +1126,11 @@ function generateFileName() {
     } else {
         orderDate = new Date();
     }
-    
+
     const year = orderDate.getFullYear();
     const month = String(orderDate.getMonth() + 1).padStart(2, '0');
     const day = String(orderDate.getDate()).padStart(2, '0');
-    
+
     // Formato: aaaammdd_AtendimentoPor_NomeDoCliente (preservando espaços)
     return `${year}${month}${day}_${orderState.attendanceBy.trim()}_${orderState.resellerName.trim()}`;
 }
@@ -1151,11 +1157,11 @@ function copySettlementValue() {
     const settlementValueElement = document.getElementById('settlement-value');
     if (settlementValueElement) {
         const rawValue = settlementValueElement.textContent.trim();
-        
+
         // Calcular data de acerto (data do pedido + prazo geral)
         const orderDateElement = document.getElementById('order-date');
         const generalDeadlineDaysInput = document.getElementById('general-deadline-days');
-        
+
         let settlementDateText = '';
         if (orderDateElement && orderDateElement.value && generalDeadlineDaysInput && generalDeadlineDaysInput.value) {
             const orderDate = new Date(orderDateElement.value + 'T00:00:00');
@@ -1163,7 +1169,7 @@ function copySettlementValue() {
             const settlementDate = new Date(orderDate.getTime() + days * 24 * 60 * 60 * 1000);
             settlementDateText = `\nAcerto até dia: ${settlementDate.toLocaleDateString('pt-BR')}`;
         }
-        
+
         const textToCopy = `Valor do acerto: ${rawValue}${settlementDateText}`;
         navigator.clipboard.writeText(textToCopy).then(() => {
             // Sem alerta de confirmação
@@ -1180,7 +1186,7 @@ function saveOrderAsImage() {
     if (!fileName) return;
 
     const printContent = createPrintableContent();
-    
+
     html2canvas(printContent, {
         scale: 2,
         useCORS: true,
@@ -1191,7 +1197,7 @@ function saveOrderAsImage() {
         link.download = `${fileName}.jpg`;
         link.href = canvas.toDataURL('image/jpeg', 0.9);
         link.click();
-        
+
         document.body.removeChild(printContent);
         console.log('Imagem salva com sucesso!');
     }).catch(error => {
@@ -1228,7 +1234,7 @@ function printOrderAsPDF() {
     }
 
     const printContent = createPrintableContent();
-    
+
     html2canvas(printContent, {
         scale: 2,
         useCORS: true,
@@ -1239,26 +1245,26 @@ function printOrderAsPDF() {
         height: printContent.scrollHeight
     }).then(canvas => {
         const imgData = canvas.toDataURL('image/png');
-        
+
         const pdf = new jsPDFClass('p', 'mm', 'a4');
-        
+
         const imgWidth = 210;
         const pageHeight = 295;
         const imgHeight = (canvas.height * imgWidth) / canvas.width;
         let heightLeft = imgHeight;
-        
+
         let position = 0;
-        
+
         pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
         heightLeft -= pageHeight;
-        
+
         while (heightLeft >= 0) {
             position = heightLeft - imgHeight;
             pdf.addPage();
             pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
             heightLeft -= pageHeight;
         }
-        
+
         pdf.save(`${fileName}.pdf`);
         document.body.removeChild(printContent);
         console.log('PDF gerado com sucesso!');
@@ -1276,7 +1282,7 @@ function createPrintableContent() {
     // Usar a data do campo "Data do Pedido", não a data atual do sistema
     const orderDateElement = document.getElementById('order-date');
     let orderDate;
-    
+
     if (orderDateElement && orderDateElement.value) {
         // Garantir que a data seja interpretada corretamente
         const dateValue = orderDateElement.value;
@@ -1284,7 +1290,7 @@ function createPrintableContent() {
     } else {
         orderDate = new Date();
     }
-    
+
     const formattedOrderDate = orderDate.toLocaleDateString('pt-BR');
 
     let productsHTML = '';
@@ -1303,7 +1309,7 @@ function createPrintableContent() {
             const totalPrice = calculateTotalPrice(product.quantity, discountedPrice);
 
             const hasAnyDiscount = checkIfHasAnyDiscount();
-            
+
             if (hasAnyDiscount) {
                 productsHTML += `\n                    <tr>\n                        <td style=\"border: 1px solid #ddd; padding: 8px;\">${product.name}</td>\n                        <td style=\"text-align: center; border: 1px solid #ddd; padding: 8px;\">${product.quantity}</td>\n                        <td style=\"text-align: right; border: 1px solid #ddd; padding: 8px;\">${formatCurrency(product.catalogPrice)}</td>\n                        <td style=\"text-align: center; border: 1px solid #ddd; padding: 8px;\">${effectiveDiscount.toFixed(1)}%</td>\n                        <td style=\"text-align: right; border: 1px solid #ddd; padding: 8px;\">${formatCurrency(discountedPrice)}</td>\n                        <td style=\"text-align: right; border: 1px solid #ddd; padding: 8px;\">${formatCurrency(totalPrice)}</td>\n                    </tr>\n                `;
             } else {
@@ -1319,7 +1325,7 @@ function createPrintableContent() {
             const totalPrice = calculateTotalPrice(product.quantity, discountedPrice);
 
             const hasAnyDiscount = checkIfHasAnyDiscount();
-            
+
             if (hasAnyDiscount) {
                 productsHTML += `\n                    <tr>\n                        <td style=\"border: 1px solid #ddd; padding: 8px;\">${product.name}</td>\n                        <td style=\"text-align: center; border: 1px solid #ddd; padding: 8px;\">${product.quantity}</td>\n                        <td style=\"text-align: right; border: 1px solid #ddd; padding: 8px;\">${formatCurrency(product.catalogPrice)}</td>\n                        <td style=\"text-align: center; border: 1px solid #ddd; padding: 8px;\">${effectiveDiscount.toFixed(1)}%</td>\n                        <td style=\"text-align: right; border: 1px solid #ddd; padding: 8px;\">${formatCurrency(discountedPrice)}</td>\n                        <td style=\"text-align: right; border: 1px solid #ddd; padding: 8px;\">${formatCurrency(totalPrice)}</td>\n                    </tr>\n                `;
             } else {
@@ -1348,7 +1354,7 @@ function generatePaymentConditionsHTML() {
     // Usar a data do campo "Data do Pedido", não a data atual do sistema
     const orderDateElement = document.getElementById('order-date');
     let orderDate;
-    
+
     if (orderDateElement && orderDateElement.value) {
         // Corrigir a interpretação da data
         const dateValue = orderDateElement.value;
@@ -1362,13 +1368,13 @@ function generatePaymentConditionsHTML() {
     } else {
         orderDate = new Date();
     }
-    
+
     let html = '';
-    
+
     // Adicionar formas de pagamento selecionadas (com ✅)
     const paymentMethods = [];
-    
-        // Verificar PIX (primeiro)
+
+    // Verificar PIX (primeiro)
     const pixCheckbox = document.querySelector('input[type="checkbox"][id*="pix"]') || document.querySelector('input[type="checkbox"]');
     if (pixCheckbox && pixCheckbox.checked) {
         const pixDetails = document.querySelector('input[placeholder*="PIX"]');
@@ -1378,7 +1384,7 @@ function generatePaymentConditionsHTML() {
             paymentMethods.push('PIX');
         }
     }
-    
+
     // Verificar Cartão de Crédito (segundo)
     const creditCheckbox = document.getElementById('payment-credit');
     if (creditCheckbox && creditCheckbox.checked) {
@@ -1409,7 +1415,7 @@ function generatePaymentConditionsHTML() {
             paymentMethods.push(`Boleto: ${installments} Parcelas`);
         }
     }
-    
+
     // Exibir formas de pagamento selecionadas
     if (paymentMethods.length > 0) {
         html += '<div style="margin-bottom: 5px;">';
@@ -1418,17 +1424,17 @@ function generatePaymentConditionsHTML() {
         });
         html += '</div>';
     }
-    
+
     // Verificar se Boleto está selecionado
     const isBoletoSelected = boletoCheckbox && boletoCheckbox.checked;
-    
+
     if (isBoletoSelected) {
         // Se Boleto: usar prazos específicos do Boleto
         for (let i = 0; i < orderState.installments; i++) {
             const days = orderState.paymentDays[i] || 0;
             const paymentDate = new Date(orderDate.getTime() + days * 24 * 60 * 60 * 1000);
             const installmentValue = calculateSettlementValue() / orderState.installments;
-            
+
             if (orderState.installments === 1) {
                 html += `<p><strong style="font-size: 16px; font-weight: 700; color: #dc3545;">Acerto até dia:</strong> <span style="font-size: 16px; font-weight: 700; color: #dc3545;">${paymentDate.toLocaleDateString('pt-BR')}</span></p>`;
             } else {
@@ -1441,7 +1447,7 @@ function generatePaymentConditionsHTML() {
         const paymentDate = new Date(orderDate.getTime() + generalDeadlineDays * 24 * 60 * 60 * 1000);
         html += `<p><strong style="font-size: 16px; font-weight: 700; color: #dc3545;">Acerto até dia:</strong> <span style="font-size: 16px; font-weight: 700; color: #dc3545;">${paymentDate.toLocaleDateString('pt-BR')}</span></p>`;
     }
-    
+
     return html;
 }
 
@@ -1464,15 +1470,15 @@ function exportToExcel() {
 
     try {
         const data = [];
-        
+
         data.push(['PEDIDO DE VENDAS']);
         data.push([]);
         data.push(['NOME:', orderState.resellerName]);
-        
+
         // Usar a data do campo "Data do Pedido", não a data atual do sistema
         const orderDateElement = document.getElementById('order-date');
         let orderDate;
-        
+
         if (orderDateElement && orderDateElement.value) {
             // Garantir que a data seja interpretada corretamente
             const dateValue = orderDateElement.value;
@@ -1480,23 +1486,23 @@ function exportToExcel() {
         } else {
             orderDate = new Date();
         }
-        
+
         data.push(['Data do Pedido:', orderDate.toLocaleDateString('pt-BR')]);
         if (orderState.address) data.push(['Endereço:', orderState.address]);
         if (orderState.phone) data.push(['Telefone:', orderState.phone]);
         if (orderState.attendanceBy) data.push(['Atendimento por:', orderState.attendanceBy]);
         data.push([]);
-        
+
         const hasAnyDiscount = checkIfHasAnyDiscount();
-        const productHeader = hasAnyDiscount ? 
+        const productHeader = hasAnyDiscount ?
             ['Produto', 'Quantidade', 'Preço Catálogo', 'Desconto (%)', 'Preço c/ Desconto', 'Total Item'] :
             ['Produto', 'Quantidade', 'Preço Catálogo', 'Total Item'];
         data.push(productHeader);
-        
+
         // Usar as funções que já incluem embalagens
         const totalQuantity = calculateTotalQuantity();
         const totalWeight = calculateTotalWeight();
-        
+
         orderState.products.forEach(product => {
             if (product.quantity > 0) {
                 let effectiveDiscount = product.individualDiscount !== null ? product.individualDiscount : orderState.generalDiscount;
@@ -1507,7 +1513,7 @@ function exportToExcel() {
                 const discountedPrice = calculateDiscountedPrice(product.catalogPrice, effectiveDiscount);
                 const totalPrice = calculateTotalPrice(product.quantity, discountedPrice);
 
-                const row = hasAnyDiscount ? 
+                const row = hasAnyDiscount ?
                     [product.name, product.quantity, formatCurrencyForExcel(product.catalogPrice), effectiveDiscount + '%', formatCurrencyForExcel(discountedPrice), formatCurrencyForExcel(totalPrice)] :
                     [product.name, product.quantity, formatCurrencyForExcel(product.catalogPrice), formatCurrencyForExcel(totalPrice)];
                 data.push(row);
@@ -1520,7 +1526,7 @@ function exportToExcel() {
                 const discountedPrice = calculateDiscountedPrice(product.catalogPrice, effectiveDiscount);
                 const totalPrice = calculateTotalPrice(product.quantity, discountedPrice);
 
-                const row = hasAnyDiscount ? 
+                const row = hasAnyDiscount ?
                     [product.name, product.quantity, formatCurrencyForExcel(product.catalogPrice), effectiveDiscount + '%', formatCurrencyForExcel(discountedPrice), formatCurrencyForExcel(totalPrice)] :
                     [product.name, product.quantity, formatCurrencyForExcel(product.catalogPrice), formatCurrencyForExcel(totalPrice)];
                 data.push(row);
@@ -1547,10 +1553,10 @@ function exportToExcel() {
 
         data.push([]);
         data.push(['Forma de Pagamento']);
-        
+
         // Adicionar formas de pagamento selecionadas (com ✅) no Excel
         const paymentMethods = [];
-        
+
         // Verificar PIX
         const pixCheckbox = document.querySelector("input[type=\"checkbox\"][id*=\"pix\"]") || document.querySelector("input[type=\"checkbox\"]");
         if (pixCheckbox && pixCheckbox.checked) {
@@ -1561,7 +1567,7 @@ function exportToExcel() {
                 paymentMethods.push("✅ PIX");
             }
         }
-             // Verificar Cartão de Crédito
+        // Verificar Cartão de Crédito
         const creditCheckbox = document.getElementById("payment-credit");
         if (creditCheckbox && creditCheckbox.checked) {
             const creditInstallments = orderState.paymentMethods.credit.installments;
@@ -1588,24 +1594,24 @@ function exportToExcel() {
             } else {
                 paymentMethods.push(`✅ Boleto: ${installments} Parcelas`);
             }
-        }   
+        }
         // Adicionar formas de pagamento ao Excel
         paymentMethods.forEach(method => {
             data.push([method]);
         });
-        
+
         // Verificar se Boleto está selecionado
         const isBoletoSelected = boletoCheckbox && boletoCheckbox.checked;
-        
+
         if (isBoletoSelected) {
             // Se Boleto: usar prazos específicos do Boleto
             for (let i = 0; i < orderState.installments; i++) {
                 const days = orderState.paymentDays[i] || 0;
-                
+
                 // Usar a data do campo "Data do Pedido", não a data atual do sistema
                 const orderDateElement = document.getElementById('order-date');
                 let orderDate;
-                
+
                 if (orderDateElement && orderDateElement.value) {
                     // Corrigir a interpretação da data
                     const dateValue = orderDateElement.value;
@@ -1619,11 +1625,11 @@ function exportToExcel() {
                 } else {
                     orderDate = new Date();
                 }
-                
+
                 // Corrigir o cálculo: não adicionar +1 dia extra
                 const paymentDate = new Date(orderDate.getTime() + days * 24 * 60 * 60 * 1000);
                 const installmentValue = calculateSettlementValue() / orderState.installments;
-                
+
                 if (orderState.installments === 1) {
                     data.push(['Acerto até dia:', paymentDate.toLocaleDateString('pt-BR'), `Prazo: ${generalDeadlineDays} dias`]);
                 } else {
@@ -1633,11 +1639,11 @@ function exportToExcel() {
         } else {
             // Se nenhum Boleto ou se PIX, Cartão ou Transferência: usar Prazo Geral (padrão)
             const generalDeadlineDays = orderState.generalDeadlineDays || 0;
-            
+
             // Usar a data do campo "Data do Pedido", não a data atual do sistema
             const orderDateElement = document.getElementById('order-date');
             let orderDate;
-            
+
             if (orderDateElement && orderDateElement.value) {
                 // Corrigir a interpretação da data
                 const dateValue = orderDateElement.value;
@@ -1651,7 +1657,7 @@ function exportToExcel() {
             } else {
                 orderDate = new Date();
             }
-            
+
             const paymentDate = new Date(orderDate.getTime() + generalDeadlineDays * 24 * 60 * 60 * 1000);
             data.push(['Acerto até dia:', paymentDate.toLocaleDateString('pt-BR'), `Prazo: ${generalDeadlineDays} dias`]);
         }
@@ -1664,11 +1670,11 @@ function exportToExcel() {
 
         const wb = XLSX.utils.book_new();
         const ws = XLSX.utils.aoa_to_sheet(data);
-        
+
         XLSX.utils.book_append_sheet(wb, ws, "Pedido");
-        
+
         XLSX.writeFile(wb, `${fileName}.xlsx`);
-        
+
         console.log('Excel exportado com sucesso!');
     } catch (error) {
         console.error('Erro ao exportar Excel:', error);
@@ -1685,7 +1691,7 @@ function addNewProduct() {
         individualDiscount: null,
         lot: ''
     };
-    
+
     orderState.additionalProducts.push(newProduct);
     renderProductsTable();
     saveData();
@@ -1711,10 +1717,10 @@ function filterProducts(searchTerm) {
     }
 
     const normalizedSearchTerm = normalizeText(searchTerm);
-    const filteredProducts = orderState.products.filter(product => 
+    const filteredProducts = orderState.products.filter(product =>
         normalizeText(product.name).includes(normalizedSearchTerm)
     );
-    
+
     renderProductsTable(filteredProducts);
 }
 
@@ -1743,15 +1749,15 @@ function clearQuantities() {
     orderState.products.forEach(product => {
         product.quantity = 0;
     });
-    
+
     orderState.additionalProducts.forEach(product => {
         product.quantity = 0;
     });
-    
+
     orderState.packaging.forEach(pkg => {
         pkg.quantity = 0;
     });
-    
+
     renderProductsTable();
     renderPackagingTable();
     updateSummary();
@@ -1847,21 +1853,22 @@ function calculateProfit() {
 function toggleEmptyLines(hideEmpty) {
     const tbody = document.getElementById('products-tbody');
     if (!tbody) return;
-    
-    const rows = tbody.querySelectorAll('tr');
-    
+
+    // Alterado para buscar tanto as antigas 'tr' quanto as novas 'div.product-card'
+    const rows = tbody.querySelectorAll('.product-card, tr');
+
     rows.forEach(row => {
-        // Pular a linha do botão "Adicionar outro item"
-        if (row.querySelector('#add-new-product-btn')) {
+        // Pular o container do botão "Adicionar outro item"
+        if (row.querySelector('#add-new-product-btn') || row.classList.contains('add-product-container')) {
             return;
         }
-        
+
         // Encontrar o campo de quantidade na linha
         const quantityInput = row.querySelector('.quantity-input, .additional-product-quantity-input');
-        
+
         if (quantityInput) {
             const quantity = parseFloat(quantityInput.value) || 0;
-            
+
             if (hideEmpty && quantity === 0) {
                 row.style.display = 'none';
             } else {
@@ -1915,7 +1922,7 @@ function printExpeditionAsPDF() {
     }
 
     const printContent = createExpeditionPrintableContent();
-    
+
     html2canvas(printContent, {
         scale: 2,
         useCORS: true,
@@ -1926,29 +1933,29 @@ function printExpeditionAsPDF() {
         height: printContent.scrollHeight
     }).then(canvas => {
         const imgData = canvas.toDataURL('image/png');
-        
+
         // Configuração específica para A4 com margens de 1cm
         const pdf = new jsPDFClass('p', 'mm', 'a4');
-        
+
         const pdfWidth = 210; // A4 width in mm
         const pdfHeight = 297; // A4 height in mm
         const margin = 10; // 1cm margin in mm
         const imgWidth = pdfWidth - (2 * margin); // 190mm (210 - 20)
         const imgHeight = (canvas.height * imgWidth) / canvas.width;
         let heightLeft = imgHeight;
-        
+
         let position = margin; // Start at margin position
-        
+
         pdf.addImage(imgData, 'PNG', margin, position, imgWidth, imgHeight);
         heightLeft -= (pdfHeight - (2 * margin)); // Account for top and bottom margins
-        
+
         while (heightLeft >= 0) {
             position = heightLeft - imgHeight + margin;
             pdf.addPage();
             pdf.addImage(imgData, 'PNG', margin, position, imgWidth, imgHeight);
             heightLeft -= (pdfHeight - (2 * margin));
         }
-        
+
         pdf.save(`${fileName}.pdf`);
         document.body.removeChild(printContent);
         console.log('PDF de expedição gerado com sucesso!');
@@ -2003,14 +2010,14 @@ function createExpeditionPrintableContent() {
 
     const orderDateElement = document.getElementById("order-date");
     let orderDate;
-    
+
     if (orderDateElement && orderDateElement.value) {
         const dateValue = orderDateElement.value;
         orderDate = new Date(dateValue + "T00:00:00");
     } else {
         orderDate = new Date();
     }
-    
+
     const formattedOrderDate = orderDate.toLocaleDateString("pt-BR");
 
     let productsHTML = "";
@@ -2061,9 +2068,9 @@ function renderPackagingTable() {
         console.error("renderPackagingTable: Elemento packaging-tbody não encontrado");
         return;
     }
-    
+
     tbody.innerHTML = "";
-    
+
     orderState.packaging.forEach((packaging, index) => {
         const row = createPackagingRow(packaging, index);
         tbody.appendChild(row);
@@ -2077,11 +2084,11 @@ function renderPackagingTable() {
 
 function createPackagingRow(packaging, index) {
     const row = document.createElement("tr");
-    
+
     const totalWeight = packaging.quantity * (packaging.weight || 0);
-    
+
     row.innerHTML = `\n        <td>\n            <input type=\"text\" \n                   value=\"${packaging.name || ''}\" \n                   data-packaging-index=\"${index}\" \n                   data-field=\"name\" \n                   class=\"packaging-name-input\" \n                   placeholder=\"Nome da caixa\">\n        </td>\n        <td>\n            <input type=\"number\" \n                   value=\"${packaging.quantity || ''}\" \n                   data-packaging-index=\"${index}\" \n                   data-field=\"quantity\" \n                   class=\"packaging-quantity-input\" \n                   min=\"0\" \n                   step=\"1\" \n                   placeholder=\"0\">\n        </td>\n        <td>\n            <input type=\"number\" \n                   value=\"${packaging.weight || ''}\" \n                   data-packaging-index=\"${index}\" \n                   data-field=\"weight\" \n                   class=\"packaging-weight-input\" \n                   min=\"0\" \n                   step=\"1\" \n                   placeholder=\"0\">\n        </td>\n        <td>\n            <span class=\"packaging-weight-total\">${totalWeight.toFixed(0)}</span>\n            <button class=\"remove-packaging-btn\" data-packaging-index=\"${index}\">×</button>\n        </td>\n    `;
-    
+
     return row;
 }
 
@@ -2109,23 +2116,23 @@ function updatePackaging(index, field, value) {
         } else {
             orderState.packaging[index][field] = value;
         }
-        
+
         // Atualizar o peso total da linha
         const totalWeight = orderState.packaging[index].quantity * (orderState.packaging[index].weight || 0);
         const weightTotalElement = document.querySelector(`[data-packaging-index=\"${index}\"]`).closest('tr').querySelector('.packaging-weight-total');
         if (weightTotalElement) {
             weightTotalElement.textContent = totalWeight.toFixed(0);
         }
-        
+
         updateSummary();
         saveData();
     }
 }
 
 // Adicionar event listeners para embalagens
-document.addEventListener('input', function(e) {
-    if (e.target.classList.contains('packaging-name-input') || 
-        e.target.classList.contains('packaging-quantity-input') || 
+document.addEventListener('input', function (e) {
+    if (e.target.classList.contains('packaging-name-input') ||
+        e.target.classList.contains('packaging-quantity-input') ||
         e.target.classList.contains('packaging-weight-input')) {
         const index = parseInt(e.target.dataset.packagingIndex);
         const field = e.target.dataset.field;
@@ -2133,11 +2140,11 @@ document.addEventListener('input', function(e) {
     }
 });
 
-document.addEventListener('click', function(e) {
+document.addEventListener('click', function (e) {
     if (e.target.id === 'add-new-packaging-btn') {
         addNewPackaging();
     }
-    
+
     if (e.target.classList.contains('remove-packaging-btn')) {
         const index = parseInt(e.target.dataset.packagingIndex);
         removePackaging(index);
@@ -2159,24 +2166,24 @@ function showAddTransportModal() {
     const modal = document.createElement('div');
     modal.className = 'transport-modal';
     modal.innerHTML = `\n        <div class=\"transport-modal-content\">\n            <h3>Adicionar Nova Opção de Transporte</h3>\n            <input type=\"text\" id=\"new-transport-input\" class=\"modern-input\" placeholder=\"Digite a nova opção de transporte\" maxlength=\"50\">\n            <div class=\"transport-modal-buttons\">\n                <button class=\"btn btn-secondary\" onclick=\"closeTransportModal()\">Cancelar</button>\n                <button class=\"btn btn-primary\" onclick=\"addNewTransportOption()\">Adicionar</button>\n            </div>\n        </div>\n    `;
-    
+
     document.body.appendChild(modal);
-    
+
     // Focar no input
     const input = document.getElementById('new-transport-input');
     if (input) {
         input.focus();
-        
+
         // Adicionar event listener para Enter
-        input.addEventListener('keypress', function(e) {
+        input.addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
                 addNewTransportOption();
             }
         });
     }
-    
+
     // Fechar modal ao clicar fora
-    modal.addEventListener('click', function(e) {
+    modal.addEventListener('click', function (e) {
         if (e.target === modal) {
             closeTransportModal();
         }
@@ -2193,42 +2200,42 @@ function closeTransportModal() {
 function addNewTransportOption() {
     const input = document.getElementById('new-transport-input');
     if (!input) return;
-    
+
     const newOption = input.value.trim();
     if (!newOption) {
         alert('Por favor, digite uma opção de transporte válida.');
         return;
     }
-    
+
     // Verificar se a opção já existe
     const select = document.getElementById('transport-select');
     const existingOptions = Array.from(select.options).map(option => option.value.toLowerCase());
-    
+
     if (existingOptions.includes(newOption.toLowerCase())) {
         alert('Esta opção de transporte já existe.');
         return;
     }
-    
+
     // Adicionar nova opção ao select
     const option = document.createElement('option');
     option.value = newOption;
     option.textContent = newOption;
     select.appendChild(option);
-    
+
     // Selecionar a nova opção
     select.value = newOption;
     orderState.transportOption = newOption;
     updateTransportDisplay();
     saveData();
-    
+
     // Fechar modal
     closeTransportModal();
 }
 
 // Inicializar exibição do transporte na inicialização
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Aguardar um pouco para garantir que tudo foi carregado
-    setTimeout(function() {
+    setTimeout(function () {
         updateTransportDisplay();
     }, 100);
 });
@@ -2250,7 +2257,7 @@ function getOrderHistory() {
 function saveOrderToHistory(orderData) {
     const history = getOrderHistory();
     const timestamp = new Date().toISOString();
-    
+
     const historyEntry = {
         id: timestamp,
         timestamp: timestamp,
@@ -2263,10 +2270,10 @@ function saveOrderToHistory(orderData) {
         totalQuantity: calculateTotalQuantity(),
         orderData: JSON.parse(JSON.stringify(orderData)) // Deep copy
     };
-    
+
     history.unshift(historyEntry); // Adicionar no início
     localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(history));
-    
+
     return historyEntry;
 }
 
@@ -2279,7 +2286,7 @@ function deleteOrderFromHistory(id) {
 function loadOrderFromHistory(id) {
     const history = getOrderHistory();
     const entry = history.find(item => item.id === id);
-    
+
     if (entry) {
         orderState = JSON.parse(JSON.stringify(entry.orderData));
         renderProductsTable();
@@ -2288,7 +2295,7 @@ function loadOrderFromHistory(id) {
         updatePaymentDates();
         renderPaymentDaysInputs();
         updateInstallmentsText();
-        
+
         // Atualizar campos da interface
         document.getElementById('reseller-name').value = orderState.resellerName;
         document.getElementById('address').value = orderState.address;
@@ -2303,20 +2310,20 @@ function loadOrderFromHistory(id) {
         document.getElementById('general-deadline-days').value = orderState.generalDeadlineDays;
         document.getElementById('installments').value = orderState.installments;
         document.getElementById('payment-credit-installments').value = orderState.paymentMethods.credit.installments;
-        
+
         // Atualizar checkboxes de pagamento
         document.getElementById('payment-pix').checked = orderState.paymentMethods.pix.enabled;
         document.getElementById('payment-credit').checked = orderState.paymentMethods.credit.enabled;
         document.getElementById('payment-boleto').checked = orderState.paymentMethods.boleto.enabled;
         document.getElementById('payment-transfer').checked = orderState.paymentMethods.transfer.enabled;
-        
+
         document.getElementById('payment-pix-details').value = orderState.paymentMethods.pix.details;
         document.getElementById('payment-transfer-details').value = orderState.paymentMethods.transfer.details;
-        
+
         updateGeneralDeadlineDate();
         updateTransportDisplay();
         saveData();
-        
+
         closeHistoryModal();
         scrollToTop();
     }
@@ -2330,44 +2337,44 @@ function saveOrderConsolidated() {
         document.getElementById('reseller-name').focus();
         return;
     }
-    
+
     // Salvar no histórico
     saveOrderToHistory(orderState);
-    
+
     // Gerar JPEG
     saveOrderAsImage();
-    
+
     alert('Pedido salvo no histórico e exportado como imagem com sucesso!');
 }
 
 // ===== ATALHOS DE TECLADO =====
 function setupKeyboardShortcuts() {
-    document.addEventListener('keydown', function(e) {
+    document.addEventListener('keydown', function (e) {
         // Ctrl+S ou Cmd+S para salvar
         if ((e.ctrlKey || e.metaKey) && e.key === 's') {
             e.preventDefault();
             saveOrderConsolidated();
         }
-        
+
         // Delete para limpar valor em campos de quantidade/desconto
         if (e.key === 'Delete') {
             const activeElement = document.activeElement;
-            if (activeElement && (activeElement.classList.contains('quantity-input') || 
-                                   activeElement.classList.contains('discount-input') ||
-                                   activeElement.classList.contains('additional-product-quantity-input') ||
-                                   activeElement.classList.contains('additional-product-discount-input'))) {
+            if (activeElement && (activeElement.classList.contains('quantity-input') ||
+                activeElement.classList.contains('discount-input') ||
+                activeElement.classList.contains('additional-product-quantity-input') ||
+                activeElement.classList.contains('additional-product-discount-input'))) {
                 activeElement.value = '';
                 activeElement.dispatchEvent(new Event('input', { bubbles: true }));
             }
         }
-        
+
         // Enter para confirmar em campos de quantidade/desconto
         if (e.key === 'Enter') {
             const activeElement = document.activeElement;
-            if (activeElement && (activeElement.classList.contains('quantity-input') || 
-                                   activeElement.classList.contains('discount-input') ||
-                                   activeElement.classList.contains('additional-product-quantity-input') ||
-                                   activeElement.classList.contains('additional-product-discount-input'))) {
+            if (activeElement && (activeElement.classList.contains('quantity-input') ||
+                activeElement.classList.contains('discount-input') ||
+                activeElement.classList.contains('additional-product-quantity-input') ||
+                activeElement.classList.contains('additional-product-discount-input'))) {
                 // Mover para o próximo campo
                 const inputs = Array.from(document.querySelectorAll('.quantity-input, .discount-input, .additional-product-quantity-input, .additional-product-discount-input'));
                 const currentIndex = inputs.indexOf(activeElement);
@@ -2384,8 +2391,8 @@ function setupKeyboardShortcuts() {
 function setupRowHighlight() {
     const table = document.getElementById('products-tbody');
     if (!table) return;
-    
-    table.addEventListener('focus', function(e) {
+
+    table.addEventListener('focus', function (e) {
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') {
             const row = (e.target.closest('.product-card') || e.target.closest('tr'));
             if (row) {
@@ -2398,8 +2405,8 @@ function setupRowHighlight() {
             }
         }
     }, true);
-    
-    table.addEventListener('blur', function(e) {
+
+    table.addEventListener('blur', function (e) {
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') {
             const row = (e.target.closest('.product-card') || e.target.closest('tr'));
             if (row) {
@@ -2428,71 +2435,71 @@ function closeHistoryModal() {
 function renderHistoryList(searchTerm = '', filterType = '') {
     const historyList = document.getElementById('history-list');
     if (!historyList) return;
-    
+
     let history = getOrderHistory();
-    
+
     // Aplicar filtro de data
     if (filterType) {
         // Obter a data de hoje no formato YYYY-MM-DD no fuso local
         const now = new Date();
-        const todayStr = now.getFullYear() + '-' + 
-                        String(now.getMonth() + 1).padStart(2, '0') + '-' + 
-                        String(now.getDate()).padStart(2, '0');
-        
+        const todayStr = now.getFullYear() + '-' +
+            String(now.getMonth() + 1).padStart(2, '0') + '-' +
+            String(now.getDate()).padStart(2, '0');
+
         history = history.filter(item => {
             // Usar timestamp se date não estiver disponível
             let dateToCheck = item.date;
             if (!dateToCheck && item.timestamp) {
                 // Converter timestamp ISO para data no formato YYYY-MM-DD
                 const ts = new Date(item.timestamp);
-                dateToCheck = ts.getFullYear() + '-' + 
-                             String(ts.getMonth() + 1).padStart(2, '0') + '-' + 
-                             String(ts.getDate()).padStart(2, '0');
+                dateToCheck = ts.getFullYear() + '-' +
+                    String(ts.getMonth() + 1).padStart(2, '0') + '-' +
+                    String(ts.getDate()).padStart(2, '0');
             }
-            
+
             if (!dateToCheck) return false;
-            
+
             // Normalizar a data para comparar (remover hora se houver)
             const itemDateStr = dateToCheck.split('T')[0];
-            
+
             switch (filterType) {
                 case 'today':
                     return itemDateStr === todayStr;
                 case 'week':
                     const weekAgo = new Date(now);
                     weekAgo.setDate(weekAgo.getDate() - 7);
-                    const weekAgoStr = weekAgo.getFullYear() + '-' + 
-                                     String(weekAgo.getMonth() + 1).padStart(2, '0') + '-' + 
-                                     String(weekAgo.getDate()).padStart(2, '0');
+                    const weekAgoStr = weekAgo.getFullYear() + '-' +
+                        String(weekAgo.getMonth() + 1).padStart(2, '0') + '-' +
+                        String(weekAgo.getDate()).padStart(2, '0');
                     return itemDateStr >= weekAgoStr;
                 case 'month':
                     const monthAgo = new Date(now);
                     monthAgo.setMonth(monthAgo.getMonth() - 1);
-                    const monthAgoStr = monthAgo.getFullYear() + '-' + 
-                                       String(monthAgo.getMonth() + 1).padStart(2, '0') + '-' + 
-                                       String(monthAgo.getDate()).padStart(2, '0');
+                    const monthAgoStr = monthAgo.getFullYear() + '-' +
+                        String(monthAgo.getMonth() + 1).padStart(2, '0') + '-' +
+                        String(monthAgo.getDate()).padStart(2, '0');
                     return itemDateStr >= monthAgoStr;
                 default:
                     return true;
             }
         });
     }
-    
+
     // Aplicar busca
     if (searchTerm) {
         const normalizedSearch = normalizeText(searchTerm);
         history = history.filter(item => {
             return normalizeText(item.resellerName).includes(normalizedSearch) ||
-                   normalizeText(item.attendanceBy).includes(normalizedSearch) ||
-                   item.date.includes(searchTerm);
+                normalizeText(item.attendanceBy).includes(normalizedSearch) ||
+                item.date.includes(searchTerm);
         });
     }
-    
+
     if (history.length === 0) {
         historyList.innerHTML = '<div class="history-empty">Nenhum pedido encontrado</div>';
         return;
     }
-    
+
     historyList.innerHTML = history.map(item => `
         <div class="history-item" data-history-id="${item.id}">
             <div class="history-item-header">
@@ -2510,16 +2517,16 @@ function renderHistoryList(searchTerm = '', filterType = '') {
             </div>
         </div>
     `).join('');
-    
+
     // Adicionar event listeners para os botões
     document.querySelectorAll('.history-load-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
+        btn.addEventListener('click', function () {
             loadOrderFromHistory(this.dataset.id);
         });
     });
-    
+
     document.querySelectorAll('.history-delete-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
+        btn.addEventListener('click', function () {
             deleteHistoryItem(this.dataset.id);
         });
     });
@@ -2554,66 +2561,66 @@ function closeDashboardModal() {
 
 function updateDashboard(period = 'all') {
     let history = getOrderHistory();
-    
+
     // Filtrar por período
     if (period !== 'all') {
         // Obter a data de hoje no formato YYYY-MM-DD no fuso local
         const now = new Date();
-        const todayStr = now.getFullYear() + '-' + 
-                        String(now.getMonth() + 1).padStart(2, '0') + '-' + 
-                        String(now.getDate()).padStart(2, '0');
-        
+        const todayStr = now.getFullYear() + '-' +
+            String(now.getMonth() + 1).padStart(2, '0') + '-' +
+            String(now.getDate()).padStart(2, '0');
+
         history = history.filter(item => {
             // Usar timestamp se date não estiver disponível
             let dateToCheck = item.date;
             if (!dateToCheck && item.timestamp) {
                 // Converter timestamp ISO para data no formato YYYY-MM-DD
                 const ts = new Date(item.timestamp);
-                dateToCheck = ts.getFullYear() + '-' + 
-                             String(ts.getMonth() + 1).padStart(2, '0') + '-' + 
-                             String(ts.getDate()).padStart(2, '0');
+                dateToCheck = ts.getFullYear() + '-' +
+                    String(ts.getMonth() + 1).padStart(2, '0') + '-' +
+                    String(ts.getDate()).padStart(2, '0');
             }
-            
+
             if (!dateToCheck) return false;
-            
+
             // Normalizar a data para comparar (remover hora se houver)
             const itemDateStr = dateToCheck.split('T')[0];
-            
+
             switch (period) {
                 case 'today':
                     return itemDateStr === todayStr;
                 case 'week':
                     const weekAgo = new Date(now);
                     weekAgo.setDate(weekAgo.getDate() - 7);
-                    const weekAgoStr = weekAgo.getFullYear() + '-' + 
-                                     String(weekAgo.getMonth() + 1).padStart(2, '0') + '-' + 
-                                     String(weekAgo.getDate()).padStart(2, '0');
+                    const weekAgoStr = weekAgo.getFullYear() + '-' +
+                        String(weekAgo.getMonth() + 1).padStart(2, '0') + '-' +
+                        String(weekAgo.getDate()).padStart(2, '0');
                     return itemDateStr >= weekAgoStr;
                 case 'month':
                     const monthAgo = new Date(now);
                     monthAgo.setMonth(monthAgo.getMonth() - 1);
-                    const monthAgoStr = monthAgo.getFullYear() + '-' + 
-                                       String(monthAgo.getMonth() + 1).padStart(2, '0') + '-' + 
-                                       String(monthAgo.getDate()).padStart(2, '0');
+                    const monthAgoStr = monthAgo.getFullYear() + '-' +
+                        String(monthAgo.getMonth() + 1).padStart(2, '0') + '-' +
+                        String(monthAgo.getDate()).padStart(2, '0');
                     return itemDateStr >= monthAgoStr;
                 default:
                     return true;
             }
         });
     }
-    
+
     // Calcular métricas
     const totalSales = history.reduce((sum, item) => sum + item.finalValue, 0);
     const totalProfit = history.reduce((sum, item) => sum + item.profit, 0);
     const orderCount = history.length;
     const avgTicket = orderCount > 0 ? totalSales / orderCount : 0;
-    
+
     // Atualizar cards
     document.getElementById('dashboard-total-sales').textContent = formatCurrency(totalSales);
     document.getElementById('dashboard-order-count').textContent = orderCount;
     document.getElementById('dashboard-avg-ticket').textContent = formatCurrency(avgTicket);
     document.getElementById('dashboard-total-profit').textContent = formatCurrency(totalProfit);
-    
+
     // Atualizar gráficos
     updateSalesChart(history);
     updateProductsChart(history);
@@ -2622,22 +2629,22 @@ function updateDashboard(period = 'all') {
 function updateSalesChart(history) {
     const ctx = document.getElementById('sales-chart');
     if (!ctx) return;
-    
+
     // Agrupar vendas por data
     const salesByDate = {};
     history.forEach(item => {
         const date = new Date(item.date).toLocaleDateString('pt-BR');
         salesByDate[date] = (salesByDate[date] || 0) + item.finalValue;
     });
-    
+
     const labels = Object.keys(salesByDate).reverse();
     const data = labels.map(label => salesByDate[label]);
-    
+
     // Destruir gráfico anterior se existir
     if (window.salesChart) {
         window.salesChart.destroy();
     }
-    
+
     window.salesChart = new Chart(ctx, {
         type: 'line',
         data: {
@@ -2664,7 +2671,7 @@ function updateSalesChart(history) {
                 y: {
                     beginAtZero: true,
                     ticks: {
-                        callback: function(value) {
+                        callback: function (value) {
                             return 'R$ ' + value.toFixed(2);
                         }
                     }
@@ -2677,7 +2684,7 @@ function updateSalesChart(history) {
 function updateProductsChart(history) {
     const ctx = document.getElementById('products-chart');
     if (!ctx) return;
-    
+
     // Contar quantidade de produtos vendidos
     const productSales = {};
     history.forEach(item => {
@@ -2692,20 +2699,20 @@ function updateProductsChart(history) {
             }
         });
     });
-    
+
     // Ordenar e pegar top 10
     const sorted = Object.entries(productSales)
         .sort((a, b) => b[1] - a[1])
         .slice(0, 10);
-    
+
     const labels = sorted.map(item => item[0].substring(0, 20) + (item[0].length > 20 ? '...' : ''));
     const data = sorted.map(item => item[1]);
-    
+
     // Destruir gráfico anterior se existir
     if (window.productsChart) {
         window.productsChart.destroy();
     }
-    
+
     window.productsChart = new Chart(ctx, {
         type: 'bar',
         data: {
@@ -2743,12 +2750,12 @@ function updateProductsChart(history) {
 // ===== INICIALIZAÇÃO =====
 // Modificar a função saveOrderAsImage para usar o salvamento consolidado
 const originalSaveOrderAsImage = saveOrderAsImage;
-saveOrderAsImage = function() {
+saveOrderAsImage = function () {
     const fileName = generateFileName();
     if (!fileName) return;
 
     const printContent = createPrintableContent();
-    
+
     html2canvas(printContent, {
         scale: 2,
         useCORS: true,
@@ -2759,7 +2766,7 @@ saveOrderAsImage = function() {
         link.download = `${fileName}.jpg`;
         link.href = canvas.toDataURL('image/jpeg', 0.9);
         link.click();
-        
+
         document.body.removeChild(printContent);
         console.log('Imagem salva com sucesso!');
     }).catch(error => {
@@ -2770,7 +2777,7 @@ saveOrderAsImage = function() {
 };
 
 // Adicionar event listeners para os botões de histórico e dashboard
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const historyBtn = document.getElementById('history-btn');
     const dashboardBtn = document.getElementById('dashboard-btn');
     const historyModalClose = document.getElementById('history-modal-close');
@@ -2778,61 +2785,61 @@ document.addEventListener('DOMContentLoaded', function() {
     const historySearch = document.getElementById('history-search');
     const historyFilter = document.getElementById('history-filter');
     const dashboardPeriod = document.getElementById('dashboard-period');
-    
+
     if (historyBtn) {
         historyBtn.addEventListener('click', openHistoryModal);
     }
-    
+
     if (dashboardBtn) {
         dashboardBtn.addEventListener('click', openDashboardModal);
     }
-    
+
     if (historyModalClose) {
         historyModalClose.addEventListener('click', closeHistoryModal);
     }
-    
+
     if (dashboardModalClose) {
         dashboardModalClose.addEventListener('click', closeDashboardModal);
     }
-    
+
     if (historySearch) {
-        historySearch.addEventListener('input', function() {
+        historySearch.addEventListener('input', function () {
             renderHistoryList(this.value, document.getElementById('history-filter').value);
         });
     }
-    
+
     if (historyFilter) {
-        historyFilter.addEventListener('change', function() {
+        historyFilter.addEventListener('change', function () {
             renderHistoryList(document.getElementById('history-search').value, this.value);
         });
     }
-    
+
     if (dashboardPeriod) {
-        dashboardPeriod.addEventListener('change', function() {
+        dashboardPeriod.addEventListener('change', function () {
             updateDashboard(this.value);
         });
     }
-    
+
     // Fechar modais ao clicar fora deles
     const historyModal = document.getElementById('history-modal');
     const dashboardModal = document.getElementById('dashboard-modal');
-    
+
     if (historyModal) {
-        historyModal.addEventListener('click', function(e) {
+        historyModal.addEventListener('click', function (e) {
             if (e.target === this) {
                 closeHistoryModal();
             }
         });
     }
-    
+
     if (dashboardModal) {
-        dashboardModal.addEventListener('click', function(e) {
+        dashboardModal.addEventListener('click', function (e) {
             if (e.target === this) {
                 closeDashboardModal();
             }
         });
     }
-    
+
     // Inicializar atalhos de teclado e realce de linha
     setupKeyboardShortcuts();
     setupRowHighlight();
