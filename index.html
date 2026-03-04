@@ -260,10 +260,22 @@
                             </div>
                         </section>
 
-                        <!-- Seção de Embalagens -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================================================
+                 Accordion 4: Embalagens
+                 ================================================ -->
+            <div class="accordion open">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <h3>📦 Embalagens</h3>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-inner">
                         <section class="packaging-section">
                             <div class="packaging-card">
-                                <h3>Embalagens</h3>
                                 <div class="packaging-content">
                                     <table class="packaging-table">
                                         <thead>
@@ -283,79 +295,90 @@
                                 </div>
                             </div>
                         </section>
+                    </div>
+                </div>
+            </div>
 
-                        <!-- Resumo do Pedido -->
-                        <section class="summary-section">
-                            <div class="summary-card">
-                                <h3>Resumo</h3>
-                                <div class="summary-boxes-container"
-                                    style="display:grid !important;grid-template-columns:1fr 1fr !important;grid-template-rows:auto auto auto !important;gap:6px !important;">
-                                    <!-- Linha 1: Vl. Bruto + Vl. Empresa -->
-                                    <div class="summary-box summary-line-1" style="grid-column:1/2 !important;">
-                                        <span class="summary-box-label">Vl. Bruto:</span>
-                                        <span id="gross-value" class="summary-box-value currency">R$ 0,00</span>
-                                    </div>
-                                    <div class="summary-box summary-line-1" style="grid-column:2/3 !important;">
-                                        <span class="summary-box-label">Vl. Empresa:</span>
-                                        <span id="discounted-value" class="summary-box-value currency">R$ 0,00</span>
-                                    </div>
-                                    <!-- Linha 2: Vl. Frete | Crédito Pago -->
-                                    <div class="summary-box summary-line-2" style="grid-column:1/2 !important;">
-                                        <span class="summary-box-label">Vl. Frete:</span>
-                                        <span id="freight-value" class="summary-box-value currency">R$ 0,00</span>
-                                    </div>
-                                    <div class="summary-box" style="grid-column:2/3 !important;">
-                                        <span class="summary-box-label">Crédito Pago:</span>
-                                        <input type="number" id="credit-paid" class="modern-input summary-box-input"
-                                            style="width:70px;padding:2px;font-size:11px;" placeholder="0,00" min="0"
-                                            step="0.01">
-                                    </div>
-                                    <!-- Linha 3: Qtde Total | Peso Total -->
-                                    <div class="summary-box summary-line-3"
-                                        style="grid-column:1/2 !important;display:flex;flex-direction:column;align-items:center;text-align:center;">
-                                        <span class="summary-box-label" style="text-align:center;width:100%;">Qtde
-                                            Total:</span>
-                                        <span id="total-quantity" class="summary-box-value"
-                                            style="text-align:center;width:100%;display:block;">0</span>
-                                    </div>
-                                    <div class="summary-box" style="grid-column:2/3 !important;">
-                                        <span class="summary-box-label">Peso Total:</span>
-                                        <span id="total-weight" class="summary-box-value">0.00 kg</span>
-                                    </div>
+            <!-- ================================================
+                 Accordion 5: Resumo
+                 ================================================ -->
+            <div class="accordion open">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <h3>📊 Resumo do Pedido</h3>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-inner">
+                        <div class="summary-card">
+                            <h3>Resumo</h3>
+                            <div class="summary-boxes-container"
+                                style="display:grid !important;grid-template-columns:1fr 1fr !important;grid-template-rows:auto auto auto !important;gap:6px !important;">
+                                <!-- Linha 1: Vl. Bruto + Vl. Empresa -->
+                                <div class="summary-box summary-line-1" style="grid-column:1/2 !important;">
+                                    <span class="summary-box-label">Vl. Bruto:</span>
+                                    <span id="gross-value" class="summary-box-value currency">R$ 0,00</span>
                                 </div>
-                                <!-- Lucro e Vl. Acerto -->
-                                <div class="summary-highlight-row"
-                                    style="display:flex;justify-content:space-between;gap:12px;margin-top:6px;">
-                                    <div id="profit-item"
-                                        style="flex:1;display:flex;flex-direction:column;align-items:center;padding:4px;background:#f0f9f0;border-radius:4px;border:1px solid #4caf50;">
-                                        <span class="summary-box-label highlight-settlement-value"
-                                            style="font-weight:bold;font-size:9px;color:#2e7d32;">Lucro:</span>
-                                        <span id="profit-value"
-                                            class="summary-box-value currency highlight-settlement-value"
-                                            style="font-weight:bold;font-size:12px;color:#2e7d32;">R$ 0,00</span>
-                                    </div>
-                                    <div
-                                        style="flex:1;display:flex;flex-direction:column;align-items:center;padding:4px;background:#fff3e0;border-radius:4px;border:1px solid #ff9800;">
-                                        <span class="summary-box-label"
-                                            style="font-weight:bold;font-size:9px;color:#e65100;">Vl. Acerto:</span>
-                                        <div style="display:flex;align-items:center;gap:4px;">
-                                            <span id="settlement-value" class="summary-box-value currency"
-                                                style="font-weight:bold;font-size:12px;color:#e65100;">R$ 0,00</span>
-                                            <button id="copy-settlement-btn" class="btn copy-btn"
-                                                style="padding:2px 4px;font-size:9px;"
-                                                title="Copiar valor do acerto">📋</button>
-                                        </div>
-                                    </div>
+                                <div class="summary-box summary-line-1" style="grid-column:2/3 !important;">
+                                    <span class="summary-box-label">Vl. Empresa:</span>
+                                    <span id="discounted-value" class="summary-box-value currency">R$ 0,00</span>
                                 </div>
-
-                                <!-- Detalhes do Pagamento -->
-                                <div class="installments-section">
-                                    <h4>Pagamento</h4>
-                                    <div id="installments-details">
-                                        <!-- Detalhes das parcelas serão gerados dinamicamente -->
+                                <!-- Linha 2: Vl. Frete | Crédito Pago -->
+                                <div class="summary-box summary-line-2" style="grid-column:1/2 !important;">
+                                    <span class="summary-box-label">Vl. Frete:</span>
+                                    <span id="freight-value" class="summary-box-value currency">R$ 0,00</span>
+                                </div>
+                                <div class="summary-box" style="grid-column:2/3 !important;">
+                                    <span class="summary-box-label">Crédito Pago:</span>
+                                    <input type="number" id="credit-paid" class="modern-input summary-box-input"
+                                        style="width:70px;padding:2px;font-size:11px;" placeholder="0,00" min="0"
+                                        step="0.01">
+                                </div>
+                                <!-- Linha 3: Qtde Total | Peso Total -->
+                                <div class="summary-box summary-line-3"
+                                    style="grid-column:1/2 !important;display:flex;flex-direction:column;align-items:center;text-align:center;">
+                                    <span class="summary-box-label" style="text-align:center;width:100%;">Qtde
+                                        Total:</span>
+                                    <span id="total-quantity" class="summary-box-value"
+                                        style="text-align:center;width:100%;display:block;">0</span>
+                                </div>
+                                <div class="summary-box" style="grid-column:2/3 !important;">
+                                    <span class="summary-box-label">Peso Total:</span>
+                                    <span id="total-weight" class="summary-box-value">0.00 kg</span>
+                                </div>
+                            </div>
+                            <!-- Lucro e Vl. Acerto -->
+                            <div class="summary-highlight-row"
+                                style="display:flex;justify-content:space-between;gap:12px;margin-top:6px;">
+                                <div id="profit-item"
+                                    style="flex:1;display:flex;flex-direction:column;align-items:center;padding:4px;background:#f0f9f0;border-radius:4px;border:1px solid #4caf50;">
+                                    <span class="summary-box-label highlight-settlement-value"
+                                        style="font-weight:bold;font-size:9px;color:#2e7d32;">Lucro:</span>
+                                    <span id="profit-value"
+                                        class="summary-box-value currency highlight-settlement-value"
+                                        style="font-weight:bold;font-size:12px;color:#2e7d32;">R$ 0,00</span>
+                                </div>
+                                <div
+                                    style="flex:1;display:flex;flex-direction:column;align-items:center;padding:4px;background:#fff3e0;border-radius:4px;border:1px solid #ff9800;">
+                                    <span class="summary-box-label"
+                                        style="font-weight:bold;font-size:9px;color:#e65100;">Vl. Acerto:</span>
+                                    <div style="display:flex;align-items:center;gap:4px;">
+                                        <span id="settlement-value" class="summary-box-value currency"
+                                            style="font-weight:bold;font-size:12px;color:#e65100;">R$ 0,00</span>
+                                        <button id="copy-settlement-btn" class="btn copy-btn"
+                                            style="padding:2px 4px;font-size:9px;"
+                                            title="Copiar valor do acerto">📋</button>
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- Detalhes do Pagamento -->
+                            <div class="installments-section">
+                                <h4>Pagamento</h4>
+                                <div id="installments-details">
+                                    <!-- Detalhes das parcelas serão gerados dinamicamente -->
+                                </div>
+                            </div>
+                        </div>
                         </section>
 
                         <!-- Botões de Ação -->
@@ -367,6 +390,7 @@
                             <button id="history-btn" class="btn btn-secondary">📋 Histórico</button>
                             <button id="dashboard-btn" class="btn btn-secondary">📈 Dashboard</button>
                         </div>
+
                     </div>
                 </div>
             </div>
