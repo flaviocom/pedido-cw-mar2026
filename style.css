@@ -739,6 +739,11 @@ main {
 }
 
 .product-name { font-weight: 500; }
+.product-name-cell {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-sm);
+}
 .product-code {
     font-size: 10px;
     color: var(--text-muted);
