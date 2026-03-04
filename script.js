@@ -2,7 +2,7 @@ console.log("script.js carregado!");
 const products = [
     { id: 0, name: "Complement hidratante para cabelos", catalogPrice: 57.9, weight: 0.17, img: "img-produtos/53014f38-ee72-4b14-b182-3bfbfa924d8f.webp" },
     { id: 1, name: "Condicionador completive especial", catalogPrice: 57.9, weight: 0.31, img: "img-produtos/0a8433d7-801b-4833-8847-2717f9c3c8aa.webp" },
-    { id: 2, name: "Óleo de tratamento para cabelos", catalogPrice: 64.9, weight: 0.15, img: "img-produtos/757c87b8-a4ec-4d44-af1e-beee1a74f5f3.webp" },
+    { id: 2, name: "Óleo de tratamento para cabelos", catalogPrice: 64.9, weight: 0.15, img: "img-produtos/ae8405f9-2318-4dbf-9087-c39a8e9335e5.webp" },
     { id: 3, name: "Shampoo especial aditivado", catalogPrice: 58.9, weight: 0.34, img: "img-produtos/fe8317bd-7c5c-4657-a2ce-5c68fa5343d2.webp" },
     { id: 4, name: "Shampoo para cabelos normais", catalogPrice: 57.9, weight: 0.35, img: "img-produtos/9deb3da9-9952-46e9-baca-dc169c9b84c6.webp" },
     { id: 5, name: "Shampoo para cabelos oleosos", catalogPrice: 58.9, weight: 0.335, img: "" },
@@ -22,7 +22,7 @@ const products = [
     { id: 19, name: "Lipo gel - Redutor de medidas", catalogPrice: 85.9, weight: 0.28, img: "img-produtos/6db7fe50-d097-475c-860f-0f3c94f90d0c.webp" },
     { id: 20, name: "Loção cremosa camomila", catalogPrice: 62.9, weight: 0.282, img: "img-produtos/980b7d27-759e-4cf4-8bcb-c129fb9474c2.webp" },
     { id: 21, name: "Loção cremosa pepino", catalogPrice: 62.9, weight: 0.283, img: "img-produtos/04883d2e-946a-41db-a6e9-aaa1b5d66540.webp" },
-    { id: 22, name: "Óleo de tratamento cosmético para o corpo", catalogPrice: 74.9, weight: 0.152, img: "img-produtos/ae8405f9-2318-4dbf-9087-c39a8e9335e5.webp" },
+    { id: 22, name: "Óleo de tratamento cosmético para o corpo", catalogPrice: 74.9, weight: 0.152, img: "img-produtos/757c87b8-a4ec-4d44-af1e-beee1a74f5f3.webp" },
     { id: 23, name: "Vela vegetal para massagem", catalogPrice: 70.9, weight: 0.109, img: "img-produtos/402da41b-e582-457c-b425-714b6612204e.webp" },
     { id: 24, name: "Banho de ervas", catalogPrice: 62.9, weight: 0.18, img: "img-produtos/2a4b3903-7c5e-4c26-84f8-5452a2828c69.webp" },
     { id: 25, name: "Sabonete íntimo natural", catalogPrice: 74.9, weight: 0.228, img: "img-produtos/73efbf07-566b-4ba5-a695-9d8388e07d59.webp" },
