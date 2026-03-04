@@ -23,7 +23,7 @@
                     </div>
                     <div class="title-container">
                         <h1 class="main-title">Pedido de Vendas</h1>
-                        <span class="main-subtitle">CharmWay · Beleza & Bem-estar</span>
+                        <span class="main-subtitle">CharmWay · Beleza &amp; Bem-estar</span>
                     </div>
                 </div>
                 <div class="header-fields-container">
@@ -41,11 +41,15 @@
                             title="Limpar todos os dados do pedido">🗑️</button>
                     </div>
                 </div>
+            </div>
         </header>
 
         <!-- Formulário Principal -->
         <main>
-            <!-- Accordion: Dados do Cliente -->
+
+            <!-- ================================================
+                 Accordion 1: Dados do Cliente
+                 ================================================ -->
             <div class="accordion open">
                 <div class="accordion-header" onclick="toggleAccordion(this)">
                     <h3>📋 Dados do Cliente</h3>
@@ -103,7 +107,9 @@
                 </div>
             </div>
 
-            <!-- Accordion: Pagamento -->
+            <!-- ================================================
+                 Accordion 2: Pagamento
+                 ================================================ -->
             <div class="accordion">
                 <div class="accordion-header" onclick="toggleAccordion(this)">
                     <h3>💳 Pagamento</h3>
@@ -111,7 +117,6 @@
                 </div>
                 <div class="accordion-content">
                     <div class="accordion-inner">
-                        <!-- Formas de Pagamento -->
                         <div class="field-card payment-methods-card">
                             <div class="payment-methods-header-row">
                                 <label class="field-label">PAGAMENTO</label>
@@ -162,7 +167,6 @@
                                                 de</span>
                                             <span id="boleto-installment-value"
                                                 class="credit-installment-value-display-inline">R$0,00</span>
-
                                         </div>
                                     </div>
                                     <div class="boleto-details">
@@ -185,190 +189,188 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
 
-                    <!-- Accordion: Produtos -->
-                    <div class="accordion open">
-                        <div class="accordion-header" onclick="toggleAccordion(this)">
-                            <h3>📦 Produtos</h3>
-                            <span class="accordion-icon">▼</span>
-                        </div>
-                        <div class="accordion-content">
-                            <div class="accordion-inner">
-                                <!-- Seção de Produtos -->
-                                <section class="products-section">
-                                    <h2>Produtos Disponíveis</h2>
+            <!-- ================================================
+                 Accordion 3: Produtos
+                 ================================================ -->
+            <div class="accordion open">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <h3>📦 Produtos</h3>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-inner">
+                        <!-- Seção de Produtos -->
+                        <section class="products-section">
+                            <h2>Produtos Disponíveis</h2>
 
-                                    <!-- Controles de Filtro e Desconto -->
-                                    <div class="products-controls-row"
-                                        style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;">
-                                        <div class="search-input-wrapper"
-                                            style="flex:1 1 100%;order:1;min-width:150px;">
-                                            <input type="text" id="product-search" class="modern-input search-input"
-                                                placeholder="🔍 Buscar produto...">
-                                            <button id="clear-search-btn" class="clear-search-btn"
-                                                title="Limpar pesquisa">×</button>
-                                        </div>
-                                        <div
-                                            style="display:flex;align-items:center;justify-content:center;gap:50px;order:2;flex:1;">
-                                            <div
-                                                style="display:flex;flex-direction:column;align-items:center;gap:0;margin:0 15px;">
-                                                <input type="checkbox" id="hide-empty-lines" class="payment-checkbox">
-                                                <label for="hide-empty-lines" class="payment-label"
-                                                    style="font-size:9px;white-space:normal;line-height:1.1;text-align:center;">Ocultar<br>linhas
-                                                    vazias</label>
-                                            </div>
-                                            <div class="field-card general-discount-card"
-                                                style="width:40px;padding:2px;margin:0 15px;">
-                                                <label class="field-label"
-                                                    style="font-size:6px;font-weight:bold;text-align:center;width:100%;">DESC.
-                                                    GERAL (%)</label>
-                                                <input type="number" id="general-discount" class="modern-input"
-                                                    style="padding:2px;font-size:10px;width:100%;text-align:center;"
-                                                    step="0.01" min="0" max="100" placeholder="0.00">
-                                            </div>
-                                            <button id="clear-quantities-btn" class="btn clear-quantities-icon-btn"
-                                                style="height:22px;padding:0 3px;font-size:10px;margin:0 15px;"
-                                                title="Limpar todas as quantidades">🗑️</button>
-                                        </div>
-                                    </div>
-
-                                    <!-- Tabela de Produtos -->
-                                    <div class="products-table-container">
-                                        <table class="products-table">
-                                            <thead>
-                                                <tr>
-                                                    <th>Produto</th>
-                                                    <th>Quantidade</th>
-                                                    <th>Preço<br>Cat.</th>
-                                                    <th>Desc.<br>(%)</th>
-                                                    <th>Preço c/<br>Desc.</th>
-                                                    <th>Total</th>
-                                                    <th>Lote</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="products-tbody">
-                                                <!-- Produtos serão gerados dinamicamente -->
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </section>
-
-                                <!-- Seção de Embalagens -->
-                                <section class="packaging-section">
-                                    <div class="packaging-card">
-                                        <h3>Embalagens</h3>
-                                        <div class="packaging-content">
-                                            <table class="packaging-table">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Caixa</th>
-                                                        <th>Qtde</th>
-                                                        <th>Peso (g)</th>
-                                                        <th>Peso Total</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="packaging-tbody">
-                                                    <!-- Embalagens serão geradas dinamicamente -->
-                                                </tbody>
-                                            </table>
-                                            <button id="add-new-packaging-btn" class="btn btn-secondary add-item-btn">+
-                                                Adicionar outro item</button>
-                                        </div>
-                                    </div>
-                                </section>
-
-                                <!-- Resumo do Pedido -->
-                                <section class="summary-section">
-                                    <div class="summary-card">
-                                        <h3>Resumo</h3>
-                                        <div class="summary-boxes-container"
-                                            style="display:grid !important;grid-template-columns:1fr 1fr !important;grid-template-rows:auto auto auto !important;gap:6px !important;">
-                                            <!-- Linha 1: Vl. Bruto + Vl. Empresa -->
-                                            <div class="summary-box summary-line-1" style="grid-column:1/2 !important;">
-                                                <span class="summary-box-label">Vl. Bruto:</span>
-                                                <span id="gross-value" class="summary-box-value currency">R$ 0,00</span>
-                                            </div>
-                                            <div class="summary-box summary-line-1" style="grid-column:2/3 !important;">
-                                                <span class="summary-box-label">Vl. Empresa:</span>
-                                                <span id="discounted-value" class="summary-box-value currency">R$
-                                                    0,00</span>
-                                            </div>
-                                            <!-- Linha 2: Vl. Frete | Crédito Pago (separados) -->
-                                            <div class="summary-box summary-line-2" style="grid-column:1/2 !important;">
-                                                <span class="summary-box-label">Vl. Frete:</span>
-                                                <span id="freight-value" class="summary-box-value currency">R$
-                                                    0,00</span>
-                                            </div>
-                                            <div class="summary-box" style="grid-column:2/3 !important;">
-                                                <span class="summary-box-label">Crédito Pago:</span>
-                                                <input type="number" id="credit-paid"
-                                                    class="modern-input summary-box-input"
-                                                    style="width:70px;padding:2px;font-size:11px;" placeholder="0,00"
-                                                    min="0" step="0.01">
-                                            </div>
-                                            <!-- Linha 3: Qtde Total | Peso Total (separados) -->
-                                            <div class="summary-box summary-line-3"
-                                                style="grid-column:1/2 !important;display:flex;flex-direction:column;align-items:center;text-align:center;">
-                                                <span class="summary-box-label"
-                                                    style="text-align:center;width:100%;">Qtde Total:</span>
-                                                <span id="total-quantity" class="summary-box-value"
-                                                    style="text-align:center;width:100%;display:block;">0</span>
-                                            </div>
-                                            <div class="summary-box" style="grid-column:2/3 !important;">
-                                                <span class="summary-box-label">Peso Total:</span>
-                                                <span id="total-weight" class="summary-box-value">0.00 kg</span>
-                                            </div>
-
-                                        </div>
-                                        <!-- Lucro e Vl. Acerto em linha separada com destaque -->
-                                        <div class="summary-highlight-row"
-                                            style="display:flex;justify-content:space-between;gap:12px;margin-top:6px;">
-                                            <!-- Lucro -->
-                                            <div id="profit-item"
-                                                style="flex:1;display:flex;flex-direction:column;align-items:center;padding:4px;background:#f0f9f0;border-radius:4px;border:1px solid #4caf50;">
-                                                <span class="summary-box-label highlight-settlement-value"
-                                                    style="font-weight:bold;font-size:9px;color:#2e7d32;">Lucro:</span>
-                                                <span id="profit-value"
-                                                    class="summary-box-value currency highlight-settlement-value"
-                                                    style="font-weight:bold;font-size:12px;color:#2e7d32;">R$
-                                                    0,00</span>
-                                            </div>
-                                            <!-- Vl. Acerto -->
-                                            <div
-                                                style="flex:1;display:flex;flex-direction:column;align-items:center;padding:4px;background:#fff3e0;border-radius:4px;border:1px solid #ff9800;">
-                                                <span class="summary-box-label"
-                                                    style="font-weight:bold;font-size:9px;color:#e65100;">Vl.
-                                                    Acerto:</span>
-                                                <div style="display:flex;align-items:center;gap:4px;">
-                                                    <span id="settlement-value" class="summary-box-value currency"
-                                                        style="font-weight:bold;font-size:12px;color:#e65100;">R$
-                                                        0,00</span>
-                                                    <button id="copy-settlement-btn" class="btn copy-btn"
-                                                        style="padding:2px 4px;font-size:9px;"
-                                                        title="Copiar valor do acerto">📋</button>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- Detalhes do Pagamento -->
-                                        <div class="installments-section">
-                                            <h4>Pagamento</h4>
-                                            <div id="installments-details">
-                                                <!-- Detalhes das parcelas serão gerados dinamicamente -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section>
-
-                                <!-- Botões de Ação -->
-                                <div class="action-buttons">
-                                    <button id="save-order-btn" class="btn btn-primary">💾 Salvar Pedido</button>
-                                    <button id="print-order-btn" class="btn btn-secondary">🖨️ Imprimir Pedido</button>
-                                    <button id="export-excel-btn" class="btn btn-success">📊 Salvar em Excel</button>
-                                    <button id="expedition-btn" class="btn btn-secondary">📦 Expedição</button>
-                                    <button id="history-btn" class="btn btn-secondary">📋 Histórico</button>
-                                    <button id="dashboard-btn" class="btn btn-secondary">📈 Dashboard</button>
+                            <!-- Controles de Filtro e Desconto -->
+                            <div class="products-controls-row"
+                                style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;">
+                                <div class="search-input-wrapper" style="flex:1 1 100%;order:1;min-width:150px;">
+                                    <input type="text" id="product-search" class="modern-input search-input"
+                                        placeholder="🔍 Buscar produto...">
+                                    <button id="clear-search-btn" class="clear-search-btn"
+                                        title="Limpar pesquisa">×</button>
                                 </div>
+                                <div
+                                    style="display:flex;align-items:center;justify-content:center;gap:50px;order:2;flex:1;">
+                                    <div
+                                        style="display:flex;flex-direction:column;align-items:center;gap:0;margin:0 15px;">
+                                        <input type="checkbox" id="hide-empty-lines" class="payment-checkbox">
+                                        <label for="hide-empty-lines" class="payment-label"
+                                            style="font-size:9px;white-space:normal;line-height:1.1;text-align:center;">Ocultar<br>linhas
+                                            vazias</label>
+                                    </div>
+                                    <div class="field-card general-discount-card"
+                                        style="width:40px;padding:2px;margin:0 15px;">
+                                        <label class="field-label"
+                                            style="font-size:6px;font-weight:bold;text-align:center;width:100%;">DESC.
+                                            GERAL (%)</label>
+                                        <input type="number" id="general-discount" class="modern-input"
+                                            style="padding:2px;font-size:10px;width:100%;text-align:center;" step="0.01"
+                                            min="0" max="100" placeholder="0.00">
+                                    </div>
+                                    <button id="clear-quantities-btn" class="btn clear-quantities-icon-btn"
+                                        style="height:22px;padding:0 3px;font-size:10px;margin:0 15px;"
+                                        title="Limpar todas as quantidades">🗑️</button>
+                                </div>
+                            </div>
+
+                            <!-- Tabela de Produtos -->
+                            <div class="products-table-container">
+                                <table class="products-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Produto</th>
+                                            <th>Quantidade</th>
+                                            <th>Preço<br>Cat.</th>
+                                            <th>Desc.<br>(%)</th>
+                                            <th>Preço c/<br>Desc.</th>
+                                            <th>Total</th>
+                                            <th>Lote</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="products-tbody">
+                                        <!-- Produtos serão gerados dinamicamente -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+
+                        <!-- Seção de Embalagens -->
+                        <section class="packaging-section">
+                            <div class="packaging-card">
+                                <h3>Embalagens</h3>
+                                <div class="packaging-content">
+                                    <table class="packaging-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Caixa</th>
+                                                <th>Qtde</th>
+                                                <th>Peso (g)</th>
+                                                <th>Peso Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="packaging-tbody">
+                                            <!-- Embalagens serão geradas dinamicamente -->
+                                        </tbody>
+                                    </table>
+                                    <button id="add-new-packaging-btn" class="btn btn-secondary add-item-btn">+
+                                        Adicionar outro item</button>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Resumo do Pedido -->
+                        <section class="summary-section">
+                            <div class="summary-card">
+                                <h3>Resumo</h3>
+                                <div class="summary-boxes-container"
+                                    style="display:grid !important;grid-template-columns:1fr 1fr !important;grid-template-rows:auto auto auto !important;gap:6px !important;">
+                                    <!-- Linha 1: Vl. Bruto + Vl. Empresa -->
+                                    <div class="summary-box summary-line-1" style="grid-column:1/2 !important;">
+                                        <span class="summary-box-label">Vl. Bruto:</span>
+                                        <span id="gross-value" class="summary-box-value currency">R$ 0,00</span>
+                                    </div>
+                                    <div class="summary-box summary-line-1" style="grid-column:2/3 !important;">
+                                        <span class="summary-box-label">Vl. Empresa:</span>
+                                        <span id="discounted-value" class="summary-box-value currency">R$ 0,00</span>
+                                    </div>
+                                    <!-- Linha 2: Vl. Frete | Crédito Pago -->
+                                    <div class="summary-box summary-line-2" style="grid-column:1/2 !important;">
+                                        <span class="summary-box-label">Vl. Frete:</span>
+                                        <span id="freight-value" class="summary-box-value currency">R$ 0,00</span>
+                                    </div>
+                                    <div class="summary-box" style="grid-column:2/3 !important;">
+                                        <span class="summary-box-label">Crédito Pago:</span>
+                                        <input type="number" id="credit-paid" class="modern-input summary-box-input"
+                                            style="width:70px;padding:2px;font-size:11px;" placeholder="0,00" min="0"
+                                            step="0.01">
+                                    </div>
+                                    <!-- Linha 3: Qtde Total | Peso Total -->
+                                    <div class="summary-box summary-line-3"
+                                        style="grid-column:1/2 !important;display:flex;flex-direction:column;align-items:center;text-align:center;">
+                                        <span class="summary-box-label" style="text-align:center;width:100%;">Qtde
+                                            Total:</span>
+                                        <span id="total-quantity" class="summary-box-value"
+                                            style="text-align:center;width:100%;display:block;">0</span>
+                                    </div>
+                                    <div class="summary-box" style="grid-column:2/3 !important;">
+                                        <span class="summary-box-label">Peso Total:</span>
+                                        <span id="total-weight" class="summary-box-value">0.00 kg</span>
+                                    </div>
+                                </div>
+                                <!-- Lucro e Vl. Acerto -->
+                                <div class="summary-highlight-row"
+                                    style="display:flex;justify-content:space-between;gap:12px;margin-top:6px;">
+                                    <div id="profit-item"
+                                        style="flex:1;display:flex;flex-direction:column;align-items:center;padding:4px;background:#f0f9f0;border-radius:4px;border:1px solid #4caf50;">
+                                        <span class="summary-box-label highlight-settlement-value"
+                                            style="font-weight:bold;font-size:9px;color:#2e7d32;">Lucro:</span>
+                                        <span id="profit-value"
+                                            class="summary-box-value currency highlight-settlement-value"
+                                            style="font-weight:bold;font-size:12px;color:#2e7d32;">R$ 0,00</span>
+                                    </div>
+                                    <div
+                                        style="flex:1;display:flex;flex-direction:column;align-items:center;padding:4px;background:#fff3e0;border-radius:4px;border:1px solid #ff9800;">
+                                        <span class="summary-box-label"
+                                            style="font-weight:bold;font-size:9px;color:#e65100;">Vl. Acerto:</span>
+                                        <div style="display:flex;align-items:center;gap:4px;">
+                                            <span id="settlement-value" class="summary-box-value currency"
+                                                style="font-weight:bold;font-size:12px;color:#e65100;">R$ 0,00</span>
+                                            <button id="copy-settlement-btn" class="btn copy-btn"
+                                                style="padding:2px 4px;font-size:9px;"
+                                                title="Copiar valor do acerto">📋</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Detalhes do Pagamento -->
+                                <div class="installments-section">
+                                    <h4>Pagamento</h4>
+                                    <div id="installments-details">
+                                        <!-- Detalhes das parcelas serão gerados dinamicamente -->
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Botões de Ação -->
+                        <div class="action-buttons">
+                            <button id="save-order-btn" class="btn btn-primary">💾 Salvar Pedido</button>
+                            <button id="print-order-btn" class="btn btn-secondary">🖨️ Imprimir Pedido</button>
+                            <button id="export-excel-btn" class="btn btn-success">📊 Salvar em Excel</button>
+                            <button id="expedition-btn" class="btn btn-secondary">📦 Expedição</button>
+                            <button id="history-btn" class="btn btn-secondary">📋 Histórico</button>
+                            <button id="dashboard-btn" class="btn btn-secondary">📈 Dashboard</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </main>
 
         <!-- Botões de Scroll Automático -->
@@ -468,79 +470,12 @@
     <!-- Biblioteca para gráficos -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 
-    <!-- Funções para Accordions e Card View -->
+    <!-- Funções para Accordions -->
     <script>
-        // Toggle Accordion
         function toggleAccordion(header) {
             const accordion = header.parentElement;
             accordion.classList.toggle('open');
         }
-
-        // Gerar Card View para Produtos no Mobile
-        function renderProductsCards() {
-            const tbody = document.getElementById('products-tbody');
-            if (!tbody) return;
-
-            let cardsContainer = document.getElementById('products-cards-container');
-            if (!cardsContainer) {
-                cardsContainer = document.createElement('div');
-                cardsContainer.id = 'products-cards-container';
-                cardsContainer.className = 'products-cards-container';
-
-                // Inserir após a tabela
-                const tableContainer = document.querySelector('.products-table-container');
-                if (tableContainer) {
-                    tableContainer.parentNode.insertBefore(cardsContainer, tableContainer.nextSibling);
-                }
-            }
-
-            // Se não estiver no mobile, não renderizar cards
-            if (window.innerWidth > 768) {
-                cardsContainer.style.display = 'none';
-                return;
-            }
-
-            cardsContainer.style.display = 'flex';
-
-            // Gerar cards para cada produto
-            const products = window.productsData || [];
-            cardsContainer.innerHTML = products.map((product, index) => `
-                <div class="product-card ${(product.quantity || 0) > 0 ? 'has-quantity' : ''}" data-product-index="${index}">
-                    <div class="product-card-header">
-                        <span class="product-card-name">${product.name}</span>
-                        <button class="product-card-remove" onclick="removeProduct(${index})" title="Remover">🗑️</button>
-                    </div>
-                    <div class="product-card-code">Código: ${product.code || 'N/A'} | NCM: ${product.ncm || 'N/A'}</div>
-                    <div class="product-card-fields">
-                        <div class="product-card-field">
-                            <label>Quantidade</label>
-                            <input type="number" min="0" value="${product.quantity || 0}" 
-                                onchange="updateProductQuantity(${index}, this.value)">
-                        </div>
-                        <div class="product-card-field">
-                            <label>Desconto (%)</label>
-                            <input type="number" min="0" max="100" step="0.01" value="${product.discount || 0}"
-                                onchange="updateProductDiscount(${index}, this.value)">
-                        </div>
-                        <div class="product-card-field">
-                            <label>Preço</label>
-                            <input type="number" step="0.01" value="${product.price || 0}"
-                                onchange="updateProductPrice(${index}, this.value)">
-                        </div>
-                        <div class="product-card-field">
-                            <label>Total</label>
-                            <div class="product-card-price">R$ ${((product.quantity || 0) * (product.price || 0) * (1 - (product.discount || 0) / 100)).toFixed(2)}</div>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // Atualizar quando a janela redimensionar
-        window.addEventListener('resize', renderProductsCards);
-
-        // Executar quando o DOM estiver pronto
-        document.addEventListener('DOMContentLoaded', renderProductsCards);
     </script>
 
     <script type="module" src="script.js"></script>
@@ -613,83 +548,6 @@
         })();
     </script>
 
-    <!-- Injeta miniaturas de produtos reais do charmway.com.br na tabela -->
-    <script>
-        (function () {
-            var productImages = {
-                'banho de ervas': 'https://charmway.com.br/wp-content/uploads/2020/12/IMG_5507-300x400.jpeg',
-                'creme para m': 'https://charmway.com.br/wp-content/uploads/2020/12/IMG_5519-300x400.jpeg',
-                'creme para os p': 'https://charmway.com.br/wp-content/uploads/2020/12/CDEEFAF5-85E0-40A5-BCBB-1F85415AF22B-300x400.jpeg',
-                'creme para os seios': 'https://charmway.com.br/wp-content/uploads/2020/12/53E9733D-7D59-46DE-BBD2-A6B4F3E428DA-300x400.png',
-                'peeling': 'https://charmway.com.br/wp-content/uploads/2020/12/IMG_5506-300x400.jpeg',
-                'desodorante antiperspi': 'https://charmway.com.br/wp-content/uploads/2020/05/fdabb7d2-c61a-40bb-881c-7e036ed36410-300x400.jpeg',
-                'camomila': 'https://charmway.com.br/wp-content/uploads/2020/12/Design-sem-nome.zip-29.png',
-                'pepino': 'https://charmway.com.br/wp-content/uploads/2020/12/Produtos-300x400.png',
-                'sabonete': 'https://charmway.com.br/wp-content/uploads/2020/12/4da57da1-1d9b-4053-86e6-47fe998f1ac5-300x400.jpeg',
-                'vela vegetal': 'https://charmway.com.br/wp-content/uploads/2020/12/7D23B6F2-1F4E-47C6-AA92-B5F29446C95E-300x400.png',
-                'col': 'https://charmway.com.br/wp-content/uploads/2020/12/IMG_5511-300x400.jpeg',
-                'hidratante facial': 'https://charmway.com.br/wp-content/uploads/2020/12/IMG_5510-300x400.jpeg',
-                'limpeza facial': 'https://charmway.com.br/wp-content/uploads/2020/12/IMG_5504-300x400.jpeg',
-                'esfoliante': 'https://charmway.com.br/wp-content/uploads/2020/12/IMG_5505-300x400.jpeg',
-                'tonica': 'https://charmway.com.br/wp-content/uploads/2020/12/IMG_5508-300x400.jpeg',
-                'mascara': 'https://charmway.com.br/wp-content/uploads/2020/12/IMG_5509-300x400.jpeg',
-                'complement hydrat': 'https://charmway.com.br/wp-content/uploads/2020/06/2206072f-b477-4a25-ab96-46c3791ed49f-300x400.jpeg',
-                'condicionador': 'https://charmway.com.br/wp-content/uploads/2020/12/dd5e0102-b25f-4301-9fac-16a76ecf177d-300x400.jpeg',
-                'shampoo especial': 'https://charmway.com.br/wp-content/uploads/2020/12/8d676219-dc1f-4e9e-9842-d1d06d24db7a-300x400.jpeg',
-                'shampoo para cabelos': 'https://charmway.com.br/wp-content/uploads/2020/12/cbf08e2d-8ec5-48d0-bffa-ee8abc3ed7c5-300x400.jpeg',
-                'deocolonia': 'https://charmway.com.br/wp-content/uploads/2020/12/IMG_5521-300x400.jpeg',
-                'fragr': 'https://charmway.com.br/wp-content/uploads/2020/12/IMG_5522-300x400.jpeg'
-            };
-            function getImageUrl(name) {
-                var lnm = (name || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-                for (var key in productImages) {
-                    if (lnm.indexOf(key) !== -1) return productImages[key];
-                }
-                return null;
-            }
-            function injectThumbs() {
-                var rows = document.querySelectorAll('#products-tbody tr');
-                rows.forEach(function (row) {
-                    if (row.querySelector('.product-thumb, .product-thumb-placeholder')) return;
-                    var td = row.querySelector('td');
-                    if (!td) return;
-                    var nameSel = td.querySelector('.product-name') || td;
-                    var name = nameSel.textContent || '';
-                    var url = getImageUrl(name);
-                    var thumb;
-                    if (url) {
-                        thumb = document.createElement('img');
-                        thumb.src = url;
-                        thumb.alt = name;
-                        thumb.className = 'product-thumb';
-                        thumb.loading = 'lazy';
-                        thumb.onerror = function () { this.replaceWith(makePlaceholder()); };
-                    } else {
-                        thumb = makePlaceholder();
-                    }
-                    var inner = document.createElement('div');
-                    inner.className = 'product-cell-inner';
-                    while (td.firstChild) inner.appendChild(td.firstChild);
-                    inner.prepend(thumb);
-                    td.appendChild(inner);
-                });
-            }
-            function makePlaceholder() {
-                var p = document.createElement('span');
-                p.className = 'product-thumb-placeholder';
-                p.textContent = '🌸';
-                return p;
-            }
-            document.addEventListener('DOMContentLoaded', function () {
-                setTimeout(injectThumbs, 800);
-                var tbody = document.getElementById('products-tbody');
-                if (tbody) {
-                    var obs = new MutationObserver(function () { setTimeout(injectThumbs, 200); });
-                    obs.observe(tbody, { childList: true });
-                }
-            });
-        })();
-    </script>
 </body>
 
 </html>
