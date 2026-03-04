@@ -16,7 +16,8 @@
     <div class="container">
         <!-- Header Moderno -->
         <header class="modern-header">
-            <div class="header-grid">
+            <!-- Linha 1 mobile: Logo | Título | Data | Lixeira -->
+            <div class="header-row-1">
                 <div class="header-identity">
                     <div class="logo-container">
                         <img src="LogotipoCW.jpg" alt="Logotipo Charmway" class="logo">
@@ -26,20 +27,20 @@
                         <span class="main-subtitle">CharmWay · Beleza &amp; Bem-estar</span>
                     </div>
                 </div>
-                <div class="header-fields-container">
-                    <div class="attendance-field">
-                        <label class="attendance-label">ATENDIMENTO POR:</label>
-                        <input type="text" id="attendance-by" class="attendance-input" placeholder="Nome do atendente">
+                <div class="date-container">
+                    <div class="date-card">
+                        <label class="date-label">DATA DO PEDIDO</label>
+                        <input type="date" id="order-date" class="date-input">
                     </div>
-                    <div class="date-container">
-                        <div class="date-card">
-                            <label class="date-label">DATA DO PEDIDO</label>
-                            <input type="date" id="order-date" class="date-input">
-                        </div>
-                        <button id="clear-order-btn" class="btn clear-order-icon-btn clear-order-transparent"
-                            style="display:block;margin:8px auto 0;width:fit-content;"
-                            title="Limpar todos os dados do pedido">🗑️</button>
-                    </div>
+                    <button id="clear-order-btn" class="btn clear-order-icon-btn clear-order-transparent"
+                        style="display:block;width:fit-content;" title="Limpar todos os dados do pedido">🗑️</button>
+                </div>
+            </div>
+            <!-- Linha 2 mobile: Nome do Atendente (largura total) -->
+            <div class="header-row-2">
+                <div class="attendance-field">
+                    <label class="attendance-label">ATENDIMENTO POR:</label>
+                    <input type="text" id="attendance-by" class="attendance-input" placeholder="Nome do atendente">
                 </div>
             </div>
         </header>
@@ -511,10 +512,6 @@
             <span class="ss-value" id="ss-qty">0</span>
         </div>
         <div class="ss-item">
-            <span class="ss-label">💰 Vl. Empresa</span>
-            <span class="ss-value" id="ss-discounted">R$ 0,00</span>
-        </div>
-        <div class="ss-item">
             <span class="ss-label">✨ Lucro</span>
             <span class="ss-value" id="ss-profit">R$ 0,00</span>
         </div>
@@ -529,11 +526,6 @@
         <button class="bottom-nav-btn active" id="bn-pedido" title="Pedido">
             <span class="nav-icon">🛍️</span>
             <span class="nav-label">Pedido</span>
-        </button>
-        <button class="bottom-nav-btn" id="bn-expedicao" title="Expedição"
-            onclick="document.getElementById('expedition-btn').click()">
-            <span class="nav-icon">📦</span>
-            <span class="nav-label">Expedição</span>
         </button>
         <button class="bottom-nav-btn" id="bn-historico" title="Histórico"
             onclick="document.getElementById('history-btn').click()">

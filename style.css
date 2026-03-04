@@ -112,18 +112,30 @@ body {
     box-shadow: var(--shadow-md);
 }
 
-.header-grid {
+/* Layout do header em 2 linhas */
+.header-row-1 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--sp-md);
-    flex-wrap: wrap;
+    gap: var(--sp-sm);
+}
+
+.header-row-2 {
+    margin-top: var(--sp-sm);
+}
+
+.header-row-2 .attendance-field {
+    width: 100%;
+    max-width: 100%;
+    min-width: unset;
 }
 
 .header-identity {
     display: flex;
     align-items: center;
     gap: var(--sp-sm);
+    flex: 1;
+    min-width: 0;
 }
 
 .logo-container {
@@ -213,9 +225,10 @@ body {
 
 .date-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
+    flex-shrink: 0;
 }
 
 .date-card {
