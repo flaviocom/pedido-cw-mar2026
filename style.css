@@ -10,26 +10,26 @@
    --------------------------------------------------------------- */
 :root {
     /* Paleta Principal */
-    --pink-rose:     #F472B6;
-    --pink-light:    #FCE7F3;
-    --pink-mid:      #FBCFE8;
-    --pink-dark:     #BE185D;
-    --sage-green:    #6EE7B7;
-    --sage-light:    #D1FAE5;
-    --sage-dark:     #059669;
-    --blush-bg:      #FDF2F8;
-    --white:         #FFFFFF;
+    --pink-rose: #F472B6;
+    --pink-light: #FCE7F3;
+    --pink-mid: #FBCFE8;
+    --pink-dark: #BE185D;
+    --sage-green: #6EE7B7;
+    --sage-light: #D1FAE5;
+    --sage-dark: #059669;
+    --blush-bg: #FDF2F8;
+    --white: #FFFFFF;
 
     /* Neutros */
-    --text-main:     #1E293B;
-    --text-secondary:#475569;
-    --text-muted:    #94A3B8;
-    --border-light:  #F1E8F0;
-    --border-mid:    #E2D5E8;
-    --input-bg:      #FAF5FB;
+    --text-main: #1E293B;
+    --text-secondary: #475569;
+    --text-muted: #94A3B8;
+    --border-light: #F1E8F0;
+    --border-mid: #E2D5E8;
+    --input-bg: #FAF5FB;
 
     /* Status */
-    --danger-red:    #F43F5E;
+    --danger-red: #F43F5E;
     --warning-amber: #F59E0B;
 
     /* Espaçamentos */
@@ -42,16 +42,16 @@
     --sp-3xl: 32px;
 
     /* Raios */
-    --r-sm:   8px;
-    --r-md:   12px;
-    --r-lg:   16px;
-    --r-xl:   20px;
+    --r-sm: 8px;
+    --r-md: 12px;
+    --r-lg: 16px;
+    --r-xl: 20px;
     --r-full: 999px;
 
     /* Sombras */
-    --shadow-sm:   0 1px 4px rgba(180, 80, 120, 0.06);
-    --shadow-md:   0 4px 16px rgba(180, 80, 120, 0.10);
-    --shadow-lg:   0 8px 32px rgba(180, 80, 120, 0.14);
+    --shadow-sm: 0 1px 4px rgba(180, 80, 120, 0.06);
+    --shadow-md: 0 4px 16px rgba(180, 80, 120, 0.10);
+    --shadow-lg: 0 8px 32px rgba(180, 80, 120, 0.14);
     --shadow-pink: 0 4px 16px rgba(244, 114, 182, 0.25);
 
     /* Transição padrão */
@@ -189,7 +189,7 @@ body {
 
 .attendance-input {
     padding: 10px 14px;
-    background: rgba(255,255,255,0.8);
+    background: rgba(255, 255, 255, 0.8);
     border: 1.5px solid var(--border-mid);
     border-radius: var(--r-md);
     font-size: 13px;
@@ -207,7 +207,9 @@ body {
     background: var(--white);
 }
 
-.attendance-input::placeholder { color: var(--text-muted); }
+.attendance-input::placeholder {
+    color: var(--text-muted);
+}
 
 .date-container {
     display: flex;
@@ -217,7 +219,7 @@ body {
 }
 
 .date-card {
-    background: rgba(255,255,255,0.85);
+    background: rgba(255, 255, 255, 0.85);
     border: 1.5px solid var(--border-mid);
     border-radius: var(--r-md);
     padding: 8px 12px;
@@ -247,7 +249,9 @@ body {
     cursor: pointer;
 }
 
-.date-input:focus { outline: none; }
+.date-input:focus {
+    outline: none;
+}
 
 .clear-order-icon-btn,
 .clear-order-transparent {
@@ -400,7 +404,9 @@ main {
 }
 
 .modern-input::placeholder,
-.modern-textarea::placeholder { color: var(--text-muted); }
+.modern-textarea::placeholder {
+    color: var(--text-muted);
+}
 
 .modern-textarea {
     min-height: 80px;
@@ -414,7 +420,9 @@ main {
     align-items: center;
 }
 
-.transport-container select { flex: 1; }
+.transport-container select {
+    flex: 1;
+}
 
 .add-transport-btn {
     flex-shrink: 0;
@@ -443,7 +451,9 @@ main {
 /* ---------------------------------------------------------------
    7. PAGAMENTO
    --------------------------------------------------------------- */
-.payment-methods-card { margin-bottom: 0; }
+.payment-methods-card {
+    margin-bottom: 0;
+}
 
 .payment-methods-header-row {
     display: flex;
@@ -531,7 +541,7 @@ main {
     font-family: 'Poppins', sans-serif;
     font-size: 12px;
     color: var(--text-main);
-    background: rgba(255,255,255,0.85);
+    background: rgba(255, 255, 255, 0.85);
     transition: var(--transition);
 }
 
@@ -543,7 +553,10 @@ main {
 }
 
 /* Boleto inline */
-.boleto-header-inline { flex-wrap: wrap; gap: 8px; }
+.boleto-header-inline {
+    flex-wrap: wrap;
+    gap: 8px;
+}
 
 .boleto-checkbox-label {
     display: flex;
@@ -560,7 +573,8 @@ main {
     color: var(--text-secondary);
 }
 
-.installments-input, .payment-installments-input-inline {
+.installments-input,
+.payment-installments-input-inline {
     width: 50px;
     padding: 4px 6px;
     border: 1.5px solid var(--border-light);
@@ -571,7 +585,11 @@ main {
     background: var(--input-bg);
 }
 
-.installments-label, .installments-label-inline { font-size: 12px; color: var(--text-muted); }
+.installments-label,
+.installments-label-inline {
+    font-size: 12px;
+    color: var(--text-muted);
+}
 
 .credit-installment-value-display-inline {
     font-weight: 700;
@@ -579,12 +597,16 @@ main {
     font-size: 13px;
 }
 
-.payment-days-grid { margin-top: 8px; }
+.payment-days-grid {
+    margin-top: 8px;
+}
 
 /* ---------------------------------------------------------------
    8. SEÇÃO PRODUTOS — BUSCA E CONTROLES
    --------------------------------------------------------------- */
-.products-section { margin-bottom: 0; }
+.products-section {
+    margin-bottom: 0;
+}
 
 .products-section h2 {
     font-size: 17px;
@@ -644,7 +666,10 @@ main {
     transition: var(--transition);
 }
 
-.clear-search-btn:hover { color: var(--danger-red); transform: translateY(-50%) scale(1.2); }
+.clear-search-btn:hover {
+    color: var(--danger-red);
+    transform: translateY(-50%) scale(1.2);
+}
 
 /* ---------------------------------------------------------------
    9. TABELA DE PRODUTOS (mantida funcional, estilo elegante)
@@ -682,9 +707,13 @@ main {
     vertical-align: middle;
 }
 
-.products-table tr:last-child td { border-bottom: none; }
+.products-table tr:last-child td {
+    border-bottom: none;
+}
 
-.products-table tr:hover td { background: var(--blush-bg); }
+.products-table tr:hover td {
+    background: var(--blush-bg);
+}
 
 .products-table tr.has-quantity td {
     background: var(--sage-light) !important;
@@ -712,12 +741,25 @@ main {
 
 /* Miniatura de imagem na tabela */
 .product-thumb {
-    width: 40px;
-    height: 40px;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
+    object-position: center 30%;
+    transform: scale(1.4);
+    border-radius: 0;
+}
+
+.product-thumb-wrapper {
+    width: 44px;
+    height: 44px;
     border-radius: var(--r-sm);
     border: 1px solid var(--border-light);
     flex-shrink: 0;
+    overflow: hidden;
+    background: #f8f8f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .product-thumb-placeholder {
@@ -738,23 +780,31 @@ main {
     gap: var(--sp-sm);
 }
 
-.product-name { font-weight: 500; }
+.product-name {
+    font-weight: 500;
+}
+
 .product-name-cell {
     display: flex;
     align-items: center;
     gap: var(--sp-sm);
 }
+
 .product-code {
     font-size: 10px;
     color: var(--text-muted);
 }
 
-.row-empty td { opacity: 0.4; }
+.row-empty td {
+    opacity: 0.4;
+}
 
 /* ---------------------------------------------------------------
    10. SEÇÃO EMBALAGENS
    --------------------------------------------------------------- */
-.packaging-section { margin-bottom: 0; }
+.packaging-section {
+    margin-bottom: 0;
+}
 
 .packaging-card {
     background: var(--white);
@@ -832,7 +882,9 @@ main {
 /* ---------------------------------------------------------------
    11. RESUMO
    --------------------------------------------------------------- */
-.summary-section { margin-bottom: 0; }
+.summary-section {
+    margin-bottom: 0;
+}
 
 .summary-card {
     background: linear-gradient(135deg, var(--white), var(--sage-light));
@@ -866,7 +918,9 @@ main {
     transition: var(--transition);
 }
 
-.summary-box:hover { box-shadow: var(--shadow-sm); }
+.summary-box:hover {
+    box-shadow: var(--shadow-sm);
+}
 
 .summary-box-label {
     display: block;
@@ -903,7 +957,9 @@ main {
     margin-top: var(--sp-sm);
 }
 
-.installments-section { margin-top: var(--sp-md); }
+.installments-section {
+    margin-top: var(--sp-md);
+}
 
 .installments-section h4 {
     font-size: 13px;
@@ -946,7 +1002,7 @@ main {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.6px;
-    color: rgba(255,255,255,0.75);
+    color: rgba(255, 255, 255, 0.75);
 }
 
 .sticky-summary-bar .ss-value {
@@ -956,7 +1012,7 @@ main {
 }
 
 .copy-btn {
-    background: rgba(255,255,255,0.2);
+    background: rgba(255, 255, 255, 0.2);
     border: none;
     border-radius: var(--r-sm);
     padding: 3px 6px;
@@ -966,7 +1022,9 @@ main {
     transition: var(--transition);
 }
 
-.copy-btn:hover { background: rgba(255,255,255,0.35); }
+.copy-btn:hover {
+    background: rgba(255, 255, 255, 0.35);
+}
 
 /* ---------------------------------------------------------------
    13. BOTTOM NAVIGATION BAR
@@ -1005,8 +1063,14 @@ main {
     font-family: 'Poppins', sans-serif;
 }
 
-.bottom-nav-btn:hover { color: var(--pink-dark); background: var(--pink-light); }
-.bottom-nav-btn.active { color: var(--pink-dark); }
+.bottom-nav-btn:hover {
+    color: var(--pink-dark);
+    background: var(--pink-light);
+}
+
+.bottom-nav-btn.active {
+    color: var(--pink-dark);
+}
 
 .bottom-nav-btn .nav-icon {
     font-size: 20px;
@@ -1014,7 +1078,9 @@ main {
     transition: transform var(--transition);
 }
 
-.bottom-nav-btn:hover .nav-icon { transform: scale(1.15); }
+.bottom-nav-btn:hover .nav-icon {
+    transform: scale(1.15);
+}
 
 .bottom-nav-btn .nav-label {
     font-size: 9px;
@@ -1042,8 +1108,13 @@ main {
     justify-content: center;
 }
 
-.btn:hover { transform: translateY(-1px); }
-.btn:active { transform: translateY(0); }
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
 
 .btn-primary {
     background: linear-gradient(135deg, var(--pink-rose), var(--pink-dark));
@@ -1151,7 +1222,9 @@ main {
     box-shadow: 0 6px 24px rgba(244, 114, 182, 0.4);
 }
 
-.scroll-arrow { line-height: 1; }
+.scroll-arrow {
+    line-height: 1;
+}
 
 /* ---------------------------------------------------------------
    16. MODAIS
@@ -1186,11 +1259,20 @@ main {
 }
 
 @keyframes slideUp {
-    from { transform: translateY(40px); opacity: 0; }
-    to   { transform: translateY(0);    opacity: 1; }
+    from {
+        transform: translateY(40px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
-.modal-large { max-height: 92vh; }
+.modal-large {
+    max-height: 92vh;
+}
 
 .modal-header {
     display: flex;
@@ -1269,7 +1351,9 @@ main {
 }
 
 /* Dashboard */
-.dashboard-controls { margin-bottom: var(--sp-lg); }
+.dashboard-controls {
+    margin-bottom: var(--sp-lg);
+}
 
 .dashboard-grid {
     display: grid;
@@ -1341,22 +1425,43 @@ main {
    18. MOBILE RESPONSIVE (≤ 768px)
    --------------------------------------------------------------- */
 @media (max-width: 768px) {
-    body { font-size: 14px; padding-bottom: 140px; }
+    body {
+        font-size: 14px;
+        padding-bottom: 140px;
+    }
 
-    .container { padding: 0; border-radius: 0; margin: 0; box-shadow: none; }
+    .container {
+        padding: 0;
+        border-radius: 0;
+        margin: 0;
+        box-shadow: none;
+    }
 
     /* Header mobile */
-    .modern-header { padding: 10px 14px; }
+    .modern-header {
+        padding: 10px 14px;
+    }
 
-    .header-grid { flex-wrap: nowrap; gap: var(--sp-sm); }
+    .header-grid {
+        flex-wrap: nowrap;
+        gap: var(--sp-sm);
+    }
 
-    .logo { height: 34px; }
+    .logo {
+        height: 34px;
+    }
 
-    .main-title { font-size: 16px; }
+    .main-title {
+        font-size: 16px;
+    }
 
-    .main-subtitle { display: none; }
+    .main-subtitle {
+        display: none;
+    }
 
-    .attendance-label { display: none; }
+    .attendance-label {
+        display: none;
+    }
 
     .attendance-input {
         min-width: 0;
@@ -1365,31 +1470,61 @@ main {
         padding: 8px 10px;
     }
 
-    .date-card { min-width: auto; padding: 6px 10px; }
-    .date-label { display: none; }
-    .date-input { font-size: 12px; }
+    .date-card {
+        min-width: auto;
+        padding: 6px 10px;
+    }
 
-    .clear-order-icon-btn { font-size: 18px; }
+    .date-label {
+        display: none;
+    }
+
+    .date-input {
+        font-size: 12px;
+    }
+
+    .clear-order-icon-btn {
+        font-size: 18px;
+    }
 
     /* Main */
-    main { padding: var(--sp-md); gap: var(--sp-md); }
+    main {
+        padding: var(--sp-md);
+        gap: var(--sp-md);
+    }
 
     /* Acordeão ativo no mobile */
-    .accordion-header { display: flex; }
-    .accordion-content { max-height: 0; }
-    .accordion.open .accordion-content { max-height: 9999px; }
-    .accordion-inner { padding: var(--sp-md); }
+    .accordion-header {
+        display: flex;
+    }
+
+    .accordion-content {
+        max-height: 0;
+    }
+
+    .accordion.open .accordion-content {
+        max-height: 9999px;
+    }
+
+    .accordion-inner {
+        padding: var(--sp-md);
+    }
 
     /* Campos lado a lado */
-    .name-address-row, .details-row {
+    .name-address-row,
+    .details-row {
         grid-template-columns: 1fr 1fr;
         gap: var(--sp-sm);
         margin-bottom: var(--sp-sm);
     }
 
-    .field-card { padding: 10px 12px; }
+    .field-card {
+        padding: 10px 12px;
+    }
 
-    .modern-input, .modern-textarea, select.modern-input {
+    .modern-input,
+    .modern-textarea,
+    select.modern-input {
         padding: 8px 10px;
         font-size: 13px;
     }
@@ -1400,17 +1535,42 @@ main {
         gap: var(--sp-sm);
     }
 
-    .payment-method-item { padding: 10px; }
+    .payment-method-item {
+        padding: 10px;
+    }
 
     /* Tabela */
-    .products-table { font-size: 11px; }
-    .products-table th, .products-table td { padding: 6px 6px; }
-    .products-table input { width: 48px; padding: 4px; font-size: 12px; }
-    .product-thumb { width: 32px; height: 32px; }
-    .product-thumb-placeholder { width: 32px; height: 32px; font-size: 14px; }
+    .products-table {
+        font-size: 11px;
+    }
+
+    .products-table th,
+    .products-table td {
+        padding: 6px 6px;
+    }
+
+    .products-table input {
+        width: 48px;
+        padding: 4px;
+        font-size: 12px;
+    }
+
+    .product-thumb {
+        width: 32px;
+        height: 32px;
+    }
+
+    .product-thumb-placeholder {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+    }
 
     /* Controles */
-    .search-input { padding: 10px 38px 10px 14px; font-size: 13px; }
+    .search-input {
+        padding: 10px 38px 10px 14px;
+        font-size: 13px;
+    }
 
     /* Ações */
     .action-buttons {
@@ -1419,18 +1579,36 @@ main {
         margin-top: var(--sp-md);
     }
 
-    .action-buttons .btn { flex: 1 1 42%; font-size: 12px; padding: 9px 12px; }
+    .action-buttons .btn {
+        flex: 1 1 42%;
+        font-size: 12px;
+        padding: 9px 12px;
+    }
 
     /* Scroll buttons - reposicionados */
-    .scroll-buttons { right: 12px; bottom: 148px; }
+    .scroll-buttons {
+        right: 12px;
+        bottom: 148px;
+    }
 
     /* Bottom Nav e Summary Bar — VISÍVEIS no mobile */
-    .bottom-nav { display: flex; }
-    .sticky-summary-bar { display: flex; }
+    .bottom-nav {
+        display: flex;
+    }
+
+    .sticky-summary-bar {
+        display: flex;
+    }
 
     /* Modal — sheet style */
-    .modal { align-items: flex-end; }
-    .modal-content { border-radius: var(--r-xl) var(--r-xl) 0 0; max-height: 88vh; }
+    .modal {
+        align-items: flex-end;
+    }
+
+    .modal-content {
+        border-radius: var(--r-xl) var(--r-xl) 0 0;
+        max-height: 88vh;
+    }
 
     /* Summary */
     .summary-boxes-container {
@@ -1438,48 +1616,95 @@ main {
         gap: var(--sp-xs) !important;
     }
 
-    .summary-box { padding: 8px; }
-    .summary-box-label { font-size: 9px; }
-    .summary-box-value { font-size: 13px; }
+    .summary-box {
+        padding: 8px;
+    }
 
-    .summary-highlight-row { flex-direction: row; gap: 8px; }
+    .summary-box-label {
+        font-size: 9px;
+    }
+
+    .summary-box-value {
+        font-size: 13px;
+    }
+
+    .summary-highlight-row {
+        flex-direction: row;
+        gap: 8px;
+    }
 
     /* Packaging */
-    .packaging-table { font-size: 11px; }
-    .packaging-table th, .packaging-table td { padding: 6px 4px; font-size: 10px; white-space: nowrap; }
-    .packaging-table input { width: 50px; padding: 3px; font-size: 11px; }
+    .packaging-table {
+        font-size: 11px;
+    }
+
+    .packaging-table th,
+    .packaging-table td {
+        padding: 6px 4px;
+        font-size: 10px;
+        white-space: nowrap;
+    }
+
+    .packaging-table input {
+        width: 50px;
+        padding: 3px;
+        font-size: 11px;
+    }
 }
 
 /* ---------------------------------------------------------------
    19. TABLET/DESKTOP (≥ 769px) — Acordeão aberto por padrão
    --------------------------------------------------------------- */
 @media (min-width: 769px) {
-    .accordion-header { display: none; }
-    .accordion-content { max-height: none !important; overflow: visible; }
-    .accordion { border: 1.5px solid var(--border-light); }
+    .accordion-header {
+        display: none;
+    }
 
-    .scroll-buttons { bottom: 24px; }
+    .accordion-content {
+        max-height: none !important;
+        overflow: visible;
+    }
+
+    .accordion {
+        border: 1.5px solid var(--border-light);
+    }
+
+    .scroll-buttons {
+        bottom: 24px;
+    }
 
     .date-container {
         flex-direction: column;
         align-items: center;
     }
 
-    #clear-order-btn { display: block !important; margin-top: 6px; }
+    #clear-order-btn {
+        display: block !important;
+        margin-top: 6px;
+    }
 
     /* Modal desktop centralizado */
-    .modal { align-items: center; padding: var(--sp-xl); }
+    .modal {
+        align-items: center;
+        padding: var(--sp-xl);
+    }
+
     .modal-content {
         border-radius: var(--r-xl);
         max-width: 800px;
         width: 100%;
         max-height: 90vh;
     }
-    .modal-large { max-width: 1100px; }
+
+    .modal-large {
+        max-width: 1100px;
+    }
 }
 
 @media (min-width: 769px) and (max-width: 899px) {
-    .products-table { font-size: 12px; }
+    .products-table {
+        font-size: 12px;
+    }
 }
 
 /* ---------------------------------------------------------------
@@ -1488,29 +1713,66 @@ main {
 
 /* Pulse no valor de acerto quando atualizado */
 @keyframes pulse-green {
-    0%   { box-shadow: 0 0 0 0 rgba(110, 231, 183, 0.5); }
-    70%  { box-shadow: 0 0 0 8px rgba(110, 231, 183, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(110, 231, 183, 0); }
+    0% {
+        box-shadow: 0 0 0 0 rgba(110, 231, 183, 0.5);
+    }
+
+    70% {
+        box-shadow: 0 0 0 8px rgba(110, 231, 183, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(110, 231, 183, 0);
+    }
 }
 
-.pulse { animation: pulse-green 0.6s ease; }
+.pulse {
+    animation: pulse-green 0.6s ease;
+}
 
 /* Fade-in para itens de histórico */
 @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(10px); }
-    to   { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.history-item { animation: fadeInUp 0.25s ease both; }
+.history-item {
+    animation: fadeInUp 0.25s ease both;
+}
 
 /* Seleção de checkbox estilizada */
-input[type="checkbox"] { accent-color: var(--pink-rose); }
+input[type="checkbox"] {
+    accent-color: var(--pink-rose);
+}
 
 /* Scrollbar sutil */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: var(--border-light); }
-::-webkit-scrollbar-thumb { background: var(--pink-mid); border-radius: var(--r-full); }
-::-webkit-scrollbar-thumb:hover { background: var(--pink-rose); }
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--border-light);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--pink-mid);
+    border-radius: var(--r-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--pink-rose);
+}
 
 /* Focus visível para acessibilidade */
-:focus-visible { outline: 2px solid var(--pink-rose); outline-offset: 2px; }
+:focus-visible {
+    outline: 2px solid var(--pink-rose);
+    outline-offset: 2px;
+}
