@@ -544,15 +544,13 @@
         (function () {
             function syncStickyBar() {
                 var qty = document.getElementById('total-quantity');
-                var disc = document.getElementById('discounted-value');
                 var profit = document.getElementById('profit-value');
                 var settle = document.getElementById('settlement-value');
                 if (qty) document.getElementById('ss-qty').textContent = qty.textContent;
-                if (disc) document.getElementById('ss-discounted').textContent = disc.textContent;
                 if (profit) document.getElementById('ss-profit').textContent = profit.textContent;
                 if (settle) document.getElementById('ss-settlement').textContent = settle.textContent;
             }
-            var targetIds = ['total-quantity', 'discounted-value', 'profit-value', 'settlement-value'];
+            var targetIds = ['total-quantity', 'profit-value', 'settlement-value'];
             var observer = new MutationObserver(syncStickyBar);
             document.addEventListener('DOMContentLoaded', function () {
                 targetIds.forEach(function (id) {
