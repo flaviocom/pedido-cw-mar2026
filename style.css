@@ -756,10 +756,10 @@ main {
 .product-thumb {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    object-position: center 30%;
-    transform: scale(1.4);
-    border-radius: 0;
+    object-fit: contain;
+    object-position: center;
+    border-radius: var(--r-xs);
+    padding: 2px;
 }
 
 .product-thumb-wrapper {
