@@ -27,14 +27,14 @@ const products = [
     { id: 24, name: "Banho de ervas", catalogPrice: 62.9, weight: 0.18, img: "img-produtos/2a4b3903-7c5e-4c26-84f8-5452a2828c69.webp" },
     { id: 25, name: "Sabonete íntimo natural", catalogPrice: 74.9, weight: 0.228, img: "img-produtos/73efbf07-566b-4ba5-a695-9d8388e07d59.webp" },
     { id: 26, name: "Desodorante antiperspirante", catalogPrice: 55.9, weight: 0.075, img: "img-produtos/desodorante-antiperspirante.jpg" },
-    { id: 27, name: "Desodorante I", catalogPrice: 90.9, weight: 0.251, img: "" },
+    { id: 27, name: "Desodorante I", catalogPrice: 90.9, weight: 0.251, img: "", hidePlaceholder: true },
     { id: 28, name: "Desodorante II", catalogPrice: 90.9, weight: 0.249, img: "img-produtos/desodorante-ii.jpg" },
     { id: 29, name: "Desodorante III", catalogPrice: 90.9, weight: 0.251, img: "img-produtos/a97a9a90-1c7d-40cb-a2c8-ecd6f91cca0c.webp" },
     { id: 30, name: "Desodorante IV", catalogPrice: 90.9, weight: 0.252, img: "img-produtos/3c00cdfc-12b7-4a7e-99c5-ec8a7bd75bb3.webp" },
     { id: 31, name: "Desodorante V", catalogPrice: 90.9, weight: 0.247, img: "img-produtos/3b3418b1-2d5b-411e-9937-4d927024f269.webp" },
     { id: 32, name: "Gel refrescante pós Barba", catalogPrice: 79.9, weight: 0.15, img: "img-produtos/45f595b9-9902-4626-a9f6-8497748a53e5.webp" },
-    { id: 33, name: "Catálogo", catalogPrice: 23.9, applyGeneralDiscount: false, weight: 0.094, img: "" },
-    { id: 34, name: "Talão de consumidor", catalogPrice: 5.9, applyGeneralDiscount: false, weight: 0.07, img: "" }
+    { id: 33, name: "Catálogo", catalogPrice: 23.9, applyGeneralDiscount: false, weight: 0.094, img: "", hidePlaceholder: true },
+    { id: 34, name: "Talão de consumidor", catalogPrice: 5.9, applyGeneralDiscount: false, weight: 0.07, img: "", hidePlaceholder: true }
 ];
 
 // Configurações globais
@@ -411,7 +411,7 @@ function createProductRow(product, index, isCustom = false, hasAnyDiscount = tru
 
     const imgHtml = product.img
         ? `<div class="product-thumb-wrapper"><img src="${product.img}" alt="${product.name}" class="product-thumb" loading="lazy"></div>`
-        : `<span class="product-thumb-placeholder">🧴</span>`;
+        : (product.hidePlaceholder ? '<div class="product-thumb-placeholder" style="background:transparent; border:none;"></div>' : `<span class="product-thumb-placeholder">🧴</span>`);
 
     row.innerHTML = `
         <td class="product-name">
