@@ -5,7 +5,7 @@ const products = [
     { id: 2, name: "Óleo de tratamento para cabelos", catalogPrice: 64.9, weight: 0.15, img: "img-produtos/ae8405f9-2318-4dbf-9087-c39a8e9335e5.webp" },
     { id: 3, name: "Shampoo especial aditivado", catalogPrice: 58.9, weight: 0.34, img: "img-produtos/fe8317bd-7c5c-4657-a2ce-5c68fa5343d2.webp" },
     { id: 4, name: "Shampoo para cabelos normais", catalogPrice: 57.9, weight: 0.35, img: "img-produtos/9deb3da9-9952-46e9-baca-dc169c9b84c6.webp" },
-    { id: 5, name: "Shampoo para cabelos oleosos", catalogPrice: 58.9, weight: 0.335, img: "" },
+    { id: 5, name: "Shampoo para cabelos oleosos", catalogPrice: 58.9, weight: 0.335, img: "img-produtos/shampoo-cabelos-oleosos.jpg" },
     { id: 6, name: "Shampoo para cabelos secos e danificados", catalogPrice: 57.9, weight: 0.325, img: "img-produtos/e6c1db83-64ad-4574-8294-3f2a30b82495.webp" },
     { id: 7, name: "Creme colágeno", catalogPrice: 74.9, weight: 0.075, img: "img-produtos/f09ed8d5-9647-460d-9cec-21f1eb220406.webp" },
     { id: 8, name: "Creme hidratante facial", catalogPrice: 58.9, weight: 0.075, img: "img-produtos/e7606bfa-cf5c-4fe9-8980-fde4b4b4206d.webp" },
