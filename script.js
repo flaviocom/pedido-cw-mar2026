@@ -410,7 +410,7 @@ function createProductRow(product, index, isCustom = false, hasAnyDiscount = tru
     const discountColumn = hasAnyDiscount ? `\n        <td>\n            <input type=\"number\" \n                   value=\"${product.individualDiscount !== null ? product.individualDiscount : (product.applyGeneralDiscount !== false ? orderState.generalDiscount : '')}\" \n                   min=\"0\" \n                   max=\"100\"\n                   step=\"0.1\"\n                   placeholder=\"${product.applyGeneralDiscount === false ? "0.0" : orderState.generalDiscount.toFixed(1)}\"\n                   data-product-id=\"${product.id}\"\n                   class=\"discount-input ${product.individualDiscount !== null ? "highlight-discount" : ""}\">\n        </td>\n        <td class=\"price discounted-price\">${formatCurrency(discountedPrice)}</td>\n    ` : '';
 
     const imgHtml = product.img
-        ? `<div class="product-thumb-wrapper"><img src="${product.img}" alt="${product.name}" class="product-thumb" loading="lazy" ${product.name.toLowerCase().includes('óleo vitaminado') ? 'style="transform: scale(0.6);"' : ''}></div>`
+        ? `<div class="product-thumb-wrapper"><img src="${product.img}" alt="${product.name}" class="product-thumb" loading="lazy" ${product.name.toLowerCase().includes('óleo vitaminado') ? 'style="transform: scale(0.8);"' : ''}></div>`
         : (product.hidePlaceholder ? '<div class="product-thumb-placeholder" style="background:transparent; border:none;"></div>' : `<span class="product-thumb-placeholder">🧴</span>`);
 
     row.innerHTML = `
