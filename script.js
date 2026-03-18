@@ -1,6 +1,6 @@
 console.log("script.js carregado!");
 const products = [
-    { id: 0, name: "Complement hidratante para cabelos", catalogPrice: 57.9, weight: 0.17, img: "img-produtos/53014f38-ee72-4b14-b182-3bfbfa924d8f.webp" },
+    { id: 0, name: "Complemente hidratante para cabelos", catalogPrice: 57.9, weight: 0.17, img: "img-produtos/complemente hidratante para cabelos.jpg" },
     { id: 1, name: "Condicionador completive especial", catalogPrice: 57.9, weight: 0.31, img: "img-produtos/0a8433d7-801b-4833-8847-2717f9c3c8aa.webp" },
     { id: 2, name: "Óleo de tratamento para cabelos", catalogPrice: 64.9, weight: 0.15, img: "img-produtos/ae8405f9-2318-4dbf-9087-c39a8e9335e5.webp" },
     { id: 3, name: "Shampoo especial aditivado", catalogPrice: 58.9, weight: 0.34, img: "img-produtos/fe8317bd-7c5c-4657-a2ce-5c68fa5343d2.webp" },
@@ -12,7 +12,7 @@ const products = [
     { id: 9, name: "Creme para limpeza facial", catalogPrice: 51.9, weight: 0.075, img: "img-produtos/d39f1d3b-a0f5-482c-9911-d919be0afd44.webp" },
     { id: 10, name: "Gel facial esfoliante", catalogPrice: 51.9, weight: 0.08, img: "img-produtos/cd0c3349-7aa5-4991-b644-8681239fb7bc.webp" },
     { id: 11, name: "Loção tônica facial", catalogPrice: 55.9, weight: 0.175, img: "img-produtos/808c425b-69e2-4dac-9069-3f35cf3be4c9.webp" },
-    { id: 12, name: "Óleo vitaminado para a pele facial", catalogPrice: 51.9, weight: 0.026, img: "img-produtos/25dc70ad-3efe-4133-aabd-05d772eb9daf.webp" },
+    { id: 12, name: "Óleo vitaminado para pele facial", catalogPrice: 51.9, weight: 0.026, img: "img-produtos/óleo vitaminado para pele facial.png" },
     { id: 13, name: "Máscara facial SPArgila amarela peel off", catalogPrice: 74.9, weight: 0.095, img: "img-produtos/a54dbcf3-293d-4b1c-b253-21e6772e4fa1.webp" },
     { id: 14, name: "Creme para mãos e unhas", catalogPrice: 55.9, weight: 0.07, img: "img-produtos/creme-maos-unhas.jpg" },
     { id: 15, name: "Creme para massagem corporal", catalogPrice: 74.9, weight: 0.176, img: "img-produtos/265f026d-4e42-429c-a246-25f5c5717abe.webp" },
@@ -410,7 +410,7 @@ function createProductRow(product, index, isCustom = false, hasAnyDiscount = tru
     const discountColumn = hasAnyDiscount ? `\n        <td>\n            <input type=\"number\" \n                   value=\"${product.individualDiscount !== null ? product.individualDiscount : (product.applyGeneralDiscount !== false ? orderState.generalDiscount : '')}\" \n                   min=\"0\" \n                   max=\"100\"\n                   step=\"0.1\"\n                   placeholder=\"${product.applyGeneralDiscount === false ? "0.0" : orderState.generalDiscount.toFixed(1)}\"\n                   data-product-id=\"${product.id}\"\n                   class=\"discount-input ${product.individualDiscount !== null ? "highlight-discount" : ""}\">\n        </td>\n        <td class=\"price discounted-price\">${formatCurrency(discountedPrice)}</td>\n    ` : '';
 
     const imgHtml = product.img
-        ? `<div class="product-thumb-wrapper"><img src="${product.img}" alt="${product.name}" class="product-thumb" loading="lazy"></div>`
+        ? `<div class="product-thumb-wrapper"><img src="${product.img}" alt="${product.name}" class="product-thumb" loading="lazy" ${product.name.toLowerCase().includes('óleo vitaminado') ? 'style="transform: scale(0.6);"' : ''}></div>`
         : (product.hidePlaceholder ? '<div class="product-thumb-placeholder" style="background:transparent; border:none;"></div>' : `<span class="product-thumb-placeholder">🧴</span>`);
 
     row.innerHTML = `
