@@ -83,7 +83,9 @@ const criarPedido = () => ({
 });
 let orderState = criarPedido();
 const RASCUNHOS_KEY = "pedido-vendas-rascunhos";
-let rascunhos;
+const PREFIXO_RASCUNHO = RASCUNHOS_KEY + ':';
+let rascunhoAtivo;
+let rascunhos = [];
 
 // Inicialização da aplicação
 document.addEventListener('DOMContentLoaded', function () {
@@ -95,7 +97,7 @@ function initializeApp() {
     carregarRascunhos();
     loadSavedData();
     renderizarAbas();
-    document.getElementById('novo-rascunho').onclick = () => abrirRascunho(rascunhos.pedidos.length);
+    document.getElementById('novo-rascunho').onclick = () => novoRascunho();
     setCurrentDate(); // Chamado após loadSavedData para garantir que a data seja definida
     renderProductsTable();
     renderPackagingTable();
@@ -283,26 +285,70 @@ function updatePaymentDates() {
     }
 }
 
+function rascunhosLegados() {
+    const salvo = JSON.parse(localStorage.getItem(RASCUNHOS_KEY));
+    if (Array.isArray(salvo?.pedidos) && salvo.pedidos.length) return salvo;
+    const antigo = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    return { ativo: 0, pedidos: [antigo || criarPedido()] };
+}
+
+function listarRascunhos() {
+    const pedidos = new Map(rascunhosLegados().pedidos.map((pedido, indice) => [
+        idLegado(indice), pedido
+    ]));
+    Object.keys(localStorage)
+        .filter(chave => chave.startsWith(PREFIXO_RASCUNHO))
+        .sort()
+        .forEach(chave => {
+            const pedido = JSON.parse(localStorage.getItem(chave));
+            if (pedido) pedidos.set(chave.slice(PREFIXO_RASCUNHO.length), pedido);
+        });
+    rascunhos = [...pedidos].map(([id, pedido]) => ({ id, pedido }));
+}
+
+function idLegado(indice) {
+    return 'legado-' + String(indice).padStart(8, '0');
+}
+
 function carregarRascunhos() {
-    rascunhos = { ativo: 0, pedidos: [criarPedido()] };
     try {
-        const salvo = JSON.parse(localStorage.getItem(RASCUNHOS_KEY));
-        if (Array.isArray(salvo?.pedidos) && salvo.pedidos[salvo.ativo]) {
-            rascunhos = salvo;
-            return;
-        }
-        const antigo = JSON.parse(localStorage.getItem(STORAGE_KEY));
-        if (antigo) rascunhos.pedidos[0] = antigo;
+        listarRascunhos();
+        rascunhoAtivo = idLegado(rascunhosLegados().ativo);
+        const ativoSalvo = sessionStorage.getItem(RASCUNHOS_KEY);
+        if (rascunhos.some(({ id }) => id === ativoSalvo)) rascunhoAtivo = ativoSalvo;
+        if (!rascunhos.some(({ id }) => id === rascunhoAtivo)) rascunhoAtivo = rascunhos[0]?.id;
+        if (rascunhoAtivo) sessionStorage.setItem(RASCUNHOS_KEY, rascunhoAtivo);
     } catch (error) {
         console.error('Erro ao recuperar rascunhos:', error);
     }
+    rascunhoAtivo ||= crypto.randomUUID();
+    window.addEventListener('storage', ({ key }) => {
+        if (key?.startsWith(PREFIXO_RASCUNHO)) {
+            listarRascunhos();
+            renderizarAbas();
+        }
+    });
 }
 
-function abrirRascunho(indice) {
-    if (indice === rascunhos.ativo) return;
-    saveData();
-    if (indice === rascunhos.pedidos.length) rascunhos.pedidos.push(criarPedido());
-    rascunhos.ativo = indice;
+function novoRascunho(pedido = criarPedido()) {
+    const id = 'novo-' + Date.now() + '-' + crypto.randomUUID();
+    try {
+        localStorage.setItem(PREFIXO_RASCUNHO + id, JSON.stringify(pedido));
+        abrirRascunho(id);
+        return true;
+    } catch (error) {
+        console.error('Erro ao abrir novo rascunho:', error);
+        alert('Não foi possível abrir o novo rascunho.');
+        return false;
+    }
+}
+
+function abrirRascunho(id) {
+    if (id === rascunhoAtivo) return;
+    listarRascunhos();
+    rascunhoAtivo = id;
+    sessionStorage.setItem(RASCUNHOS_KEY, id);
+    renderizarAbas();
     orderState = criarPedido();
     loadSavedData();
     setCurrentDate();
@@ -317,36 +363,38 @@ function abrirRascunho(indice) {
     toggleCreditInstallmentsField(orderState.paymentMethods.credit.enabled);
     updateGeneralDeadlineDate();
     updateTransportDisplay();
-    saveData();
     document.querySelector('#rascunhos [aria-pressed="true"]')?.focus();
 }
 
 function renderizarAbas() {
     const lista = document.getElementById('rascunhos');
-    rascunhos.pedidos.forEach((pedido, indice) => {
+    while (lista.children.length > rascunhos.length) lista.lastElementChild.remove();
+    rascunhos.forEach(({ id, pedido }, indice) => {
         let botao = lista.children[indice];
         if (!botao) {
             botao = document.createElement('button');
             botao.type = 'button';
-            botao.onclick = () => abrirRascunho(indice);
             lista.append(botao);
         }
         const nome = pedido.resellerName?.trim() || `Pedido ${indice + 1}`;
         botao.textContent = nome;
         botao.title = nome;
-        botao.setAttribute('aria-pressed', String(indice === rascunhos.ativo));
+        botao.onclick = () => abrirRascunho(id);
+        botao.setAttribute('aria-pressed', String(id === rascunhoAtivo));
     });
 }
 
 function loadSavedData() {
-    const savedData = JSON.stringify(rascunhos.pedidos[rascunhos.ativo]);
+    const savedData = JSON.stringify(rascunhos.find(({ id }) => id === rascunhoAtivo)?.pedido);
     if (savedData) {
         try {
             const parsedData = JSON.parse(savedData);
             orderState = {
                 ...orderState,
                 ...parsedData,
-                products: orderState.products.map(p => {
+                products: parsedData.catalogoHistorico && Array.isArray(parsedData.products)
+                    ? parsedData.products
+                    : orderState.products.map(p => {
                     const salvo = parsedData.products?.find(item => item?.id === p.id);
                     return {
                         ...p,
@@ -401,8 +449,9 @@ function loadSavedData() {
 
 function saveData() {
     try {
-        rascunhos.pedidos[rascunhos.ativo] = structuredClone(orderState);
-        localStorage.setItem(RASCUNHOS_KEY, JSON.stringify(rascunhos));
+        localStorage.setItem(PREFIXO_RASCUNHO + rascunhoAtivo, JSON.stringify(orderState));
+        sessionStorage.setItem(RASCUNHOS_KEY, rascunhoAtivo);
+        listarRascunhos();
         renderizarAbas();
     } catch (error) {
         console.error('Erro ao salvar dados:', error);
@@ -2263,43 +2312,7 @@ function loadOrderFromHistory(id) {
     const history = getOrderHistory();
     const entry = history.find(item => item.id === id);
 
-    if (entry) {
-        orderState = JSON.parse(JSON.stringify(entry.orderData));
-        renderProductsTable();
-        renderPackagingTable();
-        updateSummary();
-        updatePaymentDates();
-        renderPaymentDaysInputs();
-        updateInstallmentsText();
-
-        // Atualizar campos da interface
-        document.getElementById('reseller-name').value = orderState.resellerName;
-        document.getElementById('address').value = orderState.address;
-        document.getElementById('phone').value = orderState.phone;
-        document.getElementById('attendance-by').value = orderState.attendanceBy;
-        document.getElementById('order-date').value = orderState.orderDate;
-        document.getElementById('freight').value = orderState.freight;
-        document.getElementById('general-discount').value = orderState.generalDiscount;
-        document.getElementById('credit-paid').value = orderState.creditPaid;
-        document.getElementById('notes').value = orderState.notes;
-        document.getElementById('transport-select').value = orderState.transportOption;
-        document.getElementById('general-deadline-days').value = orderState.generalDeadlineDays;
-        document.getElementById('installments').value = orderState.installments;
-        document.getElementById('payment-credit-installments').value = orderState.paymentMethods.credit.installments;
-
-        // Atualizar checkboxes de pagamento
-        document.getElementById('payment-pix').checked = orderState.paymentMethods.pix.enabled;
-        document.getElementById('payment-credit').checked = orderState.paymentMethods.credit.enabled;
-        document.getElementById('payment-boleto').checked = orderState.paymentMethods.boleto.enabled;
-        document.getElementById('payment-transfer').checked = orderState.paymentMethods.transfer.enabled;
-
-        document.getElementById('payment-pix-details').value = orderState.paymentMethods.pix.details;
-        document.getElementById('payment-transfer-details').value = orderState.paymentMethods.transfer.details;
-
-        updateGeneralDeadlineDate();
-        updateTransportDisplay();
-        saveData();
-
+    if (entry && novoRascunho({ ...entry.orderData, catalogoHistorico: true })) {
         closeHistoryModal();
         scrollToTop();
     }

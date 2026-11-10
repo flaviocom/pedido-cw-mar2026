@@ -15,3 +15,6 @@
 
 ### Rascunhos e catálogo do pedido — 10/11/2026
 Plano e critérios: [Rascunhos e catálogo](docs/planos/2026-11-10_rascunhos-pedido.md).
+
+### Preservação dos rascunhos após revisão independente
+- [Pedido, consumidores e provas](docs/planos/2026-11-10_rascunhos-pedido.md).
