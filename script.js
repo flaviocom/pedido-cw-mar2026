@@ -285,33 +285,38 @@ function updatePaymentDates() {
     }
 }
 
+function rascunhosLegados() {
+    const salvo = JSON.parse(localStorage.getItem(RASCUNHOS_KEY));
+    if (Array.isArray(salvo?.pedidos) && salvo.pedidos.length) return salvo;
+    const antigo = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    return { ativo: 0, pedidos: [antigo || criarPedido()] };
+}
+
 function listarRascunhos() {
-    rascunhos = Object.keys(localStorage)
+    const pedidos = new Map(rascunhosLegados().pedidos.map((pedido, indice) => [
+        idLegado(indice), pedido
+    ]));
+    Object.keys(localStorage)
         .filter(chave => chave.startsWith(PREFIXO_RASCUNHO))
         .sort()
-        .map(chave => ({
-            id: chave.slice(PREFIXO_RASCUNHO.length),
-            pedido: JSON.parse(localStorage.getItem(chave))
-        }))
-        .filter(({ pedido }) => pedido);
+        .forEach(chave => {
+            const pedido = JSON.parse(localStorage.getItem(chave));
+            if (pedido) pedidos.set(chave.slice(PREFIXO_RASCUNHO.length), pedido);
+        });
+    rascunhos = [...pedidos].map(([id, pedido]) => ({ id, pedido }));
+}
+
+function idLegado(indice) {
+    return 'legado-' + String(indice).padStart(8, '0');
 }
 
 function carregarRascunhos() {
     try {
         listarRascunhos();
-        if (!rascunhos.length) {
-            const salvo = JSON.parse(localStorage.getItem(RASCUNHOS_KEY));
-            const antigo = JSON.parse(localStorage.getItem(STORAGE_KEY));
-            const pedidos = salvo?.pedidos?.length ? salvo.pedidos : [antigo || criarPedido()];
-            pedidos.forEach((pedido, indice) => {
-                localStorage.setItem(PREFIXO_RASCUNHO + 'legado-' + String(indice).padStart(8, '0'), JSON.stringify(pedido));
-            });
-            listarRascunhos();
-            rascunhoAtivo = rascunhos[salvo?.ativo]?.id;
-        }
+        rascunhoAtivo = idLegado(rascunhosLegados().ativo);
         const ativoSalvo = sessionStorage.getItem(RASCUNHOS_KEY);
         if (rascunhos.some(({ id }) => id === ativoSalvo)) rascunhoAtivo = ativoSalvo;
-        rascunhoAtivo ||= rascunhos[0]?.id;
+        if (!rascunhos.some(({ id }) => id === rascunhoAtivo)) rascunhoAtivo = rascunhos[0]?.id;
         if (rascunhoAtivo) sessionStorage.setItem(RASCUNHOS_KEY, rascunhoAtivo);
     } catch (error) {
         console.error('Erro ao recuperar rascunhos:', error);
@@ -387,7 +392,9 @@ function loadSavedData() {
             orderState = {
                 ...orderState,
                 ...parsedData,
-                products: orderState.products.map(p => {
+                products: parsedData.catalogoHistorico && Array.isArray(parsedData.products)
+                    ? parsedData.products
+                    : orderState.products.map(p => {
                     const salvo = parsedData.products?.find(item => item?.id === p.id);
                     return {
                         ...p,
@@ -2305,7 +2312,7 @@ function loadOrderFromHistory(id) {
     const history = getOrderHistory();
     const entry = history.find(item => item.id === id);
 
-    if (entry && novoRascunho(entry.orderData)) {
+    if (entry && novoRascunho({ ...entry.orderData, catalogoHistorico: true })) {
         closeHistoryModal();
         scrollToTop();
     }
