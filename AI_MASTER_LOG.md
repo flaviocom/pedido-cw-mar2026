@@ -12,3 +12,6 @@
 
 ### 09/11/2026, 23:04 SP — Atualização das embalagens e Deocolônia I
 - Pedido e provas: [plano da atualização](docs/planos/2026-11-09_fotos-deocolonia.md).
+
+### Rascunhos e catálogo do pedido — 10/11/2026
+Plano e critérios: [Rascunhos e catálogo](docs/planos/2026-11-10_rascunhos-pedido.md).

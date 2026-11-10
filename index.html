@@ -47,11 +47,15 @@
 
         <!-- Formulário Principal -->
         <main>
+            <div class="barra-rascunhos">
+                <div id="rascunhos" role="group" aria-label="Pedidos em aberto"></div>
+                <button type="button" id="novo-rascunho" title="Abrir outro pedido">+ Novo pedido</button>
+            </div>
 
             <!-- ================================================
                  Accordion 1: Dados do Cliente
                  ================================================ -->
-            <div class="accordion open">
+            <div data-secao="cliente" class="accordion open">
                 <div class="accordion-header" onclick="toggleAccordion(this)">
                     <h3>📋 Dados do Cliente</h3>
                     <span class="accordion-icon">▼</span>
@@ -111,7 +115,7 @@
             <!-- ================================================
                  Accordion 2: Pagamento
                  ================================================ -->
-            <div class="accordion">
+            <div data-secao="pagamento" class="accordion">
                 <div class="accordion-header" onclick="toggleAccordion(this)">
                     <h3>💳 Pagamento</h3>
                     <span class="accordion-icon">▼</span>
@@ -196,7 +200,7 @@
             <!-- ================================================
                  Accordion 3: Produtos
                  ================================================ -->
-            <div class="accordion open">
+            <div data-secao="produtos" class="accordion open">
                 <div class="accordion-header" onclick="toggleAccordion(this)">
                     <h3>📦 Produtos</h3>
                     <span class="accordion-icon">▼</span>
@@ -268,7 +272,7 @@
             <!-- ================================================
                  Accordion 4: Embalagens
                  ================================================ -->
-            <div class="accordion open">
+            <div data-secao="adicionais" class="accordion open">
                 <div class="accordion-header" onclick="toggleAccordion(this)">
                     <h3>📦 Embalagens</h3>
                     <span class="accordion-icon">▼</span>
@@ -303,7 +307,7 @@
             <!-- ================================================
                  Accordion 5: Resumo
                  ================================================ -->
-            <div class="accordion open">
+            <div data-secao="resumo" class="accordion open">
                 <div class="accordion-header" onclick="toggleAccordion(this)">
                     <h3>📊 Resumo do Pedido</h3>
                     <span class="accordion-icon">▼</span>
@@ -497,9 +501,38 @@
 
     <!-- Funções para Accordions -->
     <script>
+        const mobile = matchMedia('(max-width: 768px)');
+        const chaveSecoes = 'pedido-vendas-secoes-mobile';
+        const secoes = [...document.querySelectorAll('[data-secao]')];
+        const padraoDesktop = secoes.map(secao => secao.classList.contains('open'));
+        let preferencias = {};
+        try {
+            preferencias = JSON.parse(localStorage.getItem(chaveSecoes)) || {};
+        } catch (error) {
+            console.error('Erro ao ler preferências das seções:', error);
+        }
+
+        function restaurarSecoes() {
+            secoes.forEach((secao, indice) => {
+                secao.classList.toggle('open', mobile.matches
+                    ? preferencias[secao.dataset.secao] !== false
+                    : padraoDesktop[indice]);
+            });
+        }
+        restaurarSecoes();
+        mobile.addEventListener('change', restaurarSecoes);
+
         function toggleAccordion(header) {
             const accordion = header.parentElement;
-            accordion.classList.toggle('open');
+            const aberta = accordion.classList.toggle('open');
+            if (mobile.matches) {
+                preferencias[accordion.dataset.secao] = aberta;
+                try {
+                    localStorage.setItem(chaveSecoes, JSON.stringify(preferencias));
+                } catch (error) {
+                    console.error('Erro ao guardar preferências das seções:', error);
+                }
+            }
         }
     </script>
 

@@ -1789,3 +1789,31 @@ input[type="checkbox"] {
     outline: 2px solid var(--pink-rose);
     outline-offset: 2px;
 }
+.barra-rascunhos, #rascunhos {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+.barra-rascunhos {
+    margin-bottom: 1rem;
+}
+#rascunhos {
+    min-width: 0;
+    overflow-x: auto;
+}
+.barra-rascunhos button {
+    flex: none;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #bc2362;
+    border-radius: 0.5rem;
+    background: white;
+    color: #91204f;
+    cursor: pointer;
+}
+.barra-rascunhos button:hover {
+    background: #fce5ef;
+}
+.barra-rascunhos button[aria-pressed="true"] {
+    background: #91204f;
+    color: white;
+}
