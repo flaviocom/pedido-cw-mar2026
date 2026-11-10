@@ -12,10 +12,12 @@ O HTML da raiz carrega script.js. O catálogo desse arquivo alimenta a grade, os
 
 | ID | Entrega | Depende de | Prova | Dono | Status |
 | --- | --- | --- | --- | --- | --- |
-| M | Pedido público atualizado | E | GitHub Pages ao vivo | Codex | Em andamento |
-| E | Catálogo e fotos publicados | C | PR e implantação | Codex | Em andamento |
-| C | Cadastro e imagens | N1, N2 | Sintaxe, referências e renderização | Codex | Em andamento |
-| N1 | Corrigir cadastro e rascunho | — | node --check script.js | Codex | Em andamento |
-| N2 | Copiar as fotos verificadas | PR #441 | Comparar hashes | Codex | Em andamento |
+| M | Pedido público atualizado | E | GitHub Pages ao vivo | Codex | Feito |
+| E | Catálogo e fotos publicados | C | PR e implantação | Codex | Feito |
+| C | Cadastro e imagens | N1, N2 | Sintaxe, referências e renderização | Codex | Feito |
+| N1 | Corrigir cadastro e rascunho | — | node --check script.js | Codex | Feito |
+| N2 | Copiar as fotos verificadas | PR #441 | Comparar hashes | Codex | Feito |
 
 Reversão: reverter o commit de atualização pelo GitHub e conferir a implantação seguinte.
+
+Publicação e conferência em 09/11/2026, 23:08 SP: PR #1 mesclado (831bf448), GitHub Pages 42740474378 concluído. Na URL pública, o nome corrigido apareceu e a Deocolônia I exibiu R$ 90,90 e lote 2055. As 13 fotos foram decodificadas pelo navegador, todas em quadros de 42 × 42 px com object-fit: contain. O script público confirmou 249 g e R$ 90,90 para I e II. Nenhum pedido foi enviado. O pré-voo global apontou ausência de manifesto neste repositório legado; o ferramental estava alinhado.
