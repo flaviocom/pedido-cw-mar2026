@@ -312,6 +312,7 @@ function carregarRascunhos() {
         const ativoSalvo = sessionStorage.getItem(RASCUNHOS_KEY);
         if (rascunhos.some(({ id }) => id === ativoSalvo)) rascunhoAtivo = ativoSalvo;
         rascunhoAtivo ||= rascunhos[0]?.id;
+        if (rascunhoAtivo) sessionStorage.setItem(RASCUNHOS_KEY, rascunhoAtivo);
     } catch (error) {
         console.error('Erro ao recuperar rascunhos:', error);
     }
