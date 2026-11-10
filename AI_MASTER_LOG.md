@@ -21,3 +21,6 @@ Plano e critérios: [Rascunhos e catálogo](docs/planos/2026-11-10_rascunhos-ped
 
 ### 10/11/2026, 17:07 SP — JSON-LD e Histórico
 - Pedido, dependências e prova de prévia: [plano](docs/planos/2026-11-10_schema-pedido.md).
+
+### 17:43 SP — Pré-voo e segunda revisão do JSON-LD
+- Manifesto: docs/pre-voo.json. Revisão independente da correção 9d4c856 sem achados bloqueantes. Em produção, 35 itens, 33 fotos HTTP 200 com tipo de imagem e 2 itens sem campo de foto. Deocolônia I a R$ 90,90. Provas do navegador e publicação no PR #5.
