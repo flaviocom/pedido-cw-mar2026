@@ -1,0 +1,11 @@
+{
+  "cli": { "obrigatorios": ["node", "npm", "git", "gh"] },
+  "env": { "obrigatorias": [], "opcionais": [] },
+  "git": { "remoto": true },
+  "arquivos": ["README.md", "AI_MASTER_LOG.md", "index.html", "script.js"],
+  "docs": { "bloqueia": true },
+  "saas": {
+    "github_repo": "flaviocom/pedido-cw-mar2026",
+    "site": "https://flaviocom.github.io/pedido-cw-mar2026/"
+  }
+}
