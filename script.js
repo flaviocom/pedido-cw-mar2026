@@ -54,7 +54,7 @@ dadosCatalogo.textContent = JSON.stringify({
             item: {
                 "@type": "Product",
                 name: produto.name,
-                image: new URL(produto.img, urlCatalogoPublico).href,
+                ...(produto.img ? { image: new URL(produto.img, urlCatalogoPublico).href } : {}),
                 offers: {
                     "@type": "Offer",
                     price: produto.catalogPrice.toFixed(2),

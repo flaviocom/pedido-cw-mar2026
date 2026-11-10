@@ -21,3 +21,5 @@ Mapa: o catálogo público vem de products em script.js, que também inicializa 
 | M2.1a | Nano | Preparar pedido fictício isolado | Site | Registro local em navegador novo | Codex | Feito |
 
 Prévia: script local sobre a página publicada. O catálogo mostrou R$ 90,90 e o Histórico mostrou R$ 12,34 e o item retirado a R$ 23,45. Marcação idêntica antes e depois do carregamento. 35/35 imagens HTTP 200; sem exceções JavaScript.
+
+Revisão independente: JSONLD-01 (baixa), 2 itens sem foto apontavam para o HTML. Corrigido: omitir image quando o cadastro não tem foto. HIST-01: cópia preserva o Histórico em teste isolado.
