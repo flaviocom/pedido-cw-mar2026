@@ -10,7 +10,7 @@ const products = [
     { id: 7, name: "Creme colágeno", catalogPrice: 74.9, weight: 0.075, img: "img-produtos/embalagens-2026-11/creme_colageno.png" },
     { id: 8, name: "Creme hidratante facial", catalogPrice: 58.9, weight: 0.075, img: "img-produtos/e7606bfa-cf5c-4fe9-8980-fde4b4b4206d.webp" },
     { id: 9, name: "Creme para limpeza facial", catalogPrice: 51.9, weight: 0.075, img: "img-produtos/d39f1d3b-a0f5-482c-9911-d919be0afd44.webp" },
-    { id: 10, name: "Gel facial esfoliante", catalogPrice: 51.9, weight: 0.08, img: "img-produtos/cd0c3349-7aa5-4991-b644-8681239fb7bc.webp" },
+    { id: 10, name: "Gel facial esfoliante", catalogPrice: 51.9, weight: 0.08, img: "img-produtos/embalagens-2026-11/gel_facial_esfoliante.webp" },
     { id: 11, name: "Loção tônica facial", catalogPrice: 55.9, weight: 0.175, img: "img-produtos/808c425b-69e2-4dac-9069-3f35cf3be4c9.webp" },
     { id: 12, name: "Óleo vitaminado para pele facial", catalogPrice: 51.9, weight: 0.026, img: "img-produtos/óleo vitaminado para pele facial.png" },
     { id: 13, name: "Máscara facial SPArgila amarela peel off", catalogPrice: 74.9, weight: 0.095, img: "img-produtos/a54dbcf3-293d-4b1c-b253-21e6772e4fa1.webp" },
@@ -28,10 +28,10 @@ const products = [
     { id: 25, name: "Sabonete íntimo natural", catalogPrice: 74.9, weight: 0.228, img: "img-produtos/73efbf07-566b-4ba5-a695-9d8388e07d59.webp" },
     { id: 26, name: "Desodorante antiperspirante", catalogPrice: 55.9, weight: 0.075, img: "img-produtos/embalagens-2026-11/desodorante.png" },
     { id: 27, name: "Deocolônia Desodorante I", catalogPrice: 90.9, weight: 0.249, defaultLot: "2055", img: "img-produtos/embalagens-2026-11/deo_1.png" },
-    { id: 28, name: "Desodorante II", catalogPrice: 90.9, weight: 0.249, img: "img-produtos/desodorante-ii.jpg" },
-    { id: 29, name: "Desodorante III", catalogPrice: 90.9, weight: 0.251, img: "img-produtos/embalagens-2026-11/deo_3.png" },
-    { id: 30, name: "Desodorante IV", catalogPrice: 90.9, weight: 0.252, img: "img-produtos/embalagens-2026-11/deo_4.png" },
-    { id: 31, name: "Desodorante V", catalogPrice: 90.9, weight: 0.247, img: "img-produtos/embalagens-2026-11/deo_5.png" },
+    { id: 28, name: "Deocolônia Desodorante II", catalogPrice: 90.9, weight: 0.249, img: "img-produtos/desodorante-ii.jpg" },
+    { id: 29, name: "Deocolônia Desodorante III", catalogPrice: 90.9, weight: 0.251, img: "img-produtos/embalagens-2026-11/deo_3.png" },
+    { id: 30, name: "Deocolônia Desodorante IV", catalogPrice: 90.9, weight: 0.252, img: "img-produtos/embalagens-2026-11/deo_4.png" },
+    { id: 31, name: "Deocolônia Desodorante V", catalogPrice: 90.9, weight: 0.247, img: "img-produtos/embalagens-2026-11/deo_5.png" },
     { id: 32, name: "Gel refrescante pós Barba", catalogPrice: 79.9, weight: 0.15, img: "img-produtos/45f595b9-9902-4626-a9f6-8497748a53e5.webp" },
     { id: 33, name: "Catálogo", catalogPrice: 23.9, applyGeneralDiscount: false, weight: 0.094, img: "", hidePlaceholder: true },
     { id: 34, name: "Talão de consumidor", catalogPrice: 5.9, applyGeneralDiscount: false, weight: 0.07, img: "", hidePlaceholder: true }
@@ -41,7 +41,7 @@ const products = [
 const STORAGE_KEY = 'pedido-vendas-data';
 
 // Estado da aplicação
-let orderState = {
+const criarPedido = () => ({
     resellerName: '',
     address: '',
     phone: '',
@@ -80,7 +80,10 @@ let orderState = {
     })),
     additionalProducts: [],
     packaging: []
-};
+});
+let orderState = criarPedido();
+const RASCUNHOS_KEY = "pedido-vendas-rascunhos";
+let rascunhos;
 
 // Inicialização da aplicação
 document.addEventListener('DOMContentLoaded', function () {
@@ -89,7 +92,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function initializeApp() {
     console.log("initializeApp: Iniciando...");
+    carregarRascunhos();
     loadSavedData();
+    renderizarAbas();
+    document.getElementById('novo-rascunho').onclick = () => abrirRascunho(rascunhos.pedidos.length);
     setCurrentDate(); // Chamado após loadSavedData para garantir que a data seja definida
     renderProductsTable();
     renderPackagingTable();
@@ -277,8 +283,63 @@ function updatePaymentDates() {
     }
 }
 
+function carregarRascunhos() {
+    rascunhos = { ativo: 0, pedidos: [criarPedido()] };
+    try {
+        const salvo = JSON.parse(localStorage.getItem(RASCUNHOS_KEY));
+        if (Array.isArray(salvo?.pedidos) && salvo.pedidos[salvo.ativo]) {
+            rascunhos = salvo;
+            return;
+        }
+        const antigo = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        if (antigo) rascunhos.pedidos[0] = antigo;
+    } catch (error) {
+        console.error('Erro ao recuperar rascunhos:', error);
+    }
+}
+
+function abrirRascunho(indice) {
+    if (indice === rascunhos.ativo) return;
+    saveData();
+    if (indice === rascunhos.pedidos.length) rascunhos.pedidos.push(criarPedido());
+    rascunhos.ativo = indice;
+    orderState = criarPedido();
+    loadSavedData();
+    setCurrentDate();
+    const busca = document.getElementById('product-search').value;
+    filterProducts(busca);
+    toggleEmptyLines(document.getElementById("hide-empty-lines").checked);
+    renderPackagingTable();
+    updateSummary();
+    updatePaymentDates();
+    renderPaymentDaysInputs();
+    updateInstallmentsText();
+    toggleCreditInstallmentsField(orderState.paymentMethods.credit.enabled);
+    updateGeneralDeadlineDate();
+    updateTransportDisplay();
+    saveData();
+    document.querySelector('#rascunhos [aria-pressed="true"]')?.focus();
+}
+
+function renderizarAbas() {
+    const lista = document.getElementById('rascunhos');
+    rascunhos.pedidos.forEach((pedido, indice) => {
+        let botao = lista.children[indice];
+        if (!botao) {
+            botao = document.createElement('button');
+            botao.type = 'button';
+            botao.onclick = () => abrirRascunho(indice);
+            lista.append(botao);
+        }
+        const nome = pedido.resellerName?.trim() || `Pedido ${indice + 1}`;
+        botao.textContent = nome;
+        botao.title = nome;
+        botao.setAttribute('aria-pressed', String(indice === rascunhos.ativo));
+    });
+}
+
 function loadSavedData() {
-    const savedData = localStorage.getItem(STORAGE_KEY);
+    const savedData = JSON.stringify(rascunhos.pedidos[rascunhos.ativo]);
     if (savedData) {
         try {
             const parsedData = JSON.parse(savedData);
@@ -298,16 +359,15 @@ function loadSavedData() {
                 packaging: parsedData.packaging || []
             };
 
-            // Carregar dados nos campos, mas não sobrescrever a data se ela já foi definida
+            // Atualizar campos com os dados do rascunho ativo
             document.getElementById('reseller-name').value = orderState.resellerName || '';
             document.getElementById('address').value = orderState.address || '';
             document.getElementById('phone').value = orderState.phone || '';
             document.getElementById('attendance-by').value = orderState.attendanceBy || '';
 
-            // Só carregar a data salva se o campo ainda estiver vazio
             const orderDateElement = document.getElementById('order-date');
-            if (orderDateElement && !orderDateElement.value && orderState.orderDate) {
-                orderDateElement.value = orderState.orderDate;
+            if (orderDateElement) {
+                orderDateElement.value = orderState.orderDate || '';
             }
 
             document.getElementById('credit-paid').value = orderState.creditPaid || 0;
@@ -341,7 +401,9 @@ function loadSavedData() {
 
 function saveData() {
     try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(orderState));
+        rascunhos.pedidos[rascunhos.ativo] = structuredClone(orderState);
+        localStorage.setItem(RASCUNHOS_KEY, JSON.stringify(rascunhos));
+        renderizarAbas();
     } catch (error) {
         console.error('Erro ao salvar dados:', error);
     }
