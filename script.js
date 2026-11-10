@@ -36,6 +36,36 @@ const products = [
     { id: 33, name: "Catálogo", catalogPrice: 23.9, applyGeneralDiscount: false, weight: 0.094, img: "", hidePlaceholder: true },
     { id: 34, name: "Talão de consumidor", catalogPrice: 5.9, applyGeneralDiscount: false, weight: 0.07, img: "", hidePlaceholder: true }
 ];
+const urlCatalogoPublico = "https://flaviocom.github.io/pedido-cw-mar2026/";
+const dadosCatalogo = document.createElement("script");
+dadosCatalogo.type = "application/ld+json";
+dadosCatalogo.textContent = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Pedido de Vendas - CharmWay",
+    url: urlCatalogoPublico,
+    inLanguage: "pt-BR",
+    mainEntity: {
+        "@type": "ItemList",
+        numberOfItems: products.length,
+        itemListElement: products.map((produto, indice) => ({
+            "@type": "ListItem",
+            position: indice + 1,
+            item: {
+                "@type": "Product",
+                name: produto.name,
+                ...(produto.img ? { image: new URL(produto.img, urlCatalogoPublico).href } : {}),
+                offers: {
+                    "@type": "Offer",
+                    price: produto.catalogPrice.toFixed(2),
+                    priceCurrency: "BRL"
+                }
+            }
+        }))
+    }
+});
+document.head.append(dadosCatalogo);
+
 
 // Configurações globais
 const STORAGE_KEY = 'pedido-vendas-data';

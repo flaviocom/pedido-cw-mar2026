@@ -18,3 +18,6 @@ Plano e critérios: [Rascunhos e catálogo](docs/planos/2026-11-10_rascunhos-ped
 
 ### Preservação dos rascunhos após revisão independente
 - [Pedido, consumidores e provas](docs/planos/2026-11-10_rascunhos-pedido.md).
+
+### 10/11/2026, 17:07 SP — JSON-LD e Histórico
+- Pedido, dependências e prova de prévia: [plano](docs/planos/2026-11-10_schema-pedido.md).
